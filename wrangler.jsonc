@@ -1,1 +1,13 @@
-{"name":"anatomy-studio","compatibility_date":"2026-10-24","assets":{"directory":"./dist","not_found_handling":"single-page-application"},"observability":{"enabled":true}}
+{
+  "name": "anatomystudio",
+  "compatibility_date": "2026-10-24",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "account_id": "d051367e42867b974cb97f0881ddeadb"
+}
