@@ -2,7 +2,9 @@
 
 An independent, free-to-explore 3D anatomy workspace for medical study. Built with React, TypeScript, Three.js and React Three Fiber. This is a working development release; anatomy review and physical-device acceptance are still pending.
 
-Private cloud preview: https://anatomy-studio-mbbs.aurorayew128.chatgpt.site (owner access).
+Public website: https://open-anatomy.anshmaansingh.workers.dev .
+
+The earlier owner-private preview remains at https://anatomy-studio-mbbs.aurorayew128.chatgpt.site .
 
 ## Run
 
@@ -50,5 +52,7 @@ The latest interface checkpoint and browser QA coverage are recorded in `docs/RE
 ## Deployment
 
 The Vite `dist/` output can be hosted as static assets. `wrangler.jsonc` supports direct Cloudflare Workers Static Assets deployment. Each processed asset is under 25 MiB, so this checkpoint does not require R2 or Supabase. `.openai/hosting.json` identifies the private Sites deployment. Credentials, raw downloads, temporary tooling, dependencies and build output are excluded from Git.
+
+Cloudflare Workers Builds is connected to `Anshmaan29/3d-anatomy`, production branch `main`, with root `/`, build command `npm run build`, and deploy command `npx wrangler@4.152.0 deploy`. Preview builds are disabled. The selected Cloudflare account and Worker name are fixed in `wrangler.jsonc`; deployment tokens remain in Cloudflare. See `docs/CLOUDFLARE-DEPLOYMENT.md` for the deployment record and acceptance scope.
 
 GitHub checkpoint destination: https://github.com/Anshmaan29/3d-anatomy . Push major completed checkpoints with validation notes; never push credentials or unrelated local files.

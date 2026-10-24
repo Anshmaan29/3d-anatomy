@@ -26,7 +26,7 @@ This is a verified software checkpoint, not a claim of clinical certification or
 | Layout | Observed CSS viewports included 325×703, 390×844, 468×1013, 834×1194 and 1194×834. No horizontal document overflow; popup action remained reachable. Both light and dark themes inspected. |
 | Keyboard | Modal focus containment, including reverse Tab, checked; startup Escape continues with selected graphics. |
 | Offline | Saved 46 files plus app shell and lazy viewer dependencies. With the production preview server stopped, a full page reload showed the graphics popup with no canvas, then rendered the 40-surface internal heart view after continuing. |
-| Publishing | Existing owner-private audience is preserved. GitHub contains the reviewable source checkpoint. |
+| Publishing | Public Cloudflare deployment requested and completed separately; the earlier Sites preview remains owner-private. GitHub contains the reviewable source checkpoint. See CLOUDFLARE-DEPLOYMENT.md. |
 
 Checks used a desktop in-app browser and CSS viewport emulation. These are not physical-device FPS, thermal, memory-pressure, Apple Pencil or Safari installation measurements. The matrix records exercised flows, not an exhaustive proof that every possible state is defect-free.
 

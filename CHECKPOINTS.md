@@ -32,3 +32,9 @@ One normal library, named Open Anatomy, replaces the dataset dropdown. Archived 
 Fixed sidebar/footer overlap, mobile drawer dismiss targets and navigation, compact touch controls, group focus/isolation transitions, framing on system changes, and contrast in both themes. Offline preparation follows lazy viewer code and styles; the PWA manifest refreshes online with an offline fallback.
 
 Validation: 44 automated checks, production build, zero production dependency audit findings; browser coverage of 10 systems, 13 internal views, all 19 guided steps, study/save/export/annotation controls, and phone/tablet portrait and landscape layouts. The latest production build reloaded from cache and rendered the 40-surface heart view with the local server stopped. See docs/RELEASE-QA.md for evidence and limits. Physical-device acceptance and qualified anatomy review remain release requirements.
+
+## 6 — Public Cloudflare deployment
+
+Published at https://open-anatomy.anshmaansingh.workers.dev in the owner's selected Cloudflare account. GitHub `main` is connected to Workers Builds; Cloudflare builds and deploys the complete static app and processed models. Preview branch builds and version URLs are disabled. Deployment authentication stays in Cloudflare under a separately approved build token.
+
+The initial cloud build passed and uploaded all assets. Public browser checks verified graphics onboarding, skeletal and internal anatomy delivery, deep links and explicit offline file preparation. The earlier Sites preview remains owner-private. See docs/CLOUDFLARE-DEPLOYMENT.md for release identifiers, verification boundaries and the inactive Worker left by the timed-out dashboard upload.
