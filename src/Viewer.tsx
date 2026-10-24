@@ -40,7 +40,7 @@ function AnatomyScene(props:SceneProps) {
   const systemsKey=props.quality+':'+[...activeSystems].sort().join(',');
   const structureMap=useMemo(()=>new Map(structures.map(s=>[s.id,s])),[structures]);
   useEffect(()=>{
-    let cancelled=false;
+    let cancelled=false;initialFocusDone.current=false;
     propsRef.current.onLoading?.(true);
     Promise.all(activeSystems.flatMap(system=>{const supplements=[...new Set(structures.filter(s=>s.system===system&&s.assetPath).map(s=>s.assetPath!))];return [undefined,...supplements].map(async assetPath=>({system,scene:await loadSystem(system,props.quality,assetPath)}));})).then(value=>{
       if(cancelled)return;setScenes(value);propsRef.current.onLoading?.(false);
@@ -85,8 +85,8 @@ function AnatomyScene(props:SceneProps) {
     travel(center.clone().addScaledVector(direction,distance),center);
   };
   useEffect(()=>{if(pendingFocus.current&&entries.some(e=>e.id===pendingFocus.current))focus(pendingFocus.current);},[entries]);
-  useEffect(()=>{if(!initialFocusDone.current&&entries.length){initialFocusDone.current=true;if(selectedRef.current)focus(selectedRef.current);}},[entries]);
-  const home=()=>travel(new THREE.Vector3(0,.08,6.5),new THREE.Vector3(0,0,0));
+  useEffect(()=>{if(!initialFocusDone.current&&entries.length){initialFocusDone.current=true;if(selectedRef.current)focus(selectedRef.current);else home();}},[entries]);
+  const home=()=>{const box=new THREE.Box3();for(const entry of entries.filter(e=>activeSystems.includes(e.system))){const bounds=entry.geometry.boundingBox?.clone().applyMatrix4(entry.matrix);if(bounds)box.union(bounds);}if(box.isEmpty()){travel(new THREE.Vector3(0,.08,6.5),new THREE.Vector3());return;}const center=box.getCenter(new THREE.Vector3()),extent=box.getSize(new THREE.Vector3());const distance=Math.max(.25,Math.max(extent.y,extent.x/(size.width/size.height))/2/Math.tan(THREE.MathUtils.degToRad(17))*1.18+extent.z/2);travel(center.clone().add(new THREE.Vector3(0,0,distance)),center);};
   // Capture the same rendered scene and include attribution in the download.
   const scene=useThree(state=>state.scene);
   useImperativeHandle(apiRef,()=>({getCamera:()=>({position:camera.position.toArray() as [number,number,number],target:(controls.current?.target.toArray()||[0,0,0]) as [number,number,number]}),restoreCamera:(state)=>{if(state.position.every(Number.isFinite)&&state.target.every(Number.isFinite))travel(new THREE.Vector3(...state.position),new THREE.Vector3(...state.target));},home,focus,view:(direction)=>{

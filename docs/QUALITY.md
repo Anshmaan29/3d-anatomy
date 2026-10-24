@@ -9,7 +9,7 @@
 - npm audit: zero reported vulnerabilities across application and development dependencies at this checkpoint.
 - Browser observation: actual skeleton/femur rendering, search and source metadata, focus, orientation presets, isolation, annotations following rotation, annotation reload persistence, bookmark persistence and exact camera view save/restore. Annotated PNG export inspected visually.
 - Practice mode presented four choices, suppressed labels and the structure list, graded an answer and updated its score. Browser warning/error log was empty at the observed checkpoint.
-- Narrow browser layout observed at 325 CSS pixels with no horizontal document overflow. Tablet breakpoints and touch-target rules are implemented.
+- Narrow browser layout observed at 325 CSS pixels with no horizontal document overflow. Tablet breakpoints and touch-target rules are implemented. iPad-sized browser layouts checked without horizontal overflow: 834×1194 (542px model canvas), 1194×834 (697px), 1024×1366 (507px), and 1366×1024 (819px). Inspector panels remain independently scrollable. These are CSS viewport checks, not physical iPad certification.
 
 ## Required before a market-ready medical education release
 

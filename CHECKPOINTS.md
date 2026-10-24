@@ -8,4 +8,4 @@ Validation: six asset tests, all twenty primary GLBs decoded, six supplemental n
 
 ## 2 — Tablet/iPad focus and cloud preview
 
-Touch-target and input sizing for tablets; portrait inspector/drawer layout; iOS safe-area support and standalone PWA metadata. Cloud preview and this repository preserve the reviewable checkpoint. Physical iPad acceptance remains pending.
+Touch-target and input sizing for tablets; portrait inspector/drawer layout; iOS safe-area support and standalone PWA metadata. Cloud preview and this repository preserve the reviewable checkpoint. Four portrait/landscape CSS viewport checks passed without document overflow. The camera now frames each active system automatically so smaller organs remain useful on a tablet. Physical iPad acceptance remains pending.
