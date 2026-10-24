@@ -33,3 +33,11 @@ Checks used a desktop in-app browser and CSS viewport emulation. These are not p
 ## Remaining acceptance work
 
 Qualified anatomical review is still required, including source laterality conflicts, label placement and internal anatomy coverage. Physical iPad Safari and mainstream Android testing, sustained FPS/memory measurements, PWA installation checks and a full accessibility audit remain pending. Surface clipping remains uncapped, and native Atlas feature/shader/camera parity is not claimed. Source permissions and attribution continue to apply; the Atlas adaptation is not presented as an open licence for downstream redistribution.
+
+## 25 October 2026 — Zoom/orbit hotfix
+
+System auto-fit and selection-focus transitions previously continued writing the camera pose while OrbitControls handled user input. Residual damping could also pull against a scripted camera target. Manual mouse/touch gesture starts now cancel scripted motion immediately, and late model readiness cannot start another transition during an active gesture. Camera transitions clear old orbit momentum, temporarily suspend damping, restore it on completion/cancellation, and clamp the first frame after an idle period. Repeated zoom-button presses accumulate against the requested destination.
+
+Anatomy raycasting pauses during native camera gestures and resumes for selection afterward. The canvas no longer performs mesh hit tests for wheel events, which are already handled directly by OrbitControls. This removes unnecessary triangle picking from trackpad/wheel zoom.
+
+Validation: 50 automated checks passed, including six new regressions using actual Three.js cameras and OrbitControls for manual interruption, delayed readiness, damping, idle frames, reduced motion and raycasting resumption. TypeScript/Vite production build passed. Browser checks exercised system switching followed immediately by zoom/orbit, wheel zoom, repeated zoom buttons and mesh selection after rotation on the Atlas models, plus the archived BodyParts3D skeletal/FMA link. Physical touch-device performance is not claimed by these browser checks.

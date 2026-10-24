@@ -38,3 +38,9 @@ Validation: 44 automated checks, production build, zero production dependency au
 Published at https://open-anatomy.anshmaansingh.workers.dev in the owner's selected Cloudflare account. GitHub `main` is connected to Workers Builds; Cloudflare builds and deploys the complete static app and processed models. Preview branch builds and version URLs are disabled. Deployment authentication stays in Cloudflare under a separately approved build token.
 
 The initial cloud build passed and uploaded all assets. Public browser checks verified graphics onboarding, skeletal and internal anatomy delivery, deep links and explicit offline file preparation. The earlier Sites preview remains owner-private. See docs/CLOUDFLARE-DEPLOYMENT.md for release identifiers, verification boundaries and the inactive Worker left by the timed-out dashboard upload.
+
+## 7 — Zoom/orbit interruption fix
+
+Manual mouse/touch input now takes ownership of the camera immediately after system changes, focus and scripted zoom. Automatic movement cannot keep pulling the camera back during a gesture. Scripted transitions drain residual damping, handle an idle demand-rendered canvas safely, and repeated zoom-button presses accumulate. Triangle picking is skipped during orbit gestures and wheel zoom; ordinary mesh selection resumes afterward.
+
+Validation: 50 checks passed, production build passed, and browser zoom/orbit/selection checks covered both Atlas and archived open anatomy. See docs/RELEASE-QA.md for the regression scope.

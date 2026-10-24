@@ -1,6 +1,6 @@
 import { Component, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, events, useFrame, useThree } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
@@ -13,7 +13,12 @@ import type { AnchoredLabel } from './AnchoredLabels';
 import { createLoadQueue, fitViewDistance, requestedModelAssets, sectionCoordinate, sectionCut } from './viewer-utils';
 import type { ViewDirection } from './viewer-utils';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh';
+import { CameraMotion, interactionRaycast } from './camera-motion';
 import './viewer.css';
+
+// OrbitControls consumes wheel input directly. No anatomy mesh handles wheel
+// events, so avoid R3F raycasting the entire atlas on every trackpad/wheel tick.
+const anatomyEvents:typeof events=store=>{const manager=events(store);if(manager.handlers)manager.handlers.onWheel=()=>{};return manager;};
 
 const cache = new Map<string, Promise<THREE.Group>>();
 const scheduleLoad = createLoadQueue(2);
@@ -101,7 +106,8 @@ function AnatomyScene(props:SceneProps) {
   const [scenes,setScenes]=useState<Array<{system:SystemId;scene:THREE.Group}>>([]);
   const [hovered,setHovered]=useState<string|null>(null);
   const propsRef=useRef(props); propsRef.current=props;
-  const move=useRef<{position:THREE.Vector3;target:THREE.Vector3}|null>(null);
+  const motion=useMemo(()=>new CameraMotion(camera,()=>controls.current),[camera]);
+  const raycast=useMemo(()=>interactionRaycast(()=>motion.interacting,acceleratedRaycast),[motion]);
   const pendingFocus=useRef<string|null>(null);
   const initialFocusDone=useRef(false);
   const orientationRef=useRef('anterior');
@@ -111,6 +117,7 @@ function AnatomyScene(props:SceneProps) {
   const structureMap=useMemo(()=>new Map(structures.map(s=>[s.id,s])),[structures]);
   useEffect(()=>{
     let cancelled=false;
+    motion.cancel();
     lease.current.requests=new Set(requestedAssets.map(({system,assetPath})=>assetPath||`${props.quality}/${system}`));
     assetLeases.set(leaseToken.current,lease.current);sweepCache();
     propsRef.current.onLoading?.(true);let completed=0;propsRef.current.onProgress?.({loaded:0,total:requestedAssets.length});
@@ -151,8 +158,7 @@ function AnatomyScene(props:SceneProps) {
     invalidate();
   },[visible,invalidate]);
   const travel=(position:THREE.Vector3,target:THREE.Vector3)=>{
-    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){camera.position.copy(position);controls.current?.target.copy(target);controls.current?.update();invalidate();}
-    else {move.current={position,target};invalidate();}
+    motion.start(position,target,window.matchMedia('(prefers-reduced-motion: reduce)').matches);invalidate();
   };
   const focus=(id?:string)=>{
     const focusId=id||selectedRef.current;const selectedGroup=!id&&propsRef.current.selectedIds?.length?new Set(propsRef.current.selectedIds):null;const items=entries.filter(e=>selectedGroup?selectedGroup.has(e.id):e.id===focusId);if(!items.length){pendingFocus.current=focusId;return;}pendingFocus.current=null;
@@ -188,7 +194,7 @@ function AnatomyScene(props:SceneProps) {
     const target=controls.current?.target.clone()||new THREE.Vector3();const distance=Math.max(1,camera.position.distanceTo(target));
     const directions:Record<string,[number,number,number]>={anterior:[0,0,1],posterior:[0,0,-1],left:[1,0,0],right:[-1,0,0],superior:[0,1,.001]};
     travel(new THREE.Vector3(...directions[direction]).multiplyScalar(distance).add(target),target);
-  },zoom:(delta)=>{const target=controls.current?.target.clone()||new THREE.Vector3();const offset=camera.position.clone().sub(target).multiplyScalar(delta<0?.8:1.25).clampLength(.15,12);travel(target.clone().add(offset),target);},screenshot:()=>{
+  },zoom:(delta)=>{const target=motion.destination?.target.clone()||controls.current?.target.clone()||new THREE.Vector3();const offset=(motion.destination?.position||camera.position).clone().sub(target).multiplyScalar(delta<0?.8:1.25).clampLength(.15,12);travel(target.clone().add(offset),target);},screenshot:()=>{
     gl.render(scene,camera);const canvas=document.createElement('canvas');canvas.width=gl.domElement.width;canvas.height=gl.domElement.height+70;
     const context=canvas.getContext('2d');if(!context)return;context.fillStyle=resolvedTheme==='dark'?'#101b1b':'#f4f3ee';context.fillRect(0,0,canvas.width,canvas.height);context.drawImage(gl.domElement,0,0);
     for(const note of propsRef.current.annotations||[]){
@@ -209,10 +215,7 @@ function AnatomyScene(props:SceneProps) {
     canvas.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob);const anchor=document.createElement('a');anchor.href=url;anchor.download='open-anatomy.png';anchor.click();setTimeout(()=>URL.revokeObjectURL(url),3000);});
   }}));
   useFrame((_state,delta)=>{
-    if(!move.current||!controls.current)return;
-    const alpha=1-Math.exp(-delta*9);camera.position.lerp(move.current.position,alpha);controls.current.target.lerp(move.current.target,alpha);controls.current.update();
-    if(camera.position.distanceTo(move.current.position)<.0005){camera.position.copy(move.current.position);controls.current.target.copy(move.current.target);move.current=null;}
-    invalidate();
+    if(motion.step(delta))invalidate();
   });
   useEffect(()=>{document.body.style.cursor=props.placingAnnotation?'crosshair':hovered?'pointer':'';return()=>{document.body.style.cursor='';};},[hovered,props.placingAnnotation]);
   const clipPlane=useMemo(()=>{
@@ -244,7 +247,7 @@ function AnatomyScene(props:SceneProps) {
     <directionalLight position={[4,1,-3]} intensity={1.7} color="#c7dedd"/>
     <directionalLight position={[0,2,5]} intensity={.35}/>
     <group>
-    {visible.map((entry,index)=><AnatomyMesh key={`${entry.system}-${entry.id}-${index}`} entry={entry} selected={selectedSet.has(entry.id)} hovered={entry.id===hovered} opacity={Math.min(1,Math.max(0,props.structureOpacities?.[entry.id]??(selectedSet.has(entry.id)?1:opacity)))} exploded={exploded} clipPlane={section?clipPlane:null} onHover={setHovered} onSelect={props.onSelect} onFocus={focus} placing={!!props.placingAnnotation} onAnchor={props.onAnnotationAnchor}/>)}
+    {visible.map((entry,index)=><AnatomyMesh key={`${entry.system}-${entry.id}-${index}`} entry={entry} raycast={raycast} selected={selectedSet.has(entry.id)} hovered={entry.id===hovered} opacity={Math.min(1,Math.max(0,props.structureOpacities?.[entry.id]??(selectedSet.has(entry.id)?1:opacity)))} exploded={exploded} clipPlane={section?clipPlane:null} onHover={setHovered} onSelect={props.onSelect} onFocus={focus} placing={!!props.placingAnnotation} onAnchor={props.onAnnotationAnchor}/>)}
     </group>
     <AnchoredLabels items={[
       ...(props.annotations||[]).filter(note=>visible.some(e=>e.id===note.structureId)&&inSection(new THREE.Vector3(...note.point))).map(note=>{const entry=visible.find(e=>e.id===note.structureId)!;return{id:note.id,text:note.text,kind:'note',point:new THREE.Vector3(...note.point).add(exploded?entry.center.clone().normalize().multiplyScalar(.26):new THREE.Vector3())} as AnchoredLabel;}),
@@ -252,11 +255,11 @@ function AnatomyScene(props:SceneProps) {
       ...landmarkEntries.filter(entry=>inSection(entry.center)).map(entry=>({id:'context-'+entry.id,text:entry.name,kind:'context',point:entry.center.clone().add(exploded?entry.center.clone().normalize().multiplyScalar(.26):new THREE.Vector3())} as AnchoredLabel)),
       ...visible.filter(entry=>labels&&selectedSet.has(entry.id)&&inSection(entry.center)).slice(0,6).map(entry=>({id:'selection-'+entry.id,text:entry.name,kind:'selection',point:entry.center.clone().add(exploded?entry.center.clone().normalize().multiplyScalar(.26):new THREE.Vector3())} as AnchoredLabel))
     ]}/>
-    <OrbitControls onChange={()=>{const direction=camera.position.clone().sub(controls.current?.target||new THREE.Vector3()).normalize();const candidates:Record<string,THREE.Vector3>={anterior:new THREE.Vector3(0,0,1),posterior:new THREE.Vector3(0,0,-1),left:new THREE.Vector3(1,0,0),right:new THREE.Vector3(-1,0,0),superior:new THREE.Vector3(0,1,0)};const orientation=Object.entries(candidates).find(([,vector])=>vector.dot(direction)>.999)?.[0]||'custom';if(orientation!==orientationRef.current){orientationRef.current=orientation;propsRef.current.onOrientationChange?.(orientation as 'anterior'|'posterior'|'left'|'right'|'superior'|'custom');}}} ref={controls} makeDefault enableDamping dampingFactor={.09} rotateSpeed={.65} zoomSpeed={.7} panSpeed={.7} minDistance={.12} maxDistance={12} target={[0,0,0]} touches={{ONE:THREE.TOUCH.ROTATE,TWO:THREE.TOUCH.DOLLY_PAN}}/>
+    <OrbitControls onStart={()=>{motion.beginInteraction();setHovered(null);}} onEnd={()=>motion.endInteraction()} onChange={()=>{const direction=camera.position.clone().sub(controls.current?.target||new THREE.Vector3()).normalize();const candidates:Record<string,THREE.Vector3>={anterior:new THREE.Vector3(0,0,1),posterior:new THREE.Vector3(0,0,-1),left:new THREE.Vector3(1,0,0),right:new THREE.Vector3(-1,0,0),superior:new THREE.Vector3(0,1,0)};const orientation=Object.entries(candidates).find(([,vector])=>vector.dot(direction)>.999)?.[0]||'custom';if(orientation!==orientationRef.current){orientationRef.current=orientation;propsRef.current.onOrientationChange?.(orientation as 'anterior'|'posterior'|'left'|'right'|'superior'|'custom');}}} ref={controls} makeDefault enableDamping dampingFactor={.09} rotateSpeed={.65} zoomSpeed={.7} panSpeed={.7} minDistance={.12} maxDistance={12} target={[0,0,0]} touches={{ONE:THREE.TOUCH.ROTATE,TWO:THREE.TOUCH.DOLLY_PAN}}/>
     <SceneDiagnostics meshes={visible.length} size={size}/><GraphicsHealth/>
   </>;
 }
-function AnatomyMesh({entry,selected,hovered,opacity,exploded,clipPlane,onHover,onSelect,onFocus,placing,onAnchor}:{placing:boolean;onAnchor?:ViewerProps['onAnnotationAnchor'];entry:Entry;selected:boolean;hovered:boolean;opacity:number;exploded:boolean;clipPlane:THREE.Plane|null;onHover:(id:string|null)=>void;onSelect:ViewerProps['onSelect'];onFocus:(id?:string)=>void}) {
+function AnatomyMesh({entry,raycast,selected,hovered,opacity,exploded,clipPlane,onHover,onSelect,onFocus,placing,onAnchor}:{raycast:THREE.Mesh['raycast'];placing:boolean;onAnchor?:ViewerProps['onAnnotationAnchor'];entry:Entry;selected:boolean;hovered:boolean;opacity:number;exploded:boolean;clipPlane:THREE.Plane|null;onHover:(id:string|null)=>void;onSelect:ViewerProps['onSelect'];onFocus:(id?:string)=>void}) {
   const ref=useRef<THREE.Mesh>(null);const invalidate=useThree(s=>s.invalidate);
   const material=useMemo(()=>entry.sourceMaterial?(Array.isArray(entry.sourceMaterial)?entry.sourceMaterial.map(m=>m.clone()):entry.sourceMaterial.clone()):new THREE.MeshStandardMaterial({color:PALETTE[entry.system],roughness:.58,metalness:.02,side:THREE.DoubleSide}),[entry.sourceMaterial,entry.system]);
   const materials=useMemo(()=>Array.isArray(material)?material:[material],[material]);
@@ -280,7 +283,7 @@ function AnatomyMesh({entry,selected,hovered,opacity,exploded,clipPlane,onHover,
   // Cached source geometry/textures are shared across mounts. Only instance materials are owned here.
   useEffect(()=>()=>{materials.forEach(mat=>mat.dispose());},[materials]);
   useFrame((_state,delta)=>{if(ref.current&&ref.current.position.distanceToSquared(target)>.0000001){ref.current.position.lerp(target,1-Math.exp(-delta*10));invalidate();}});
-  return <mesh ref={ref} geometry={entry.geometry} material={material} position={base} quaternion={rotation} scale={scale} dispose={null}
+  return <mesh ref={ref} raycast={raycast} geometry={entry.geometry} material={material} position={base} quaternion={rotation} scale={scale} dispose={null}
     onPointerOver={event=>{if(clipPlane&&clipPlane.distanceToPoint(event.point)<0)return;event.stopPropagation();onHover(entry.id);}}
     onPointerOut={()=>onHover(null)}
     onClick={event=>{if(event.delta>5||(clipPlane&&clipPlane.distanceToPoint(event.point)<0))return;event.stopPropagation();if(placing){const point=event.point.clone().sub(exploded?entry.center.clone().normalize().multiplyScalar(.26):new THREE.Vector3());onAnchor?.({structureId:entry.id,point:point.toArray() as [number,number,number]});}onSelect(entry.id,event.shiftKey);}}
@@ -305,5 +308,5 @@ class ViewerBoundary extends Component<{children:ReactNode;onError?:(message:str
   componentDidCatch(error:Error){this.props.onError?.(`3D rendering stopped: ${error.message}. Reload the workspace to retry.`);}
   render(){return this.state.error?<div className="viewer-unavailable">The 3D renderer could not start. Enable WebGL in your browser and reload.</div>:this.props.children;}
 }
-const Viewer=forwardRef<ViewerHandle,ViewerProps>((props,ref)=><ViewerBoundary onError={props.onError}><Canvas className="anatomy-canvas" camera={{position:[0,.08,6.5],fov:34,near:.005,far:50}} dpr={props.lowPower?1:props.quality==='high'?[1,2]:[1,1.25]} frameloop="demand" gl={{antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:props.lowPower?'low-power':'high-performance',localClippingEnabled:true}} onCreated={({gl})=>{gl.setClearColor('#f4f3ee',0);gl.toneMapping=THREE.ACESFilmicToneMapping;gl.toneMappingExposure=1.05;}} onPointerMissed={(event)=>{if(!event.shiftKey)props.onSelect(null);}} fallback={<div className="viewer-unavailable">WebGL is required to explore this atlas.</div>}><AnatomyScene {...props} apiRef={ref}/><GraphicsHealth/></Canvas></ViewerBoundary>);
+const Viewer=forwardRef<ViewerHandle,ViewerProps>((props,ref)=><ViewerBoundary onError={props.onError}><Canvas events={anatomyEvents} className="anatomy-canvas" camera={{position:[0,.08,6.5],fov:34,near:.005,far:50}} dpr={props.lowPower?1:props.quality==='high'?[1,2]:[1,1.25]} frameloop="demand" gl={{antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:props.lowPower?'low-power':'high-performance',localClippingEnabled:true}} onCreated={({gl})=>{gl.setClearColor('#f4f3ee',0);gl.toneMapping=THREE.ACESFilmicToneMapping;gl.toneMappingExposure=1.05;}} onPointerMissed={(event)=>{if(!event.shiftKey)props.onSelect(null);}} fallback={<div className="viewer-unavailable">WebGL is required to explore this atlas.</div>}><AnatomyScene {...props} apiRef={ref}/><GraphicsHealth/></Canvas></ViewerBoundary>);
 Viewer.displayName='Viewer';export default Viewer;
