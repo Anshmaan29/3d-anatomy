@@ -155,7 +155,7 @@ function AnatomyScene(props:SceneProps) {
     else {move.current={position,target};invalidate();}
   };
   const focus=(id?:string)=>{
-    const focusId=id||selectedRef.current;const items=entries.filter(e=>e.id===focusId);if(!items.length){pendingFocus.current=focusId;return;}pendingFocus.current=null;
+    const focusId=id||selectedRef.current;const selectedGroup=!id&&propsRef.current.selectedIds?.length?new Set(propsRef.current.selectedIds):null;const items=entries.filter(e=>selectedGroup?selectedGroup.has(e.id):e.id===focusId);if(!items.length){pendingFocus.current=focusId;return;}pendingFocus.current=null;
     const box=new THREE.Box3();for(const e of items){const b=e.geometry.boundingBox?.clone().applyMatrix4(e.matrix);if(b)box.union(b);}
     const center=box.getCenter(new THREE.Vector3());
     const radius=box.getSize(new THREE.Vector3()).length()/2;
@@ -205,8 +205,8 @@ function AnatomyScene(props:SceneProps) {
       lines.forEach((text,index)=>context.fillText(text,x+12,y+19+index*(font+5)));
       context.beginPath();context.arc(px,py,4,0,Math.PI*2);context.fill();
     }
-    context.fillStyle=resolvedTheme==='dark'?'#b9cbbd':'#314846';context.font=`${Math.max(8,Math.min(14,canvas.width/65))}px sans-serif`;context.fillText(propsRef.current.dataset==='atlas'?'Anatomy Studio · Atlas source: Catfish Animation Studio':'Anatomy Studio · BodyParts3D © DBCLS · CC BY 4.0',14,canvas.height-39);context.fillText(propsRef.current.dataset==='atlas'?'Adapted with permission confirmed by project owner · anatomy review pending':'Lung/liver adaptations: Z-Anatomy · CC BY-SA 4.0 · anatomy review pending',14,canvas.height-17);
-    canvas.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob);const anchor=document.createElement('a');anchor.href=url;anchor.download='anatomy-studio.png';anchor.click();setTimeout(()=>URL.revokeObjectURL(url),3000);});
+    context.fillStyle=resolvedTheme==='dark'?'#b9cbbd':'#314846';context.font=`${Math.max(8,Math.min(14,canvas.width/65))}px sans-serif`;context.fillText(propsRef.current.dataset==='atlas'?'Open Anatomy · Atlas source: Catfish Animation Studio':'Open Anatomy · BodyParts3D © DBCLS · CC BY 4.0',14,canvas.height-39);context.fillText(propsRef.current.dataset==='atlas'?'Adapted with permission confirmed by project owner · anatomy review pending':'Lung/liver adaptations: Z-Anatomy · CC BY-SA 4.0 · anatomy review pending',14,canvas.height-17);
+    canvas.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob);const anchor=document.createElement('a');anchor.href=url;anchor.download='open-anatomy.png';anchor.click();setTimeout(()=>URL.revokeObjectURL(url),3000);});
   }}));
   useFrame((_state,delta)=>{
     if(!move.current||!controls.current)return;

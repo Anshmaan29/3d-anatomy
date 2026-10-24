@@ -34,6 +34,10 @@ self.addEventListener('fetch',event=>{
       }catch{return(await caches.open(CACHE)).match(localPath('/'),{ignoreVary:true}).then(hit=>hit||new Response('Open Anatomy Studio online once before studying offline.',{status:503,headers:{'Content-Type':'text/plain'}}));}
     })());return;
   }
+  // Metadata stays fresh after an app-only release, even when model bytes are unchanged.
+  if(/\/manifest\.webmanifest$/.test(url.pathname)){
+    event.respondWith((async()=>{try{const response=await fetch(request);if(safeResponse(response))await save(CACHE,request,response);return response;}catch{const cached=await(await caches.open(CACHE)).match(request,{ignoreVary:true});return cached||new Response('{}',{status:503,headers:{'Content-Type':'application/manifest+json'}});}})());return;
+  }
   if(isAnatomy(url)){
     event.respondWith((async()=>{
       const cache=await caches.open(ASSET_CACHE);

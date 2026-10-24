@@ -136,6 +136,17 @@ export async function prepareOfflineShell(options: { origin: string; cache: Pick
         if (font.origin === options.origin && /^\/fonts\/[^/]+\.(?:ttf|otf|woff2?)$/i.test(font.pathname)) urls.add(font.href);
       }
     }
+    if (/\.js$/i.test(new URL(url).pathname)) {
+      const code=await asset.clone().text();
+      // Vite emits lazy imports and a dependency table. Save both before marking
+      // the shell ready, including when the SW missed the first viewer request.
+      for(const match of code.matchAll(/["']((?:\.\.?\/|\/)?(?:assets\/)?[A-Za-z0-9_-]+\.(?:js|css))["']/g)){
+        const value=match[1];if(!value.startsWith('.')&&!value.startsWith('/')&&!value.startsWith('assets/'))continue;
+        const dependency=new URL(value,value.startsWith('assets/')?root:url);
+        if(dependency.origin===options.origin&&/^\/assets\/[A-Za-z0-9_-]+\.(?:js|css)$/.test(dependency.pathname))urls.add(dependency.href);
+      }
+      if(urls.size>128)throw new Error('The offline app has too many dependencies. Please reload and retry.');
+    }
     await options.cache.put(url, asset);
   }
   options.signal.throwIfAborted();

@@ -24,3 +24,11 @@ Dark/light/system themes, multiple selection, group hide/isolate, per-selection 
 Validation includes independent source-asset checks, scene/selection routing, label layout, revision scheduling and offline failures. Physical iPad/Android FPS, PWA installation and qualified clinical review remain pending. Offline browser acceptance and deployment evidence are recorded in docs/QUALITY.md.
 
 Offline production acceptance passed locally after a Vary-header cache correction: downloaded heart view rendered 40 surfaces with the server stopped; guided valve reload rendered 2, and the uncached kidney view failed explicitly. 39 automated checks and the production build passed.
+
+## 5 — Open Anatomy interface and graphics onboarding
+
+One normal library, named Open Anatomy, replaces the dataset dropdown. Archived source assets and explicit legacy links remain recoverable. Every fresh page opening offers High, Balanced and Low power before loading the 3D viewer, remembers the choice, and permits changing it later in Settings. Review buttons now explain when a card becomes due again.
+
+Fixed sidebar/footer overlap, mobile drawer dismiss targets and navigation, compact touch controls, group focus/isolation transitions, framing on system changes, and contrast in both themes. Offline preparation follows lazy viewer code and styles; the PWA manifest refreshes online with an offline fallback.
+
+Validation: 44 automated checks, production build, zero production dependency audit findings; browser coverage of 10 systems, 13 internal views, all 19 guided steps, study/save/export/annotation controls, and phone/tablet portrait and landscape layouts. The latest production build reloaded from cache and rendered the 40-surface heart view with the local server stopped. See docs/RELEASE-QA.md for evidence and limits. Physical-device acceptance and qualified anatomy review remain release requirements.

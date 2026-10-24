@@ -73,3 +73,12 @@ export function exactRelatedStructures(text: string, structures: Structure[]): S
   const terms = new Set([text, ...text.split(/[;,\n]/)].map(normal).filter(Boolean));
   return structures.filter(structure => structure.system === 'nervous' && [structure.name, ...(structure.synonyms || [])].some(name => terms.has(normal(name))));
 }
+
+/** Match the actual schedule, including fractional-day intervals after repeated reviews. */
+export function reviewDelay(intervalDays:number):string{
+ const minutes=Math.max(1,Math.round(intervalDays*1440));
+ if(minutes<60)return `${minutes} ${minutes===1?'minute':'minutes'}`;
+ const days=minutes/1440;
+ if(days>=1)return `${Number(days.toFixed(1))} ${days===1?'day':'days'}`;
+ const hours=Number((minutes/60).toFixed(1));return `${hours} ${hours===1?'hour':'hours'}`;
+}

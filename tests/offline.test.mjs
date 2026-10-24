@@ -108,3 +108,21 @@ test('service worker static-cache hits survive Vary Origin when module/font requ
  }
  assert.ok(checks.every(check=>check.ignoreVary===true));
 });
+
+test('offline preparation follows lazy viewer JavaScript and CSS before saving shell',async()=>{
+ const root='https://anatomy.test/';const files=new Map([
+ [root,new Response('<div id="root"></div><script src="/assets/index-main.js"></script>',{headers:{'content-type':'text/html'}})],
+ [root+'assets/index-main.js',new Response('const table=["assets/Viewer-lazy.css"];const viewer=()=>import("./Viewer-lazy.js");',{headers:{'content-type':'text/javascript'}})],
+ [root+'assets/Viewer-lazy.js',new Response('import "./three-core.js";',{headers:{'content-type':'text/javascript'}})],
+ [root+'assets/Viewer-lazy.css',new Response('.notice{color:red}',{headers:{'content-type':'text/css'}})],
+ [root+'assets/three-core.js',new Response('export const core=true;',{headers:{'content-type':'text/javascript'}})]
+ ]);const stored=new Map();await prepareOfflineShell({origin:'https://anatomy.test',cache:{put:async(url,response)=>stored.set(url,response)},signal:new AbortController().signal,fetcher:async(url)=>{assert.ok(files.has(url),url);return files.get(url).clone();}});for(const path of files.keys())assert.ok(stored.has(path),path);
+});
+
+test('PWA manifest updates online and retains the last version offline',async()=>{
+ const handlers={},stored=new Map();let online=true;
+ const cache={put:async(request,response)=>stored.set(typeof request==='string'?request:request.url,response),match:async(request)=>stored.get(typeof request==='string'?request:request.url)?.clone()};
+ const context={self:{registration:{scope:origin+'/'},addEventListener:(name,fn)=>handlers[name]=fn},caches:{open:async()=>cache},URL,Response,fetch:async()=>{if(!online)throw new Error('Offline');return new Response('{"name":"Open Anatomy"}',{headers:{'content-type':'application/manifest+json'}});}};
+ vm.runInNewContext(readFileSync(new URL('../public/sw.js',import.meta.url),'utf8'),context);
+ for(const connected of [true,false]){online=connected;let response;handlers.fetch({request:new Request(origin+'/manifest.webmanifest'),respondWith:value=>response=value});assert.deepEqual(await(await response).json(),{name:'Open Anatomy'});}
+});

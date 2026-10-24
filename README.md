@@ -1,4 +1,4 @@
-# Anatomy Studio
+# Open Anatomy
 
 An independent, free-to-explore 3D anatomy workspace for medical study. Built with React, TypeScript, Three.js and React Three Fiber. This is a working development release; anatomy review and physical-device acceptance are still pending.
 
@@ -15,8 +15,9 @@ Open the printed local URL. `npm test` validates the anatomy assets and `npm run
 
 ## Current checkpoint
 
-- Detailed Atlas: 1,985 recovered anatomical model records, represented by 2,225 selectable surfaces (including alternate and internal-heart surfaces); 979 associated landmarks plus 23 separately retained unassociated source anchors.
-- The open anatomy library remains available separately: 1,654 BodyParts3D concepts plus six Z-Anatomy lung/liver surfaces.
+- Open Anatomy uses 1,985 recovered Atlas anatomical model records, represented by 2,225 selectable surfaces (including alternate and internal-heart surfaces); 979 associated landmarks plus 23 separately retained unassociated source anchors.
+- One normal student workspace. The archived BodyParts3D/Z-Anatomy assets remain in the repository and explicit legacy links still work; there is no competing library selector.
+- A graphics popup appears on each fresh page opening, remembers High/Balanced/Low power, and delays 3D loading until the user continues. Settings can change the choice later.
 - Source English/Latin labels, 280 muscle detail records and muscle depth layers 1–10. Four conflicting source Latin labels are withheld and flagged.
 - Real indexed anatomy, shared spatial alignment, smooth orbit/zoom/pan, focus, orientation presets, visibility, isolation, opacity, exploded view and surface clipping.
 - Search by names, synonyms and source identifiers, regional browsing and structure deep links.
@@ -43,6 +44,8 @@ The Detailed Atlas adaptation uses recovered Anatomy 3D Atlas 7.2 model geometry
 ## Verification and release boundaries
 
 See `docs/QUALITY.md` for completed checks and outstanding release criteria, `docs/DATA_PIPELINE.md` for reproducible primary data processing, and the public provenance JSON for checksums, transforms, licences, categories and omissions. The open library derives from one adult male source; the Detailed Atlas additionally includes source urogenital specimens and muscle teaching details. Both require qualified anatomical review. Pathology, histology and clinical certification are absent. The Atlas muscle library uses a one-sided source dissection presentation and offers skeletal context. All authored native scene compositions and behaviors have not been recreated. Surface clipping is an uncapped geometry cut, not a CT/MRI reconstruction. Source categories and LOD detail require qualified review.
+
+The latest interface checkpoint and browser QA coverage are recorded in `docs/RELEASE-QA.md`. Passing software checks does not establish medical accuracy or performance on untested physical devices.
 
 ## Deployment
 
