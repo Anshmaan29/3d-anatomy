@@ -12,7 +12,8 @@ const cache = new Map<string, Promise<THREE.Group>>();
 function loadSystem(system: SystemId, quality: ViewerProps['quality'],assetPath?:string): Promise<THREE.Group> {
   const key=assetPath||`${quality}/${system}`;
   const existing = cache.get(key); if (existing) return existing;
-  const pending = fetch(assetPath||`/models/${quality==='balanced'?'balanced/':''}${system}.glb`).then(async response => {
+  const path=assetPath||`/models/${quality==='balanced'?'balanced/':''}${system}.glb`;
+  const pending = fetch(`${path}?v=${import.meta.env.VITE_MODEL_VERSION||'dev'}`).then(async response => {
     if (!response.ok) throw new Error(`The ${system} model could not be loaded (${response.status}).`);
     const bytes = await response.arrayBuffer();
     const loader = new GLTFLoader(); loader.setMeshoptDecoder(MeshoptDecoder);

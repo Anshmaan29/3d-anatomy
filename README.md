@@ -2,6 +2,8 @@
 
 An independent, free-to-explore 3D anatomy workspace for medical study. Built with React, TypeScript, Three.js and React Three Fiber. This is a working development release; anatomy review and physical-device acceptance are still pending.
 
+Private cloud preview: https://anatomy-studio-mbbs.aurorayew128.chatgpt.site (owner access).
+
 ## Run
 
 ```sh
