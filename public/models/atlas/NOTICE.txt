@@ -1,0 +1,26 @@
+ANATOMY STUDIO — DETAILED ATLAS ADAPTATION
+
+Source work: Anatomy 3D Atlas 7.2, Catfish Animation Studio S.r.l.
+https://anatomy3datlas.com/
+
+The project owner explicitly confirmed permission to extract and reuse these
+assets in this project on 24 October 2026. This records that assertion; the
+project does not independently verify a licence or grant downstream users a
+blanket open licence to the source work. Retain the source attribution and
+confirm your own rights before redistributing this dataset outside this project.
+
+Adaptation: Unity mesh arrays and source hierarchy transforms converted to glTF;
+shared body-coordinate registration; original indexed topology in high quality;
+bounded LOD simplification for selected large surfaces in balanced quality;
+Meshopt compression; web-resolution shared albedo maps; reconstructed DXT5nm
+normal maps; glTF PBR approximation of Unity materials. English/Latin model
+labels, source muscle text and authored landmark positions were recovered from
+the shipped catalog. Source discrepancies and unmapped associations are recorded
+in the provenance and landmark catalog. Alternate surfaces start hidden.
+
+No native software code, executable, database decoding material, UI/font assets
+or original Unity containers are included. The project remains an independent
+web adaptation, with no claim of vendor endorsement or exact feature parity.
+
+Source anatomy and medical text have not been independently clinically reviewed.
+Educational use; not diagnosis or clinical decision support.
