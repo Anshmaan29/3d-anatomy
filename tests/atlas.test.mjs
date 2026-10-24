@@ -97,7 +97,7 @@ test('Atlas catalog has source identities, usable names and finite registered bo
   assert.ok(s.bounds[0].every((v,i)=>v<=s.bounds[1][i]),`inverted bounds ${s.id}`);
   for(const [asset,quality] of [[s.assetPath,'high'],[s.balancedAssetPath,'balanced']]){
    const manifest=manifests.get(asset);assert.ok(manifest,`missing asset manifest ${asset}`);
-   assert.equal(manifest.id,s.system);assert.equal(manifest.quality,quality);publicPath(asset);
+   assert.match(manifest.id,/^(skeletal|muscular|cardiovascular|nervous|respiratory|digestive|urinary|reproductive|lymphatic|endocrine)$/);assert.equal(manifest.quality,quality);publicPath(asset); // Storage chunks can span corrected clinical system labels.
   }
   assert.equal(s.assetPath.split('/').at(-1),s.balancedAssetPath.split('/').at(-1),'quality chunk identities differ');
   if(s.latinName){
@@ -181,3 +181,5 @@ test('Atlas landmarks reference exported structures and finite surface positions
   assert.ok(mark.point?.length===3&&mark.point.every(v=>Number.isFinite(v)&&Math.abs(v)<10),'registered landmark position');
  }
 });
+
+ test('source-labeled urogenital teaching parts route to their anatomical systems',()=>{for(const [code,system] of Object.entries({Uro_M104:'urinary',Uro_M105:'urinary',Uro_M107:'urinary',Uro_M101:'endocrine',Uro_M21:'urinary',Uro_M253:'digestive',Uro_M52:'reproductive',Uro_M53:'reproductive'}))assert.equal(structures.get('ATLAS_'+code).system,system);for(const code of ['Uro_M11','Uro_M12',...Array.from({length:10},(_,i)=>'Uro_M'+(101+i))])assert.equal(structures.get('ATLAS_'+code).defaultHidden,true);});

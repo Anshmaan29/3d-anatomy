@@ -163,6 +163,8 @@ def main():
         # Labels script may use source table aliases; stable app system IDs only.
         if system not in set(SYSTEMS.values())|{'urinary'}:system=SYSTEMS.get(prefix,'cardiovascular')
         if prefix=='Uro' and re.search(r'kidney|renal|ureter|urethra|urinary|bladder',label.get('name',''),re.I):system='urinary'
+        # Explicit source-labeled teaching structures; the shared Urogenital table is not one web system.
+        system={'Uro_M101':'endocrine','Uro_M104':'urinary','Uro_M105':'urinary','Uro_M107':'urinary','Uro_M21':'urinary','Uro_M253':'digestive','Uro_M52':'reproductive','Uro_M53':'reproductive'}.get(code,system)
         item['system']=system;item['label']=label;batches[system].append(item)
     for system,items in sorted(batches.items()):
         for chunk_start in range(0,len(items),100):
@@ -205,7 +207,7 @@ def main():
                             quality_notes.append('Source English and Latin laterality conflict; Latin label withheld pending anatomy review.')
                             latin=''
                         if label.get('sourceType')=='model' and re.search(r'female|section|\bsez\b',root_name,re.I):variant=True
-                        structures.append({'id':id,'name':name,'system':system,'region':region,'sourceCode':code,'sourceId':str(label.get('id',code)),'source':'Anatomy 3D Atlas 7.2','sourceLicense':'Reuse permission confirmed by project owner','reviewStatus':('source-derived; not independently clinically reviewed'+(' · Source English/Latin laterality conflict; Latin withheld' if quality_notes else '')) if label.get('name') else 'unresolved English label','assetPath':'/models/atlas/'+basename,'balancedAssetPath':'/models/atlas/balanced/'+basename,'bounds':[pos.min(axis=0).tolist(),pos.max(axis=0).tolist()],'latinName':latin,'dataQualityNotes':quality_notes,'groupName':label.get('groupName') or item['root'],'layer':label.get('layer'),'details':details,'variant':variant,'defaultHidden':variant,'synonyms':[code,label.get('latinName',''),label.get('groupName','')]})
+                        structures.append({'id':id,'name':name,'system':system,'region':region,'sourceCode':code,'sourceId':str(label.get('id',code)),'source':'Anatomy 3D Atlas 7.2','sourceLicense':'Reuse permission confirmed by project owner','reviewStatus':('source-derived; not independently clinically reviewed'+(' · Source English/Latin laterality conflict; Latin withheld' if quality_notes else '')) if label.get('name') else 'unresolved English label','assetPath':'/models/atlas/'+basename,'balancedAssetPath':'/models/atlas/balanced/'+basename,'bounds':[pos.min(axis=0).tolist(),pos.max(axis=0).tolist()],'latinName':latin,'dataQualityNotes':quality_notes,'groupName':label.get('groupName') or item['root'],'layer':label.get('layer'),'details':details,'variant':variant,'defaultHidden':variant or code in {'Uro_M11','Uro_M12',*[f'Uro_M{i}' for i in range(101,111)]},'synonyms':[code,label.get('latinName',''),label.get('groupName','')]})
                 out=raw/(('balanced-' if quality=='balanced' else '')+basename);doc.save(out)
                 systems.append({'id':system,'quality':quality,'file':basename,'rawPath':str(out),'outputPath':str((web/'balanced' if quality=='balanced' else web)/basename),'nodes':len(chunk)})
                 print(system,basename,quality,len(chunk),'nodes',out.stat().st_size,'raw bytes',flush=True)

@@ -1,0 +1,95 @@
+/* Semantic colour tokens are also used by new study tools. Geometry colours stay anatomical. */
+:root {
+  --surface:#fcfcf9; --surface-raised:#fff; --surface-subtle:#f1f4eb;
+  --text-primary:#263e36; --text-secondary:#596f60; --text-muted:#73816e;
+  --border:#dce4d5; --accent:#397a68; --accent-soft:#e7f0e6; --danger:#a25443;
+  --theme-shadow:0 10px 35px #182d2912;
+}
+.theme-toggle {
+  min-width:44px; min-height:44px; padding:9px 11px; display:inline-flex; flex-shrink:0;
+  align-items:center; justify-content:center; gap:7px; border:1px solid var(--border);
+  border-radius:10px; background:var(--surface); color:var(--text-secondary); font-size:11px;
+  line-height:1.3; font-weight:550; white-space:nowrap;
+}
+.theme-toggle:hover:not(:disabled){background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.theme-toggle-compact{width:44px;padding:9px}.theme-toggle-compact>span{display:none}
+.theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+[data-theme=dark] {
+  color-scheme:dark; --ink:#e0eae4; --muted:#a1b5aa; --mint:#94d8c5; --green:#94d8c5;
+  --line:#314440; --canvas:#101b1b; --sidebar:#132522;
+  --surface:#192825; --surface-raised:#20322d; --surface-subtle:#23382f;
+  --text-primary:#e6eee7; --text-secondary:#b9cbbd; --text-muted:#9eb3a4;
+  --border:#3b5145; --accent:#a1dfc8; --accent-soft:#2a493b; --danger:#f0b0a0;
+  --theme-shadow:0 10px 35px #0004; color:var(--text-primary);background:var(--canvas);
+}
+[data-theme=dark] body{background:var(--canvas);color:var(--text-primary)}
+[data-theme=dark] ::selection{background:#477b65;color:#fff}
+[data-theme=dark] ::-webkit-scrollbar-thumb{background:#4b6556}
+[data-theme=dark] :is(button,a,input,select,textarea):focus-visible{outline:2px solid #a1dfc8;outline-offset:3px}
+[data-theme=dark] button:hover:not(:disabled){color:var(--accent)}
+[data-theme=dark] :is(.app-header,.inspector,.inspector-bottom,.modal){background:var(--surface);border-color:var(--border)}
+[data-theme=dark] :is(.brand,.stage-title-row h1,.selected-content h2,.unselected-content h2,.practice-content h2,.saved-content h2,.modal h2){color:var(--text-primary)}
+[data-theme=dark] :is(.brand small,.free-label,.stage-heading p,.stage-eyebrow,.view-context,.view-context small,.view-status,.edition-tag,.interaction-hint,.orientation-marker,.mini-eyebrow,.inspector-heading){color:var(--text-muted)}
+[data-theme=dark] :is(.icon-button,.bookmark-button,.modal-close){color:var(--text-secondary)}
+[data-theme=dark] :is(.icon-button:hover,.main-tabs button:hover){background:var(--surface-raised)}
+[data-theme=dark] .main-tabs button{color:var(--text-secondary)}
+[data-theme=dark] .main-tabs button.active{background:var(--accent-soft);border-color:#4c705c;color:var(--accent)}
+[data-theme=dark] :is(.tab-count,.avatar){background:#334c39;color:#d1e4bd;border-color:#41604a}
+[data-theme=dark] :is(.stage-action,.stage-top-actions>.icon-button,.orientation-presets,.mobile-inspector,.exit-isolate,.practice-indicator,.skeletal-context){background:var(--surface);color:var(--text-secondary);border-color:var(--border)}
+[data-theme=dark] :is(.stage-action:hover,.orientation-presets button:hover,.selection-actions button:hover,.secondary-button:hover){background:var(--surface-raised);border-color:#628769;color:var(--accent)}
+[data-theme=dark] .orientation-presets button{color:var(--text-secondary)}
+[data-theme=dark] .orientation-presets button.active{background:var(--accent-soft);color:var(--accent)}
+[data-theme=dark] .anatomy-grid{opacity:.17;background-image:radial-gradient(circle,#a4c1b1 .6px,transparent .7px)}
+[data-theme=dark] .orientation-cross:after{background:var(--canvas);border-color:#88aa95}
+[data-theme=dark] :is(.loading-state,.error-state){background:#192825f5;border-color:var(--border);box-shadow:var(--theme-shadow)}
+[data-theme=dark] :is(.loading-state strong,.error-state h2){color:var(--text-primary)}
+[data-theme=dark] :is(.loading-state p,.loading-state small,.error-state p){color:var(--text-secondary)}
+[data-theme=dark] .loading-orbit{background:var(--surface-subtle);border-color:var(--border)}
+[data-theme=dark] .loading-orbit:before{border-color:var(--border);border-top-color:var(--accent)}
+[data-theme=dark] :is(.loading-bar,.score-track){background:#344b3b}
+[data-theme=dark] .loading-bar span{background:var(--accent)}
+[data-theme=dark] :is(.inspector-heading,.detail-section,.annotation-panel,.quiz-feedback,.practice-session-footer,.settings-toggle,.source-card,.source-integrity,.try-practice,.saved-structures>div){border-color:var(--border)}
+[data-theme=dark] :is(.structure-category,.detail-section h3,.detail-section-title,.source-card h3,.annotation-heading h3,.saved-section-title,.practice-mode,.layer-caption,.synonyms>span,.source-number){color:var(--text-secondary)}
+[data-theme=dark] :is(.detail-section p,.anatomy-points li,.metadata-section dd,.synonyms p,.unselected-content>p,.inspector-intro,.empty-detail-steps>span,.modal>p,.source-card p,.help-controls small,.practice-waiting,.practice-session-footer,.practice-session-footer small,.saved-empty p,.saved-scene small,.saved-structures small,.device-note,.quality-options p,.settings-info p,.settings-toggle small,.modal-footnote){color:var(--text-secondary)}
+[data-theme=dark] :is(.review-status,.metadata-section dt,.opacity-ends,.medical-note p,.empty-detail-steps>span>span,.saved-scene small,.saved-structures small,.quality-options legend){color:var(--text-muted)}
+[data-theme=dark] :is(.source-reference,.text-link,.source-card a,.help-controls strong,.settings-info strong,.saved-empty button,.saved-structures>div>button:first-child>span,.settings-toggle strong){color:var(--accent)}
+[data-theme=dark] :is(.detail-pills>span,.selection-actions button,.secondary-button,.answer-options button,.saved-scene,.saved-empty,.quality-options>button,.settings-info,.text-input,.annotation-editor,.annotation-editor textarea,.model-review-note){background:var(--surface-subtle);border-color:var(--border);color:var(--text-secondary)}
+[data-theme=dark] :is(.selection-actions button.active,.quality-options>button.selected){background:var(--accent-soft);border-color:#6d987a;color:var(--accent)}
+[data-theme=dark] :is(.medical-note,.unselected-art,.modal-icon,.scene-icon,.option-letter,.saved-section-title b,.saved-section-title button,.quality-options strong small){background:var(--surface-subtle);border-color:var(--border);color:var(--text-secondary)}
+[data-theme=dark] :is(.quality-options strong,.saved-scene strong){color:var(--text-primary)}
+[data-theme=dark] .primary-button{background:#a1dfc8;border-color:#a1dfc8;color:#153c2c;font-weight:650}
+[data-theme=dark] .primary-button:hover:not(:disabled){background:#b8edd8;border-color:#b8edd8;color:#102f23}
+[data-theme=dark] .answer-options button:hover:not(:disabled){background:var(--accent-soft);border-color:#7ca484}
+[data-theme=dark] .answer-options .answer-correct{background:#254733;border-color:#75af85;color:#d2efd6}
+[data-theme=dark] .answer-correct .option-letter{background:#396844;border-color:#78ad7d;color:#e3f7e2}
+[data-theme=dark] .answer-options .answer-incorrect{background:#49342c;border-color:#bb8c71;color:#f2d2b7}
+[data-theme=dark] .answer-incorrect .option-letter{background:#644938;border-color:#bd9270;color:#f2d2b7}
+[data-theme=dark] :is(.quiz-feedback>strong,.quiz-feedback>p){color:#edc69f}
+[data-theme=dark] :is(.feedback-correct>strong,.quiz-feedback>p b){color:#b8e3b5}
+[data-theme=dark] .modal-backdrop{background:#06110ee0}
+[data-theme=dark] :is(.text-input::placeholder,.annotation-editor textarea::placeholder){color:#a7baa7}
+[data-theme=dark] .annotation-heading h3{color:var(--text-secondary)!important}
+[data-theme=dark] :is(.annotation-empty,.annotation-help,.annotation-placement p){color:var(--text-muted)!important}
+[data-theme=dark] :is(.annotation-pin-button,.annotation-pin-button.annotation-pin-active,.annotation-placement,.annotation-placement-icon){background:var(--accent-soft);color:var(--accent);border-color:#527d59}
+[data-theme=dark] .annotation-panel .annotation-pin-button:hover{background:#375d45;color:#d5f2d9;border-color:#7aa980}
+[data-theme=dark] :is(.annotation-note,.annotation-note small,.annotation-number,.annotation-editor label,.annotation-anchor-status,.annotation-editor-footer>span,.annotation-cancel-button,.annotation-item-actions>button){color:var(--text-secondary)}
+[data-theme=dark] .annotation-placement strong{color:var(--text-primary)}
+[data-theme=dark] .annotation-heading h3>span{background:#344f3a;color:var(--text-secondary)}
+[data-theme=dark] .annotation-item{border-color:var(--border)}
+[data-theme=dark] .annotation-panel .annotation-note:hover>span{color:var(--accent)}
+[data-theme=dark] .annotation-panel .annotation-item-actions>button:hover{background:var(--accent-soft);color:var(--accent)}
+[data-theme=dark] .annotation-panel .annotation-item-actions>.annotation-delete:hover{background:#513b30;color:#f3bd9f}
+[data-theme=dark] :is(.model-label,.model-label.selected-label,.annotation-pin-note,.source-landmark){background:#1c302bf5;color:#e2eee4;border-color:#7aa38a;box-shadow:0 3px 15px #0004}
+[data-theme=dark] :is(.annotation-pin-note small,.model-label>span,.source-landmark.selected-label){color:#b2d7bc}
+[data-theme=dark] .annotation-pin-dot{background:#a1dfc8;border-color:#1b3d31}
+[data-theme=dark] .inspector input[type=range]{background:#3e5846;accent-color:var(--accent)}
+[data-theme=dark] .inspector input[type=range]::-webkit-slider-thumb{background:var(--accent);border-color:var(--surface);box-shadow:0 0 0 1px #9fcda5}
+@media(max-width:740px){.theme-toggle{width:44px;padding:9px}.theme-toggle>span{display:none}.header-actions .theme-toggle{min-width:44px;min-height:44px}}
+@media(prefers-reduced-motion:reduce){.theme-toggle{transition:none}}
+[data-theme=dark] .source-integrity{background:var(--surface-subtle);color:var(--text-secondary)}
+[data-theme=dark] :is(.source-integrity p,.shortcut-grid>span){color:var(--text-secondary)}
+[data-theme=dark] .shortcut-grid{border-color:var(--border)}
+[data-theme=dark] .switch{background:#3d5142;border-color:#6a876b}
+[data-theme=dark] .switch-on{background:#82bb8f;border-color:#9ad3a2}
+[data-theme=dark] .switch span{background:#e6eee0}
+[data-theme=dark] .saved-scene .delete-scene:hover{background:#513b30;color:#f3bd9f}

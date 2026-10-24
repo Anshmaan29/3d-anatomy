@@ -13,3 +13,14 @@ Touch-target and input sizing for tablets; portrait inspector/drawer layout; iOS
 ## 3 — Published checkpoint and update-safe offline cache
 
 Private preview published at https://anatomy-studio-mbbs.aurorayew128.chatgpt.site . Model URLs and the offline cache now use a digest of actual geometry/catalog bytes, so a new anatomy dataset does not reuse old unversioned model caches. Earlier dataset caches are removed when the new service worker activates. GitHub main contains all application sources, processed models, licences, pipeline scripts and verification records.
+
+
+## 4 — English internal anatomy and MBBS revision
+
+Recovered 70 native scene memberships (69 catalog scenes plus full body) and all 82 source viewpoint targets. Added 13 inside-organ collections and 19 guided visibility steps using exact source meshes: deep brain/ventricles, heart chambers/valves/conduction, kidney/nephron, ear, eye, ducts, airways and segmental bronchi. Cameras fit canonical geometry; native camera poses and complete atlas parity are not claimed. See docs/INTERNAL-ANATOMY.md.
+
+Dark/light/system themes, multiple selection, group hide/isolate, per-selection opacity, undo visibility, saved clipping settings, deep-linked guided steps, screen-laid-out anchored labels, and 3,196 source-derived revision cards with local review scheduling and muscle comparison. Hidden-only chunks are no longer requested, concurrency is bounded, BVH picking is deferred and GPU resources are leased/released across switches. Low-power mode reduces resolution.
+
+Validation includes independent source-asset checks, scene/selection routing, label layout, revision scheduling and offline failures. Physical iPad/Android FPS, PWA installation and qualified clinical review remain pending. Offline browser acceptance and deployment evidence are recorded in docs/QUALITY.md.
+
+Offline production acceptance passed locally after a Vary-header cache correction: downloaded heart view rendered 40 surfaces with the server stopped; guided valve reload rendered 2, and the uncached kidney view failed explicitly. 39 automated checks and the production build passed.
