@@ -9,3 +9,6 @@ artifacts/
 *.tsbuildinfo
 
 outputs/
+
+__pycache__/
+*.pyc
