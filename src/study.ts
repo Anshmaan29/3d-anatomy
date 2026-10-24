@@ -39,3 +39,26 @@ export const systemDescriptions: Record<SystemId, string> = {
   nervous: 'Brain, spinal cord & nerves', respiratory: 'Airways & lungs', digestive: 'Digestive tract & organs',
   urinary: 'Kidneys & urinary tract', reproductive: 'Reproductive structures', lymphatic: 'Lymphatic organs & vessels', endocrine: 'Hormone-producing glands',
 };
+
+// Raw source codes are useful for provenance, but must not become exam answers.
+export function hasUnresolvedAtlasLabel(structure: Structure): boolean {
+  return structure.id.startsWith('ATLAS_') && (!structure.name.trim() || /unresolved|no english/i.test(structure.reviewStatus || '') || /\b(?:Art|Vei|Ner|Mus|Ske|Uro|Res|Lym|End|Lig|Dig|Bra|Hea|Int|Eye|Ear)_[A-Z]+\d+\b/i.test(structure.name));
+}
+export function isPracticeStructure(structure: Structure): boolean { return !hasUnresolvedAtlasLabel(structure); }
+
+export function getMuscleDetails(structure: Structure): Array<{label:string;text:string}> {
+  if (!structure.details) return [];
+  const labels = { origin: 'Origin', insertion: 'Insertion', innervation: 'Innervation', action: 'Action', bloodSupply: 'Blood supply' } as const;
+  return (Object.keys(labels) as Array<keyof typeof labels>).flatMap(key => { const text = structure.details?.[key]; return typeof text === 'string' && text.trim() && !/^n\/?a[. ]*$/i.test(text.trim()) ? [{ label: labels[key], text }] : []; });
+}
+
+export function applyMuscleLayer(structures: Structure[], hiddenIds: string[], layer: string): string[] {
+  const hidden = new Set(hiddenIds);
+  for (const structure of structures) {
+    if (!structure.id.startsWith('ATLAS_') || structure.system !== 'muscular' || structure.variant || structure.defaultHidden) continue;
+    const depth = Number(structure.layer);
+    if (layer === 'all') hidden.delete(structure.id);
+    else if (Number.isInteger(depth) && depth >= 1 && depth <= 10) { if (depth === Number(layer)) hidden.delete(structure.id); else hidden.add(structure.id); }
+  }
+  return [...hidden];
+}

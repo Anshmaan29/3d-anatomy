@@ -11,16 +11,18 @@ npm ci
 npm run dev
 ```
 
-Open the printed local URL. `npm test` validates the anatomy assets and `npm run build` creates `dist/`. Node 22 LTS is supported. The repository includes browser-ready, redistributable models, so no account, backend or model download pipeline is needed to run the application.
+Open the printed local URL. `npm test` validates the anatomy assets and `npm run build` creates `dist/`. Node 22 LTS is supported. The repository includes browser-ready models, so no account, backend or extraction pipeline is needed to run it. The two model libraries have separate reuse terms below.
 
 ## Current checkpoint
 
-- 1,660 selectable structures across ten systems: 1,654 BodyParts3D concepts and six separately licensed Z-Anatomy lung/liver surfaces.
+- Detailed Atlas: 1,985 recovered anatomical model records, represented by 2,225 selectable surfaces (including alternate and internal-heart surfaces); 979 associated landmarks plus 23 separately retained unassociated source anchors.
+- The open anatomy library remains available separately: 1,654 BodyParts3D concepts plus six Z-Anatomy lung/liver surfaces.
+- Source English/Latin labels, 280 muscle detail records and muscle depth layers 1–10. Four conflicting source Latin labels are withheld and flagged.
 - Real indexed anatomy, shared spatial alignment, smooth orbit/zoom/pan, focus, orientation presets, visibility, isolation, opacity, exploded view and surface clipping.
 - Search by names, synonyms and source identifiers, regional browsing and structure deep links.
 - Surface-anchored personal annotations: place a pin on a mesh, write a note, rotate/zoom/pan and retain its 3D position. Notes persist locally and appear in exported images.
 - Device-local bookmarks and exact camera views, JSON export and four-choice structure identification practice.
-- High-detail and balanced model sets. Balanced retains every structure and reduces the primary data from 6.45M to 3.27M triangles. Only requested systems load. Rendering pauses while the view is idle.
+- High-detail and balanced model sets. The Atlas adaptation occupies about 198 MB for both complete quality libraries together; systems load on demand, with shared images and inactive GPU resource cleanup. High Atlas geometry retains 7.50M triangles; balanced has 6.80M. Open primary geometry retains its separate 6.45M / 3.27M sets. Rendering pauses while idle.
 - Responsive tablet layouts, larger touch targets and iPad home-screen installation support. The service worker caches previously visited systems for offline reuse in production.
 - No tracking, external fonts, login or health-data collection. Saved data stays in the browser. Clearing site data removes local saves.
 
@@ -36,11 +38,11 @@ The six selected lung/liver meshes are adapted Z-Anatomy geometry via the nqwrc 
 
 Selected skeletal notes paraphrase linked OpenStax Anatomy and Physiology 2e chapters. They have source links and are explicitly marked as awaiting clinical review. Personal annotations are user-authored, not medically reviewed content.
 
-No commercial Anatomy 3D Atlas meshes, textures, descriptions or code are redistributed. Shipped-artifact observations and reference coverage are recorded in `evidence/REFERENCE-INVESTIGATION.md`.
+The Detailed Atlas adaptation uses recovered Anatomy 3D Atlas 7.2 model geometry, material textures, labels, landmark anchors and muscle text. The project owner explicitly confirmed permission to extract and reuse this data on 24 October 2026. This assertion is recorded, not independently verified; it is not a blanket open licence for downstream users. Catfish Animation Studio remains credited. No native executable, app software code, database-decoding material, UI/font textures or original Unity containers are shipped. See `public/models/atlas/NOTICE.txt`, `public/data/atlas-provenance.json` and `evidence/ATLAS-EXTRACTION.md`. The earlier `REFERENCE-INVESTIGATION.md` records the initial, limited investigation only.
 
 ## Verification and release boundaries
 
-See `docs/QUALITY.md` for completed checks and outstanding release criteria, `docs/DATA_PIPELINE.md` for reproducible primary data processing, and the public provenance JSON for checksums, transforms, licences, categories and omissions. The model represents one adult male-derived source; female reproductive anatomy, pathology, histology, complete muscle teaching notes and clinical certification are absent. Surface clipping is an uncapped geometry cut, not a CT/MRI reconstruction. Source categories and LOD detail require qualified review.
+See `docs/QUALITY.md` for completed checks and outstanding release criteria, `docs/DATA_PIPELINE.md` for reproducible primary data processing, and the public provenance JSON for checksums, transforms, licences, categories and omissions. The open library derives from one adult male source; the Detailed Atlas additionally includes source urogenital specimens and muscle teaching details. Both require qualified anatomical review. Pathology, histology and clinical certification are absent. The Atlas muscle library uses a one-sided source dissection presentation and offers skeletal context. All authored native scene compositions and behaviors have not been recreated. Surface clipping is an uncapped geometry cut, not a CT/MRI reconstruction. Source categories and LOD detail require qualified review.
 
 ## Deployment
 

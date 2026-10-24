@@ -98,3 +98,23 @@ labels are preserved; system categories supplement incomplete source compound
 definitions with explicit software rules and remain unreviewed. Regions are
 spatial navigation aids. Medical review is pending. Source-attributed geometry
 does not establish clinical accuracy or curriculum completeness.
+
+## Owner-authorized Atlas pipeline (24 October 2026)
+
+This is a separate library; it is not spatially overlaid onto BodyParts3D. Local
+raw recovery is under ignored `data-source/atlas-analysis/`. Required Python
+tooling: UnityPy 1.25.4, numpy, Pillow, pycryptodome and capstone in a dedicated
+venv. glTF optimization uses the existing ignored glTF-Transform/meshoptimizer
+tooling directory. Run extraction scripts with `--help` for explicit paths:
+
+1. `scripts/inspect-atlas-assets.py --geometry` → decoded arrays, hierarchy and bindings.
+2. `scripts/extract-atlas-textures.py` → native PNGs and texture/material manifest.
+3. `scripts/recover-atlas-labels.py` → validated source SQL, model/landmark mapping.
+4. `scripts/export-atlas-web.py` → shared web textures, uncompressed GLBs and catalog.
+5. `node scripts/optimize-atlas.mjs` → compressed high/balanced GLBs and provenance.
+6. `scripts/export-atlas-landmarks.py` → associated and explicitly unassociated anchors.
+7. `npm test && npm run build`.
+
+Source-identity hashes and actual recovery counts are in the public provenance
+and `evidence/ATLAS-EXTRACTION.md`. Reuse authorization is the owner's explicit
+confirmation; this is not an independently verified open-data licence.

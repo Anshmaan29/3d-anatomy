@@ -7,5 +7,5 @@ self.addEventListener('fetch',event=>{
  if(request.mode==='navigate'||url.pathname.endsWith('.json')||url.pathname.endsWith('.glb')){
   event.respondWith(fetch(request).then(response=>{if(response.ok){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(request,copy));}return response;}).catch(()=>caches.match(request).then(value=>value||caches.match('/'))));return;
  }
- if(/\.(glb|js|css|svg|png|webmanifest)$/.test(url.pathname))event.respondWith(caches.match(request).then(hit=>hit||fetch(request).then(response=>{if(response.ok){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(request,copy));}return response;})));
+ if(/\.(glb|js|css|svg|png|jpg|jpeg|webmanifest)$/.test(url.pathname))event.respondWith(caches.match(request).then(hit=>hit||fetch(request).then(response=>{if(response.ok){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(request,copy));}return response;})));
 });

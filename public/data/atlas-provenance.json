@@ -1,0 +1,1373 @@
+{
+  "version": "atlas-7.2-adaptation-2026-10-24",
+  "source": "Anatomy 3D Atlas 7.2",
+  "permissionBasis": "Project owner explicitly confirmed permission to extract and reuse on 2026-10-24; no independent licence verification claimed.",
+  "structures": 2225,
+  "unmappedCodes": [],
+  "registration": [
+    [
+      0.2,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0.2,
+      0,
+      -1.7
+    ],
+    [
+      0,
+      0,
+      -0.2,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "limitations": [
+    "Source medical content and geometry have not been independently clinically reviewed.",
+    "Alternative surfaces and sections are initially hidden and can be selected in the library.",
+    "Unity Standard material approximated with glTF PBR; original detail/specular shaders not reproduced."
+  ],
+  "sourceFiles": [
+    {
+      "file": "resources.assets",
+      "sha256": "7a3428cac21362fbc7a9d5c07a655ac66f86dd9e92692644bc7fc952b0f80701",
+      "bytes": 396005328
+    },
+    {
+      "file": "sharedassets0.assets",
+      "sha256": "06f86d69efa14176e287da1fe89fbb45593a4f9a69686e169023cafeb1299e76",
+      "bytes": 2479092
+    },
+    {
+      "file": "sharedassets1.assets",
+      "sha256": "b39e92d78ef4a5b8c59711a6c0a01bfcf7b2ae52becb1f4cb712d8cca3430d56",
+      "bytes": 46148
+    },
+    {
+      "file": "sharedassets10.assets",
+      "sha256": "64335c554ba0a3c373c41a3e8bd7c3cf3c6e20df1f2fda044b4777ba0e7a646f",
+      "bytes": 3508
+    },
+    {
+      "file": "sharedassets11.assets",
+      "sha256": "90699880b3f778da9dc791747bf92bdaf50845fe3a98eafbb9dc96a2b5abfaf7",
+      "bytes": 4020
+    },
+    {
+      "file": "sharedassets12.assets",
+      "sha256": "f257da61afec4cf08fb71bb5e5d5f61c26a5a8737de19529e1f2580743ee77f7",
+      "bytes": 2620
+    },
+    {
+      "file": "sharedassets13.assets",
+      "sha256": "06fa1777b1dc7ba1cea70caf36e66e62f326070f9c8f30843b0a79758b8c2dfd",
+      "bytes": 2348
+    },
+    {
+      "file": "sharedassets14.assets",
+      "sha256": "f388c8909288f49877cbf535b0cf9dfd0bb5d53c89ff014bd08be32c204a5304",
+      "bytes": 15924
+    },
+    {
+      "file": "sharedassets15.assets",
+      "sha256": "17d9c7c688cb0b797c31aec0288068cf0144564c5826a53a6823e8ec2085ed80",
+      "bytes": 5936
+    },
+    {
+      "file": "sharedassets16.assets",
+      "sha256": "6f56a71944c725e1705408941b55be0d3c513d1e9f9d9b88ecdae5401ab4884f",
+      "bytes": 6540
+    },
+    {
+      "file": "sharedassets17.assets",
+      "sha256": "57faeec50c9c33a8ca9e2fe15675acddbc1d0625fd1beb89687d7f051bf45bfb",
+      "bytes": 5052
+    },
+    {
+      "file": "sharedassets18.assets",
+      "sha256": "ef82d223d4f12fab434ecda01e5a7c416874dcb05df21c12d38ee114848b7c6d",
+      "bytes": 5736
+    },
+    {
+      "file": "sharedassets19.assets",
+      "sha256": "e075f7d786ca8bc59c9d7bc193b4cddee1f25fd322953d5aea436feb7040bfe6",
+      "bytes": 5944
+    },
+    {
+      "file": "sharedassets2.assets",
+      "sha256": "b973acbf7dafa75e19dc55acdf6f397e8cc992521a3c11371e3f49c6e5a5fc90",
+      "bytes": 16640
+    },
+    {
+      "file": "sharedassets20.assets",
+      "sha256": "09b4e77d0828759833bd6dc57ba06c0dad1bcb742ac953c7cf54197468e20bdd",
+      "bytes": 7248
+    },
+    {
+      "file": "sharedassets21.assets",
+      "sha256": "d53649440728cc242023f6e1a4ee5c2b8b3216b0660163c09854d80c26f70d14",
+      "bytes": 7820
+    },
+    {
+      "file": "sharedassets22.assets",
+      "sha256": "687f57a3a9628145b078f6c80a42a0416c2691434e84491cbc892bfbb1616e75",
+      "bytes": 6012
+    },
+    {
+      "file": "sharedassets23.assets",
+      "sha256": "a69cebddc8417922091677aa12bc3ad8f8a3e51ed3376c38c38dab039bd2720d",
+      "bytes": 2744
+    },
+    {
+      "file": "sharedassets24.assets",
+      "sha256": "c212a9966b6978f8d4a529991c8f33d3ec7963f83059ee313ba758266883701f",
+      "bytes": 4028
+    },
+    {
+      "file": "sharedassets25.assets",
+      "sha256": "6a52a7b90092fc1eade0d7360bdc0a1e10ab2b45bf299127f8fa8fe33e0b8ccf",
+      "bytes": 2368
+    },
+    {
+      "file": "sharedassets26.assets",
+      "sha256": "78f43e9120cb2cfba3c92de3f62351769c1336c13f061178d544c7aeff2e1ce9",
+      "bytes": 1696
+    },
+    {
+      "file": "sharedassets27.assets",
+      "sha256": "b22a6c2fd962a232b3911b78d3a54de869cfc85f934af0e744f1aa3a93737eb5",
+      "bytes": 2376
+    },
+    {
+      "file": "sharedassets28.assets",
+      "sha256": "2a6991b6e107b3fbcd54740f534573c96e81ef60d3e891ae216ef89260f29843",
+      "bytes": 11400
+    },
+    {
+      "file": "sharedassets29.assets",
+      "sha256": "e240570633a1412f744d938e5537cd9a7101c16843cc1beddaa84dc36f084479",
+      "bytes": 7192
+    },
+    {
+      "file": "sharedassets3.assets",
+      "sha256": "ee71e09110bf517b085882cf18c3cc49853c5c0f14921600e8f0dc46c7b6e5a7",
+      "bytes": 4436
+    },
+    {
+      "file": "sharedassets30.assets",
+      "sha256": "da0a07908708c6e03c6d70ab0a1ec7084e3542df439ad195ca1c4de53c077eec",
+      "bytes": 7936
+    },
+    {
+      "file": "sharedassets31.assets",
+      "sha256": "1a7fe4449e1a12d9cfb0da7e579a97a1c0c91d14a2d271fdd7fbafaf595b6b89",
+      "bytes": 5380
+    },
+    {
+      "file": "sharedassets32.assets",
+      "sha256": "2be31c7ce150e64b65a243dc0263b86e79228a61d1785ba53dd9aafc674ff1f0",
+      "bytes": 7840
+    },
+    {
+      "file": "sharedassets33.assets",
+      "sha256": "f2e15f615c1bd37305c96475494d23b39b6f78c8ca74ec2e5f3cadec5231d436",
+      "bytes": 6960
+    },
+    {
+      "file": "sharedassets34.assets",
+      "sha256": "c83847797893769d2d80976567cd731f10b743a6ed18edc61fd7984de0f5dbb0",
+      "bytes": 7744
+    },
+    {
+      "file": "sharedassets35.assets",
+      "sha256": "baddd49c21a3c23accf4d2cd59d1a2ba0927a0984c1340886ec3237c32a83580",
+      "bytes": 7540
+    },
+    {
+      "file": "sharedassets36.assets",
+      "sha256": "37664eed6e98d05a9180beaf1b93bbf699f69e9f967ff90d0df3325df9f43d66",
+      "bytes": 8656
+    },
+    {
+      "file": "sharedassets37.assets",
+      "sha256": "e98d517ea222b4b24a93fae56553671ac1a4255af531170a66431c0e2f5f8483",
+      "bytes": 7204
+    },
+    {
+      "file": "sharedassets38.assets",
+      "sha256": "3437e0a54aec5f9e9cde38974a8db09f2bad590ebd135e44d50e37defd909c9f",
+      "bytes": 1720
+    },
+    {
+      "file": "sharedassets39.assets",
+      "sha256": "eacdb19403407600a099a54a717c21b84aaab078957b73bdae624a5375c9db86",
+      "bytes": 7580
+    },
+    {
+      "file": "sharedassets4.assets",
+      "sha256": "4e534947a1a8b4ff6725ab2275889997810b4828fa05d78f98c520ac9a5e64f6",
+      "bytes": 5052
+    },
+    {
+      "file": "sharedassets40.assets",
+      "sha256": "1b310dd8c670b3e0303e336fbbdcab7c06b81a17832841d884c9470ebb50370b",
+      "bytes": 2440
+    },
+    {
+      "file": "sharedassets41.assets",
+      "sha256": "268f3fc468f805acb88198ca93fbbd66b002d3eaa4f52e2880e8f4ba3cae6f9f",
+      "bytes": 6260
+    },
+    {
+      "file": "sharedassets42.assets",
+      "sha256": "60b3e734e22c97ec3b852973aa9a12490675ae3f64fb668ea12ba490a648c6b6",
+      "bytes": 3088
+    },
+    {
+      "file": "sharedassets43.assets",
+      "sha256": "eccfc1118237c8cc5ad0ce6dbba4a8b9376f2a31dfc5fa54194ab81161c33417",
+      "bytes": 4744
+    },
+    {
+      "file": "sharedassets44.assets",
+      "sha256": "35bbcc3afff7fcc10fed953593ce2667f92ee40f1f3c95dff23901d6a22fbcab",
+      "bytes": 1200
+    },
+    {
+      "file": "sharedassets45.assets",
+      "sha256": "818d747ee9e00351dfb675a4a4ac89209d152d460fe2320f41aa44a09e63f869",
+      "bytes": 3652
+    },
+    {
+      "file": "sharedassets46.assets",
+      "sha256": "e7e1e930ebccf33010319cd763dc2906b48edd6976cf14a077fab565af5dbd75",
+      "bytes": 20048
+    },
+    {
+      "file": "sharedassets47.assets",
+      "sha256": "2f5d8a92d8653b8b3e2b665be126f1c6cf39b6a265d8a2976d518fddb5ef5736",
+      "bytes": 25988
+    },
+    {
+      "file": "sharedassets48.assets",
+      "sha256": "b5dddf529532490a708d167ef1aeb53c8d3626830fc05b010b67341f017b4102",
+      "bytes": 10192
+    },
+    {
+      "file": "sharedassets49.assets",
+      "sha256": "2cb963641ffe17cc7eacad63e2fd146954162417048071b397f0d73f24462e54",
+      "bytes": 11852
+    },
+    {
+      "file": "sharedassets5.assets",
+      "sha256": "12b5a8b15946fd68f4dc9d3829bef70dabca29f008aa1bc57177d0fc268861f3",
+      "bytes": 5784
+    },
+    {
+      "file": "sharedassets50.assets",
+      "sha256": "546634f54ae8bf1c0de655533b0cfd5074eaedd24b3151632c5c064b3d91ebe3",
+      "bytes": 7968
+    },
+    {
+      "file": "sharedassets51.assets",
+      "sha256": "f16a870859542192c0fb1059b97eb9e26511f93df0474daa67985ca4a24a1b52",
+      "bytes": 8700
+    },
+    {
+      "file": "sharedassets52.assets",
+      "sha256": "9411109815f3d3f752be5205e10bbc3195cdd4ff0886bbe14e7a9a1430bd1868",
+      "bytes": 9400
+    },
+    {
+      "file": "sharedassets53.assets",
+      "sha256": "90a95c675e92da39bc7f395634a3543571ef162473417b93e5b1d082695e9328",
+      "bytes": 9868
+    },
+    {
+      "file": "sharedassets54.assets",
+      "sha256": "dee5f2becabf47502ecb5785e30044b92f5fa9531ec82dd2ceb02b7260fa4476",
+      "bytes": 10688
+    },
+    {
+      "file": "sharedassets55.assets",
+      "sha256": "003b9654ad575a3a72ae7bcd1b055806b7b9ba75e52a447773d0709106d46443",
+      "bytes": 12460
+    },
+    {
+      "file": "sharedassets56.assets",
+      "sha256": "55c8b3237e8165171a893790468a60e345a6354eacc52d9f0c0e45ad7fa35a29",
+      "bytes": 9936
+    },
+    {
+      "file": "sharedassets57.assets",
+      "sha256": "07021b762a51ffbd98476b58b1165765352218d22e319d45ef77aeb3fdcef13d",
+      "bytes": 8216
+    },
+    {
+      "file": "sharedassets58.assets",
+      "sha256": "47bf01183e6b5cc5cb9f08c718e60368cccd84388abe6aaa3eb4a75742f8487b",
+      "bytes": 5016
+    },
+    {
+      "file": "sharedassets59.assets",
+      "sha256": "223503eb21725b707b19eacaf0de5e4a4c5f44d3150849bc03d85cd349c6eb6c",
+      "bytes": 5536
+    },
+    {
+      "file": "sharedassets6.assets",
+      "sha256": "67a3d8f94b4629733736065c25cf9c3cc98d6d7abac6a9c28776eaf06e0fba86",
+      "bytes": 1632
+    },
+    {
+      "file": "sharedassets60.assets",
+      "sha256": "db4314d32de69311ad0d2c42873efaf1901e810099ea649997a300c3a3dcaace",
+      "bytes": 4708
+    },
+    {
+      "file": "sharedassets61.assets",
+      "sha256": "28d0a91513931c3e527cdc03c15f11566d0f0559d8de4afb9aca781b42dead15",
+      "bytes": 5776
+    },
+    {
+      "file": "sharedassets62.assets",
+      "sha256": "338568a32def7da3fb6b31367c61977930274a899223de24f008e52fbf19c7b2",
+      "bytes": 4672
+    },
+    {
+      "file": "sharedassets63.assets",
+      "sha256": "6555f89e01feba33967a7b0cc7aee4a654bff11f158d44ee7fef7c78545056af",
+      "bytes": 5616
+    },
+    {
+      "file": "sharedassets64.assets",
+      "sha256": "0358e43e9c3277a129aa89e8abe8c81d2eedb6a761c4990756b828d715a9ea1a",
+      "bytes": 5284
+    },
+    {
+      "file": "sharedassets65.assets",
+      "sha256": "8827882883477e1df2e188fdb1ff6949ce7b63700d2c27b957d45d235a56f1de",
+      "bytes": 6176
+    },
+    {
+      "file": "sharedassets66.assets",
+      "sha256": "99a9d2cc3dd189bfd0c50860fe2ddeb90434a27884b60c0e41744bfa37d901e0",
+      "bytes": 4948
+    },
+    {
+      "file": "sharedassets67.assets",
+      "sha256": "9c92eea19f95e9c005b16b3aa6918d5656d99bc8d89d0631839902df1529f042",
+      "bytes": 2268
+    },
+    {
+      "file": "sharedassets68.assets",
+      "sha256": "f97f42d66990a31c82bb89953c4de05f884669d9e2921045465f0ecf7a339543",
+      "bytes": 6440
+    },
+    {
+      "file": "sharedassets69.assets",
+      "sha256": "1d91bddbc6a95d0c6de217d771057aa2d4987b9ca69eb4d7f9c04bd2f20b0559",
+      "bytes": 2372
+    },
+    {
+      "file": "sharedassets7.assets",
+      "sha256": "c641df9178833d1b122618463fc7c5461f5da534aaa2a71c94df388732312551",
+      "bytes": 872
+    },
+    {
+      "file": "sharedassets70.assets",
+      "sha256": "5c89c2bb075d4116b076fcc121cff6f02dcf0c2eb4111cbcb38e7809347c4044",
+      "bytes": 4368
+    },
+    {
+      "file": "sharedassets71.assets",
+      "sha256": "a25af0634b4c77a8e1bc6a9a54852aba489dc1046cd413536327ece3b080d80a",
+      "bytes": 268664
+    },
+    {
+      "file": "sharedassets72.assets",
+      "sha256": "6b96bb6fa2e0a452a14443f9bf2d98526077fc8b641f2ba5e5729cc04d39f0e9",
+      "bytes": 1481
+    },
+    {
+      "file": "sharedassets8.assets",
+      "sha256": "9c70219e63efb157df773d4e370481c6d13a3f4e60158987604ac9e31ee0519d",
+      "bytes": 11888
+    },
+    {
+      "file": "sharedassets9.assets",
+      "sha256": "dc4684734db2d61ff684bb7a13a178a00380fd0d44d9e87c7b6ed0a08607708a",
+      "bytes": 4352
+    },
+    {
+      "file": "level0",
+      "sha256": "9de6ce813dea4e710619219f28bda998f9a8c4151a339a314ba800691865737a",
+      "bytes": 5908
+    },
+    {
+      "file": "level1",
+      "sha256": "26dfe3fd12ef5a98c17fd9ef96dbd6b6f7d4452ff4846071998db1ace6ca730c",
+      "bytes": 1979552
+    },
+    {
+      "file": "level10",
+      "sha256": "41cfdfd1dd197de16a07118c2164785a25673cfd68ec21ffd6920e4503926507",
+      "bytes": 134180
+    },
+    {
+      "file": "level11",
+      "sha256": "625094c8875ca455c9333d6b721607aaf374d4d72f6f5ee9cd55e1eefe7f8b77",
+      "bytes": 154164
+    },
+    {
+      "file": "level12",
+      "sha256": "2ba0627a46afdd6566ba720e3187f3771db932d35519c6ec4dcd641a798e0ac7",
+      "bytes": 48752
+    },
+    {
+      "file": "level13",
+      "sha256": "27807bd5a733ce60eeaed7e58ce82abb85271fc217cbe695828b86b71d03fc8a",
+      "bytes": 38432
+    },
+    {
+      "file": "level14",
+      "sha256": "4bab2d98a2e6f877648e4a941b6c85fd19b0ef80d769d3b3830df5839edda077",
+      "bytes": 674304
+    },
+    {
+      "file": "level15",
+      "sha256": "9d86a069ac16b5e3b0e98afe2cd857be262b90e91f066e252ec4958cdd97dcb6",
+      "bytes": 199584
+    },
+    {
+      "file": "level16",
+      "sha256": "2c77b550e07aad458f453a3ed375f02fd0e65e720f4df9ad751f13cf923ea18c",
+      "bytes": 230928
+    },
+    {
+      "file": "level17",
+      "sha256": "b3dd5efef7a6db38fcbe90a5494fd6487b45b6dbc60208c0ca5a0818976173b9",
+      "bytes": 159104
+    },
+    {
+      "file": "level18",
+      "sha256": "ed24392ae6a4ccdc64373de36ac73edb511a7ffeb2a9d97f4fd6ead86bf16170",
+      "bytes": 190512
+    },
+    {
+      "file": "level19",
+      "sha256": "be00d221211ead76542fbf04f0edc43c9c74df5dd5ba063e860b3e2cc3a93b9f",
+      "bytes": 196560
+    },
+    {
+      "file": "level2",
+      "sha256": "c0d1f158b57cdbb385f833e2974903bdef81fb2c909f290e527848ee5e013c0c",
+      "bytes": 347744
+    },
+    {
+      "file": "level20",
+      "sha256": "b7e32405d09bde1e3a6d5b36923bda850f02bfaf156000ebaa10fc9b8c94c4d5",
+      "bytes": 268144
+    },
+    {
+      "file": "level21",
+      "sha256": "566fd53feec5627fdb667fe9693086a46cb6c921054bc72709f52d1f33cdf0af",
+      "bytes": 285600
+    },
+    {
+      "file": "level22",
+      "sha256": "dd6f1441777b5fa0b869f8078fca37071c6485720a1cfb1c1946bef0b55b1f3d",
+      "bytes": 204032
+    },
+    {
+      "file": "level23",
+      "sha256": "6c55990f8609a158cd0b800a0e3e558680c8221f187ca8b91dd3d7b0cc5d4e54",
+      "bytes": 63712
+    },
+    {
+      "file": "level24",
+      "sha256": "0635d09465eeea2487e37352f4c392452713074cc9309de298e2ebf3f12e7520",
+      "bytes": 125552
+    },
+    {
+      "file": "level25",
+      "sha256": "cd18807b3c001da096933c7170d49b4a0e0af273235916b5f847ec662725b83f",
+      "bytes": 41060
+    },
+    {
+      "file": "level26",
+      "sha256": "e6ad96d088964c276b8e2c7e976d9c950383bd0bf7be02b0ad6fd3a7d04ec6a8",
+      "bytes": 35360
+    },
+    {
+      "file": "level27",
+      "sha256": "6fcf0730bec3549ce880c56083ef2dbac376cec06a6c4c97734868ac2116d8ea",
+      "bytes": 52352
+    },
+    {
+      "file": "level28",
+      "sha256": "5ad6e04ff2bb595ec26b42372badcae1a7030e7edccf62f500432c9603e0930a",
+      "bytes": 468608
+    },
+    {
+      "file": "level29",
+      "sha256": "591c6c1fc25121821a762b8767daa95f49c2f23421fad349e62c14c31706e5a8",
+      "bytes": 257796
+    },
+    {
+      "file": "level3",
+      "sha256": "a71c366a476556e264dc24aa9c05e3463204f3c15e5c7658f89156a875ee0eab",
+      "bytes": 151428
+    },
+    {
+      "file": "level30",
+      "sha256": "d3d8119b201aef8d6b1c8b4bf2fda6a7e76821ee64fc8f0290b1b231eaf9856e",
+      "bytes": 296976
+    },
+    {
+      "file": "level31",
+      "sha256": "ba10ec4105d47872d0febfaca5b903a2c8790bd694a1cbab81b1247eb4b0dcf4",
+      "bytes": 176868
+    },
+    {
+      "file": "level32",
+      "sha256": "10272d37178e2cfa022ddb24bc3c38b8c38adafb35b0d485cc370977f3558a94",
+      "bytes": 285684
+    },
+    {
+      "file": "level33",
+      "sha256": "0810806cb6932f0ebe43ce0d884f3cbecd9cc042aaf6b731b9d0ee40b0dc81ad",
+      "bytes": 244020
+    },
+    {
+      "file": "level34",
+      "sha256": "c7a06355c27ccaf384401d0a4e652aec025d6a2c59b68df62fe05b0b49ab39fb",
+      "bytes": 279700
+    },
+    {
+      "file": "level35",
+      "sha256": "997acf21802b3f592c8b9c70b351413bbd648848b5b95b7144281fbd778cbb73",
+      "bytes": 276132
+    },
+    {
+      "file": "level36",
+      "sha256": "c7d025880640db6e63edb30f461dd63c2ce2879850c4dc441c3f3a73af40e4ca",
+      "bytes": 328388
+    },
+    {
+      "file": "level37",
+      "sha256": "02bf541c304451e270e2dde7eb9b8d946ac855e80489e4013930a12c7414ac5b",
+      "bytes": 259088
+    },
+    {
+      "file": "level38",
+      "sha256": "07ae929aa72e0349c02fcaaa4fe0317972fc92c346331ee862f453885cef6388",
+      "bytes": 25332
+    },
+    {
+      "file": "level39",
+      "sha256": "8efa062a4c9ec46228047b5d87dcf1b8ba357b89745edb4a00e16524f87bd816",
+      "bytes": 320672
+    },
+    {
+      "file": "level4",
+      "sha256": "29b3bacd486d7ab98636dcee5b372ba3505d0e34d2a322d1b7fe9ece9d42e5b1",
+      "bytes": 184016
+    },
+    {
+      "file": "level40",
+      "sha256": "deb4bd2c008368479acf8968dd931c50d30ac61012144d16e8f03c0739d4563f",
+      "bytes": 76228
+    },
+    {
+      "file": "level41",
+      "sha256": "80e60c39e48c385eb76d874b705ae9d03d56b442c35a4bed84fe39df935a19d6",
+      "bytes": 213360
+    },
+    {
+      "file": "level42",
+      "sha256": "2c56be2343097097e4ff42b0585004446fb170129709e0630bb8fe01abf554ec",
+      "bytes": 104996
+    },
+    {
+      "file": "level43",
+      "sha256": "f212b413b8c24b9f7e8c65722f5af9b1f5b17d6702e53bed39b20fdf2cea7ddf",
+      "bytes": 146144
+    },
+    {
+      "file": "level44",
+      "sha256": "5afd112ca7f1b5facb5288b5d9edf7374797e6bce8fcea9c96f82586c566f168",
+      "bytes": 22308
+    },
+    {
+      "file": "level45",
+      "sha256": "c8672324837447c66fbee35c99fbd4a0921ebae25539190dcdb954f27a0bc102",
+      "bytes": 124180
+    },
+    {
+      "file": "level46",
+      "sha256": "575e4a771b9c324fa5e3305d91593b1a12c3685755ac392e43137bf4a7b0de86",
+      "bytes": 893476
+    },
+    {
+      "file": "level47",
+      "sha256": "418adc65f95867cf2c2fdea5312a6bcf53bcb3862c796fea14504cf1482507fc",
+      "bytes": 1158628
+    },
+    {
+      "file": "level48",
+      "sha256": "87d4264eb5d09e32a78218f422c217758b1886097db3d206c7d64bf7bcca1e5f",
+      "bytes": 387668
+    },
+    {
+      "file": "level49",
+      "sha256": "2212c40da4eb0843b5ad2916b4c25cb2874afea04acb6827a18ecc68ebfe419b",
+      "bytes": 475796
+    },
+    {
+      "file": "level5",
+      "sha256": "a41688e0a041e196f8f7728ff2a5ff72f1002f38dcf78327e4cdc4891f1a7fa1",
+      "bytes": 224788
+    },
+    {
+      "file": "level50",
+      "sha256": "49d15053b2592a88c74f7dee812cd3b34f6c0e49808dd2e52135637460ab3ee9",
+      "bytes": 295924
+    },
+    {
+      "file": "level51",
+      "sha256": "02979b81037f3042931b399592dfc9073d3a244512099e2cb6a926972af44da5",
+      "bytes": 327876
+    },
+    {
+      "file": "level52",
+      "sha256": "d6ed6aea6198360387f8dd516176fbe8b1ac0a4228776fc8ca451f97c77e6a29",
+      "bytes": 359972
+    },
+    {
+      "file": "level53",
+      "sha256": "825091bdfcf564a7f15a2ab9282f5e633b226514ee43b4ef2cc2d90b1fab6602",
+      "bytes": 378212
+    },
+    {
+      "file": "level54",
+      "sha256": "310b02a64e22138343f58b71c2a349c2a9ef3eace2398df042f2a3ce3f1ce70e",
+      "bytes": 436164
+    },
+    {
+      "file": "level55",
+      "sha256": "9e8c7a1772637e2b13346806bb4db71b87656b4d0a88a4c3e9ef8a54b1f17027",
+      "bytes": 516788
+    },
+    {
+      "file": "level56",
+      "sha256": "f461c47441b1ba2432ddd20cfddbe819d1fcfe8e759ae4f46c4fb4aa7955607c",
+      "bytes": 379508
+    },
+    {
+      "file": "level57",
+      "sha256": "78e9c1f920f93079044cbbf478db3d19f2bce043427d067b09545436bc5fcbd8",
+      "bytes": 323024
+    },
+    {
+      "file": "level58",
+      "sha256": "75dd4a9b705a9e3a5be14f7716172c7bbd38b1e6f7877d77da807d39fee5b787",
+      "bytes": 162272
+    },
+    {
+      "file": "level59",
+      "sha256": "418b4a7b42cfab13ca211cf7580b8c5815554973c61275e40f39c721f3507883",
+      "bytes": 189152
+    },
+    {
+      "file": "level6",
+      "sha256": "352760cf82cffe9d2e7b1adc3939a3018a0115a1414738de9c2fef42696fe080",
+      "bytes": 21156
+    },
+    {
+      "file": "level60",
+      "sha256": "7f3aeecc08cf9e4edf4d3ea57b1bcc41f8563d9b59b7548914a29f484897adb5",
+      "bytes": 145824
+    },
+    {
+      "file": "level61",
+      "sha256": "6967ae403e5e44109ae7e82853252785b4938060217dd234d14e50aeb4b5f267",
+      "bytes": 195616
+    },
+    {
+      "file": "level62",
+      "sha256": "c097cae2c2335569e1408d4b5ca0a04c483423ff8250d8d8d0deb3a8c173f584",
+      "bytes": 142592
+    },
+    {
+      "file": "level63",
+      "sha256": "a32e149ef7feb9bf69cb36bf589216a6abe95f1b0a890e40321f9abc5e1ba6f5",
+      "bytes": 190128
+    },
+    {
+      "file": "level64",
+      "sha256": "c0882fb68b73d2d9d1f81e5f98b37555b22a4447f5bf792fc1c50eec7273f5da",
+      "bytes": 175232
+    },
+    {
+      "file": "level65",
+      "sha256": "fa63dbd99c65153841d1769fc4f5968d5f948be9b403b1e5db2cea01a2664854",
+      "bytes": 219536
+    },
+    {
+      "file": "level66",
+      "sha256": "e8a03d861bc039b21e1e5e1a1b0e0f3ce5e05bb3444d23aaa5a00b630a7ca9e1",
+      "bytes": 159088
+    },
+    {
+      "file": "level67",
+      "sha256": "a41904e568dcc9c275e99b0a3c1046aea70f095d74dbd08e051e7df86bb7121d",
+      "bytes": 52576
+    },
+    {
+      "file": "level68",
+      "sha256": "43104c33a9534309c7e3d704105411db7591c9e17b1322b4fd55e75433b60888",
+      "bytes": 254900
+    },
+    {
+      "file": "level69",
+      "sha256": "4c4218c50a5db8675afafa48dd868cf3eae9738b9715fc4d74e9c64c7b4e8cce",
+      "bytes": 67108
+    },
+    {
+      "file": "level7",
+      "sha256": "6703d206fdab4e1d0f2361d0283a74993d30ab09600602003251a1ab50267f2f",
+      "bytes": 5888
+    },
+    {
+      "file": "level70",
+      "sha256": "1feaa6a5e909d10550572d04c699c5e60c87b9c1f7f56e681f49e32bce305719",
+      "bytes": 146256
+    },
+    {
+      "file": "level71",
+      "sha256": "1091945584c07ec2eb97e4cb3c8277302274316c565d4832d6e39bbaa3c67d4b",
+      "bytes": 312396
+    },
+    {
+      "file": "level72",
+      "sha256": "21dad53b6dece2fade1282d9f4eaee2097e0ce367fb552b83e3863242398945f",
+      "bytes": 2244
+    },
+    {
+      "file": "level8",
+      "sha256": "ae653bbd52b5fec1d8f6546be876f71671029f4d52b8e36c5806ef5086b508e9",
+      "bytes": 474772
+    },
+    {
+      "file": "level9",
+      "sha256": "a4702290af8667ad3e4c9c961ac7750e7f6b165d0f806f0de635b7fbf34cd976",
+      "bytes": 165140
+    }
+  ],
+  "geometry": {
+    "meshes": 4234,
+    "vertices": 4586919,
+    "triangles": 7518721,
+    "archiveBytes": 127930558,
+    "failures": 0
+  },
+  "catalog": {
+    "modelRecords": 1985,
+    "landmarkRecords": 1002,
+    "musclesWithEnglishDetails": 280,
+    "evidence": {
+      "evidenceKind": "Offline native disassembly + source-bound metadata + validated SQL parsing",
+      "nativeSha256": "8f05386b71911796d9080dcfcadf611c19649a7d3f581d3e5108b393689a9f6a",
+      "metadataSha256": "79bd7821c4e84720e22d3185e0841bb680e325e5e6165eaed58d3dc771c8af64",
+      "encryptedCatalogSha256": "31ec434d83378418db2ef94053491295e79e9634266a729ff9e32073aba06f53",
+      "decodedCatalogSha256": "55af193ea1a93ed9a649f09682cd34880609b648f75d2e0e3d6fb45983bf078b",
+      "decodedCatalogBytes": 3642775,
+      "nativeMethods": {
+        "CASSQLiteMonoDb_LoadCryptoDb_m": "0x401d60",
+        "DecryptorToMem_FromMemToString_m": "0x402180",
+        "DeObfuscator_Run_m": "0x4061b4",
+        "AnatomyAbstract_GetIdFromName_m": "0x383d7c"
+      },
+      "decoding": "AES-CBC; IV prefix; embedded field array transformed by index XOR. No key material exported.",
+      "mapping": "AnatomyAbstract.GetIdFromName splits scene name at underscore and parses digits from second token; M and MH therefore share the same numeric catalog identifier."
+    }
+  },
+  "texture": {
+    "tool": "UnityPy",
+    "version": "1.25.4",
+    "textureObjects": 708,
+    "decodedTextures": 697,
+    "zeroSizePlaceholders": 11,
+    "materials": 254,
+    "failures": 0,
+    "pngBytes": 436803757,
+    "decodedPixels": 751442613,
+    "formats": {
+      "Alpha8": 76,
+      "DXT5": 401,
+      "RGBA32": 10,
+      "DXT1": 205,
+      "RGB24": 3,
+      "BC7": 1,
+      "BC6H": 1
+    },
+    "materialReferencedTextures": 329,
+    "seconds": 29.77,
+    "limitations": [
+      "Decoded texture pixels are not validated anatomical labels.",
+      "Unity normal/specular packing needs conversion for glTF material use.",
+      "Texture2D exports exclude procedural shader output and Cubemap textures.",
+      "UI/font textures are included and must be filtered by mesh material references."
+    ]
+  },
+  "systems": [
+    {
+      "id": "cardiovascular",
+      "quality": "high",
+      "path": "/models/atlas/cardiovascular-01.glb",
+      "count": 100,
+      "originalTriangles": 232322,
+      "triangles": 232322,
+      "bytes": 1286776,
+      "sha256": "48c2f4dc4e905353beb0f05684a59619361aba66d25c8e674ee9305a1bbc4027"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/cardiovascular-01.glb",
+      "count": 100,
+      "originalTriangles": 232322,
+      "triangles": 232322,
+      "bytes": 1286776,
+      "sha256": "48c2f4dc4e905353beb0f05684a59619361aba66d25c8e674ee9305a1bbc4027"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "high",
+      "path": "/models/atlas/cardiovascular-02.glb",
+      "count": 100,
+      "originalTriangles": 536691,
+      "triangles": 536691,
+      "bytes": 3156708,
+      "sha256": "fcf9c76a8286a903e2d991d18d4fefa354691b518537738ea55410d2dd6fc451"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/cardiovascular-02.glb",
+      "count": 100,
+      "originalTriangles": 536691,
+      "triangles": 536691,
+      "bytes": 3156708,
+      "sha256": "0aa7305e1324dcbb521f93fb4a12380cf891f19127a8b55e38d8173885b9e88c"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "high",
+      "path": "/models/atlas/cardiovascular-03.glb",
+      "count": 100,
+      "originalTriangles": 580275,
+      "triangles": 580275,
+      "bytes": 3352420,
+      "sha256": "ae5b027122cb560c4cc9aa8f48cfba0e99a87a407c06ed55bff371f7f92e3706"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/cardiovascular-03.glb",
+      "count": 100,
+      "originalTriangles": 580275,
+      "triangles": 580275,
+      "bytes": 3352420,
+      "sha256": "03d527adc06916afa3bf83a52555b5e8e645695c66c7d7af62f8ac75b088aac7"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "high",
+      "path": "/models/atlas/cardiovascular-04.glb",
+      "count": 100,
+      "originalTriangles": 277686,
+      "triangles": 277686,
+      "bytes": 1696684,
+      "sha256": "fae1f59284b29262e7ac052cc8246b36c52368d878ef0867ae492e177efc4576"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/cardiovascular-04.glb",
+      "count": 100,
+      "originalTriangles": 277686,
+      "triangles": 277686,
+      "bytes": 1696684,
+      "sha256": "fae1f59284b29262e7ac052cc8246b36c52368d878ef0867ae492e177efc4576"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "high",
+      "path": "/models/atlas/cardiovascular-05.glb",
+      "count": 100,
+      "originalTriangles": 324867,
+      "triangles": 324867,
+      "bytes": 1921264,
+      "sha256": "d4a63d24dc115ecd2e68c71a5ed92c4af172f9450fe18cf86298321f361bc05e"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/cardiovascular-05.glb",
+      "count": 100,
+      "originalTriangles": 324867,
+      "triangles": 324867,
+      "bytes": 1921264,
+      "sha256": "d4a63d24dc115ecd2e68c71a5ed92c4af172f9450fe18cf86298321f361bc05e"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "high",
+      "path": "/models/atlas/cardiovascular-06.glb",
+      "count": 72,
+      "originalTriangles": 113294,
+      "triangles": 113294,
+      "bytes": 651092,
+      "sha256": "7e574063e7fb18b1a17102607785eddc04aa064335c0d0f41e769be6b80ce1a0"
+    },
+    {
+      "id": "cardiovascular",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/cardiovascular-06.glb",
+      "count": 72,
+      "originalTriangles": 113294,
+      "triangles": 113294,
+      "bytes": 651092,
+      "sha256": "7e574063e7fb18b1a17102607785eddc04aa064335c0d0f41e769be6b80ce1a0"
+    },
+    {
+      "id": "digestive",
+      "quality": "high",
+      "path": "/models/atlas/digestive-01.glb",
+      "count": 22,
+      "originalTriangles": 489314,
+      "triangles": 489314,
+      "bytes": 2821972,
+      "sha256": "179a50475d331775ab92e5676b17e9952e54404c0121fa6616f27a5c624a8c93"
+    },
+    {
+      "id": "digestive",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/digestive-01.glb",
+      "count": 22,
+      "originalTriangles": 489314,
+      "triangles": 351814,
+      "bytes": 2136692,
+      "sha256": "5b2ca137f55680992f0b3c2e7bc6fdb02fe3c16781b281ade2f20707e4544ce5"
+    },
+    {
+      "id": "endocrine",
+      "quality": "high",
+      "path": "/models/atlas/endocrine-01.glb",
+      "count": 7,
+      "originalTriangles": 8744,
+      "triangles": 8744,
+      "bytes": 74228,
+      "sha256": "d861dbb0b66e7b5d45ad476e26d11dc17eaf4376d2803a6ab0dd53d4d1221c8c"
+    },
+    {
+      "id": "endocrine",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/endocrine-01.glb",
+      "count": 7,
+      "originalTriangles": 8744,
+      "triangles": 8744,
+      "bytes": 74228,
+      "sha256": "337cdb9c595bff0649abf45d5680ae5257c8dc9f31a052fb5f00dd84275364d7"
+    },
+    {
+      "id": "lymphatic",
+      "quality": "high",
+      "path": "/models/atlas/lymphatic-01.glb",
+      "count": 100,
+      "originalTriangles": 222502,
+      "triangles": 222502,
+      "bytes": 1822488,
+      "sha256": "7ad4972787ac71639fb3302da93d7c51ab5993fe97b60feddefcb79f0ca02479"
+    },
+    {
+      "id": "lymphatic",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/lymphatic-01.glb",
+      "count": 100,
+      "originalTriangles": 222502,
+      "triangles": 222502,
+      "bytes": 1822488,
+      "sha256": "21f34b9ffd2bdfb6ef03ba095ecaa3c223fa1f582154013605465feb2fe6df3c"
+    },
+    {
+      "id": "lymphatic",
+      "quality": "high",
+      "path": "/models/atlas/lymphatic-02.glb",
+      "count": 19,
+      "originalTriangles": 33400,
+      "triangles": 33400,
+      "bytes": 249472,
+      "sha256": "1bdfb1d4833e14ee4a073412d4ac14ab28ebfdef55538b07fa3cb83c50e766a1"
+    },
+    {
+      "id": "lymphatic",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/lymphatic-02.glb",
+      "count": 19,
+      "originalTriangles": 33400,
+      "triangles": 33400,
+      "bytes": 249472,
+      "sha256": "1bdfb1d4833e14ee4a073412d4ac14ab28ebfdef55538b07fa3cb83c50e766a1"
+    },
+    {
+      "id": "muscular",
+      "quality": "high",
+      "path": "/models/atlas/muscular-01.glb",
+      "count": 100,
+      "originalTriangles": 283907,
+      "triangles": 283907,
+      "bytes": 2192808,
+      "sha256": "a32acf5d09a50f8c7694ba214de917d13abd9b6fe1e0b99d29ec04601007d024"
+    },
+    {
+      "id": "muscular",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/muscular-01.glb",
+      "count": 100,
+      "originalTriangles": 283907,
+      "triangles": 236209,
+      "bytes": 1900820,
+      "sha256": "fb7b9d47bffa84182fcd123002553fb4a49f8766934e3dcb268cfeb991363a48"
+    },
+    {
+      "id": "muscular",
+      "quality": "high",
+      "path": "/models/atlas/muscular-02.glb",
+      "count": 100,
+      "originalTriangles": 156615,
+      "triangles": 156615,
+      "bytes": 1381912,
+      "sha256": "2f8b0e223efc1ab239432b156e6a59ede84db50d8138ed2592df07ba20a43ebf"
+    },
+    {
+      "id": "muscular",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/muscular-02.glb",
+      "count": 100,
+      "originalTriangles": 156615,
+      "triangles": 143839,
+      "bytes": 1295160,
+      "sha256": "257baa53214c75154e331645592b621bad9025f8b6389eb57b1d021912712a22"
+    },
+    {
+      "id": "muscular",
+      "quality": "high",
+      "path": "/models/atlas/muscular-03.glb",
+      "count": 83,
+      "originalTriangles": 102354,
+      "triangles": 102354,
+      "bytes": 882644,
+      "sha256": "3c819b9412dea4b3cd5592d4eea7d40b819304eca56d865270785596fb0e7d04"
+    },
+    {
+      "id": "muscular",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/muscular-03.glb",
+      "count": 83,
+      "originalTriangles": 102354,
+      "triangles": 98832,
+      "bytes": 864284,
+      "sha256": "48efe9ad04f624a083eb1d4045df81c8b1e2f954c87e4abf75e59750be6f9b88"
+    },
+    {
+      "id": "nervous",
+      "quality": "high",
+      "path": "/models/atlas/nervous-01.glb",
+      "count": 100,
+      "originalTriangles": 636270,
+      "triangles": 636270,
+      "bytes": 4534496,
+      "sha256": "6de1c2904649db0227462260cb23b3addb9027d531a27bdec391aba986dc273c"
+    },
+    {
+      "id": "nervous",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/nervous-01.glb",
+      "count": 100,
+      "originalTriangles": 636270,
+      "triangles": 636270,
+      "bytes": 4534496,
+      "sha256": "e2e21379336e8ee8e6aa1ff3d65aa8c721e233ce54841ffb1126c786ac2422eb"
+    },
+    {
+      "id": "nervous",
+      "quality": "high",
+      "path": "/models/atlas/nervous-02.glb",
+      "count": 100,
+      "originalTriangles": 304054,
+      "triangles": 304054,
+      "bytes": 2473216,
+      "sha256": "dcab9fc09edd803bf8579c65c4c34964ffc33fc7241d9c69cf15a7bb26913e02"
+    },
+    {
+      "id": "nervous",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/nervous-02.glb",
+      "count": 100,
+      "originalTriangles": 304054,
+      "triangles": 304054,
+      "bytes": 2473216,
+      "sha256": "c231749bbe238c4c2a8ab1d08b5fd753ed44bd532a132f26c87e6dca48aa90b0"
+    },
+    {
+      "id": "nervous",
+      "quality": "high",
+      "path": "/models/atlas/nervous-03.glb",
+      "count": 100,
+      "originalTriangles": 175945,
+      "triangles": 175945,
+      "bytes": 1734812,
+      "sha256": "3fa10ca21aeea0a86aafb594dabe72be454e8736d860886d030a5a2c8a1f89d6"
+    },
+    {
+      "id": "nervous",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/nervous-03.glb",
+      "count": 100,
+      "originalTriangles": 175945,
+      "triangles": 175945,
+      "bytes": 1734812,
+      "sha256": "e617714072b26c218de906ebaa360adb086e418b301e6f19dd17ffb42354e47d"
+    },
+    {
+      "id": "nervous",
+      "quality": "high",
+      "path": "/models/atlas/nervous-04.glb",
+      "count": 100,
+      "originalTriangles": 188049,
+      "triangles": 188049,
+      "bytes": 1575644,
+      "sha256": "f864ce89eba0fad4cf77835bf10b00f14388cd6139ab2c90e737a8b3a2a46c8f"
+    },
+    {
+      "id": "nervous",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/nervous-04.glb",
+      "count": 100,
+      "originalTriangles": 188049,
+      "triangles": 188049,
+      "bytes": 1575644,
+      "sha256": "f864ce89eba0fad4cf77835bf10b00f14388cd6139ab2c90e737a8b3a2a46c8f"
+    },
+    {
+      "id": "reproductive",
+      "quality": "high",
+      "path": "/models/atlas/reproductive-01.glb",
+      "count": 48,
+      "originalTriangles": 761502,
+      "triangles": 761502,
+      "bytes": 4839428,
+      "sha256": "b9de160466e8b6dcd5c36dfa844782bd596f1e1935ea9cc2ebb346fd85b30ea3"
+    },
+    {
+      "id": "reproductive",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/reproductive-01.glb",
+      "count": 48,
+      "originalTriangles": 761502,
+      "triangles": 584122,
+      "bytes": 3935904,
+      "sha256": "0e6c45caa7a85519a35f3553d0db5f03e67c0aeb64228b36267c69e01ed76358"
+    },
+    {
+      "id": "respiratory",
+      "quality": "high",
+      "path": "/models/atlas/respiratory-01.glb",
+      "count": 72,
+      "originalTriangles": 178604,
+      "triangles": 178604,
+      "bytes": 1267544,
+      "sha256": "784dd13d0fabfb721bd5867426c8f549613325a879243e0483202dd59fd70745"
+    },
+    {
+      "id": "respiratory",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/respiratory-01.glb",
+      "count": 72,
+      "originalTriangles": 178604,
+      "triangles": 148106,
+      "bytes": 1099928,
+      "sha256": "5f05024f52f66b12dafcb9b9cf4fcde683ce9435595e911260027ef9e79b27fa"
+    },
+    {
+      "id": "skeletal",
+      "quality": "high",
+      "path": "/models/atlas/skeletal-01.glb",
+      "count": 100,
+      "originalTriangles": 608163,
+      "triangles": 608163,
+      "bytes": 4240168,
+      "sha256": "cbf0b971b7decfcb3900a99481cdd04df8e7b0dce341c104dc696c5ea5541e0e"
+    },
+    {
+      "id": "skeletal",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/skeletal-01.glb",
+      "count": 100,
+      "originalTriangles": 608163,
+      "triangles": 510287,
+      "bytes": 3619764,
+      "sha256": "2925478e2b98f10088440ef31894b836a68af41864cc7e3548eab49cf077a360"
+    },
+    {
+      "id": "skeletal",
+      "quality": "high",
+      "path": "/models/atlas/skeletal-02.glb",
+      "count": 100,
+      "originalTriangles": 272870,
+      "triangles": 272870,
+      "bytes": 2013568,
+      "sha256": "ff1ff7aaf2354a780509363094d77db8451ea09d0528cfa62088b2cc604814c3"
+    },
+    {
+      "id": "skeletal",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/skeletal-02.glb",
+      "count": 100,
+      "originalTriangles": 272870,
+      "triangles": 236912,
+      "bytes": 1805076,
+      "sha256": "f1387e40c94e2fb7000dd300f0d26901ab0b1ec6efcd6263566fbe4934eee8a0"
+    },
+    {
+      "id": "skeletal",
+      "quality": "high",
+      "path": "/models/atlas/skeletal-03.glb",
+      "count": 100,
+      "originalTriangles": 155021,
+      "triangles": 155021,
+      "bytes": 1275840,
+      "sha256": "a3691444465d245b6d1bfff31023239e5c53cc16d7416f56b06518e05e5ae1dd"
+    },
+    {
+      "id": "skeletal",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/skeletal-03.glb",
+      "count": 100,
+      "originalTriangles": 155021,
+      "triangles": 147915,
+      "bytes": 1229168,
+      "sha256": "bc98d86ef0b61e4a53f483c94cf53fb68d6f27c42382b6c1185d4e7405142940"
+    },
+    {
+      "id": "skeletal",
+      "quality": "high",
+      "path": "/models/atlas/skeletal-04.glb",
+      "count": 100,
+      "originalTriangles": 164988,
+      "triangles": 164988,
+      "bytes": 1300792,
+      "sha256": "4cd8f1109f2f3561534af63f393bd94b7c93aa31fb220c7cba3986fa450f5ac0"
+    },
+    {
+      "id": "skeletal",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/skeletal-04.glb",
+      "count": 100,
+      "originalTriangles": 164988,
+      "triangles": 154678,
+      "bytes": 1246492,
+      "sha256": "1954247577d7da2f083c414d3ce53cc3de761f6c5888414a6a9e3c69cf55af85"
+    },
+    {
+      "id": "skeletal",
+      "quality": "high",
+      "path": "/models/atlas/skeletal-05.glb",
+      "count": 100,
+      "originalTriangles": 105683,
+      "triangles": 105683,
+      "bytes": 958888,
+      "sha256": "18b58170df1cd8fcdbef66e8d0dfe4eccbe5a1a3fc6b40ecb7149f877c129aad"
+    },
+    {
+      "id": "skeletal",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/skeletal-05.glb",
+      "count": 100,
+      "originalTriangles": 105683,
+      "triangles": 98623,
+      "bytes": 912224,
+      "sha256": "1b1e3c2f45abc6053932f5deb77c64e28a3b395772861cbed5558d69d542c32d"
+    },
+    {
+      "id": "skeletal",
+      "quality": "high",
+      "path": "/models/atlas/skeletal-06.glb",
+      "count": 100,
+      "originalTriangles": 78394,
+      "triangles": 78394,
+      "bytes": 729856,
+      "sha256": "07feadc3e4969c603f3dc5a91b88b7ea9a3032041cc19bb5dcb94d70334a6e04"
+    },
+    {
+      "id": "skeletal",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/skeletal-06.glb",
+      "count": 100,
+      "originalTriangles": 78394,
+      "triangles": 77892,
+      "bytes": 726268,
+      "sha256": "7f606f97f169080c12cf684164b00a9a1acbfe73eb108dd83ead217869b303bf"
+    },
+    {
+      "id": "skeletal",
+      "quality": "high",
+      "path": "/models/atlas/skeletal-07.glb",
+      "count": 79,
+      "originalTriangles": 164135,
+      "triangles": 164135,
+      "bytes": 1209940,
+      "sha256": "c75527beebb803efc7d485a78f412a27017f5d98e730c4a40ebbb3b6fad96d3d"
+    },
+    {
+      "id": "skeletal",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/skeletal-07.glb",
+      "count": 79,
+      "originalTriangles": 164135,
+      "triangles": 133847,
+      "bytes": 1042936,
+      "sha256": "1c93978b42e4c352e9c8c61403c263bd6efb370541d272ed3b210102481147f5"
+    },
+    {
+      "id": "urinary",
+      "quality": "high",
+      "path": "/models/atlas/urinary-01.glb",
+      "count": 23,
+      "originalTriangles": 345692,
+      "triangles": 345692,
+      "bytes": 2081544,
+      "sha256": "a3c0849642a8a90394442fdeee65cdd4f92e1da5e02e99fd1bae276d5d6dac55"
+    },
+    {
+      "id": "urinary",
+      "quality": "balanced",
+      "path": "/models/atlas/balanced/urinary-01.glb",
+      "count": 23,
+      "originalTriangles": 345692,
+      "triangles": 243960,
+      "bytes": 1553728,
+      "sha256": "b19aba198f61da603dc7a395bc0146fc1d6df55446b8ed0ca7dc1cf51ad8600d"
+    }
+  ]
+}

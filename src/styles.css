@@ -29,3 +29,10 @@
 @media(max-width:740px){.annotation-pin-note{left:20px;width:135px;font-size:10px}.annotation-pin-note:before{width:13px}}
 /* Readable study text at compact laptop sizes. */
 .detail-section p{font-size:12px;line-height:1.75;color:#627166}.detail-section h3{font-size:12px}.anatomy-points li{font-size:11px;line-height:1.7;color:#657467}.source-reference{font-size:10px}.review-status{font-size:10px;color:#6c786e}.metadata-section dl>div{font-size:11px}.structure-name{font-size:11px}.group-heading{font-size:10px}.system-select{font-size:12px}.search-box input{font-size:12px}.model-review-note{padding:9px 10px;background:#f1f3eb;border-radius:5px;margin:12px 0}.annotation-summary,.annotation-instructions,.annotation-local-note{font-size:10px!important}.annotation-note-text{font-size:11px!important}
+
+/* Keep source selection available in the anatomy drawer on every screen. */
+.dataset-picker{display:block;margin:0 0 16px;color:#b8c6a8}.dataset-picker>span{display:block;font-size:10px;letter-spacing:.05em;margin-bottom:7px}.dataset-picker>div{position:relative}.dataset-picker select{appearance:none;width:100%;min-height:44px;padding:10px 34px 10px 12px;border:1px solid #718264;border-radius:7px;background:#34482e;color:#f4f7ec;font:inherit;font-size:12px;cursor:pointer}.dataset-picker svg{pointer-events:none;position:absolute;right:12px;top:15px;color:#c2d0b3}.dataset-picker select:focus-visible{outline:2px solid #d8e6bd;outline-offset:3px}
+
+.skeletal-context{display:inline-flex;align-items:center;gap:7px;margin-top:9px;min-height:44px;border:1px solid #d4ddd0;background:#f9fbf5;color:#435d46;border-radius:7px;padding:8px 11px;font:inherit;font-size:11px;cursor:pointer}.source-landmark{font-size:11px;max-width:200px;white-space:normal;background:#fffffff0;padding:7px 10px;border:1px solid #bfcdba;border-radius:5px;box-shadow:0 3px 10px #17301c10}
+
+.source-landmark{width:max-content;max-width:180px;line-height:1.4}.source-landmark.selected-label{font-weight:600}

@@ -9,6 +9,17 @@ import * as THREE from 'three';
 import type { Structure, SystemId, ViewerHandle, ViewerProps } from './types';
 
 const cache = new Map<string, Promise<THREE.Group>>();
+// Shared immutable images avoid uploading the same atlas texture once per chunk.
+const texturePool=new Map<string,{texture:THREE.Texture;scenes:number}>();
+const sceneTextureKeys=new WeakMap<THREE.Group,Set<string>>();
+function disposeScene(scene:THREE.Group){
+  const materials=new Set<THREE.Material>();
+  scene.traverse(node=>{if(node instanceof THREE.Mesh){node.geometry.dispose();for(const mat of Array.isArray(node.material)?node.material:[node.material])materials.add(mat);}});
+  materials.forEach(mat=>mat.dispose());
+  for(const key of sceneTextureKeys.get(scene)||[]){const pooled=texturePool.get(key);if(pooled&&--pooled.scenes===0){pooled.texture.dispose();texturePool.delete(key);}}
+  sceneTextureKeys.delete(scene);
+}
+
 function loadSystem(system: SystemId, quality: ViewerProps['quality'],assetPath?:string): Promise<THREE.Group> {
   const key=assetPath||`${quality}/${system}`;
   const existing = cache.get(key); if (existing) return existing;
@@ -17,13 +28,35 @@ function loadSystem(system: SystemId, quality: ViewerProps['quality'],assetPath?
     if (!response.ok) throw new Error(`The ${system} model could not be loaded (${response.status}).`);
     const bytes = await response.arrayBuffer();
     const loader = new GLTFLoader(); loader.setMeshoptDecoder(MeshoptDecoder);
-    const gltf = await loader.parseAsync(bytes, '/models/');
+    const gltf = await loader.parseAsync(bytes, path.slice(0,path.lastIndexOf('/')+1));
+    const keys=new Set<string>();
+    gltf.scene.traverse(node=>{
+      if(!(node instanceof THREE.Mesh))return;
+      for(const material of Array.isArray(node.material)?node.material:[node.material]){
+        const maps=material as unknown as Record<string,unknown>;
+        for(const slot of ['map','normalMap','roughnessMap','metalnessMap','emissiveMap','aoMap']){
+          const texture=maps[slot];if(!(texture instanceof THREE.Texture))continue;
+          const association=gltf.parser.associations.get(texture);
+          const textureIndex=association?.textures;
+          const source=textureIndex===undefined?undefined:gltf.parser.json.textures?.[textureIndex]?.source;
+          const uri=source===undefined?undefined:gltf.parser.json.images?.[source]?.uri;
+          if(!uri)continue;
+          const key=path.slice(0,path.lastIndexOf('/')+1)+uri+':'+texture.colorSpace+':'+texture.wrapS+':'+texture.wrapT+':'+texture.repeat.toArray()+':'+texture.offset.toArray();
+          const pooled=texturePool.get(key);
+          if(pooled){maps[slot]=pooled.texture;if(texture!==pooled.texture)texture.dispose();}
+          else texturePool.set(key,{texture,scenes:0});
+          keys.add(key);
+        }
+      }
+    });
+    for(const key of keys)texturePool.get(key)!.scenes++;
+    sceneTextureKeys.set(gltf.scene,keys);
     gltf.scene.updateMatrixWorld(true); return gltf.scene;
   }).catch(error => {cache.delete(key); throw error;});
   cache.set(key, pending); return pending;
 }
 const PALETTE: Record<SystemId,string> = {skeletal:'#b9a589',muscular:'#ad6260',cardiovascular:'#ba5355',nervous:'#d5b55b',respiratory:'#c799a2',digestive:'#b98e6b',urinary:'#b47a70',reproductive:'#ba9ca4',lymphatic:'#86a685',endocrine:'#b79bd0'};
-interface Entry {id:string; geometry:THREE.BufferGeometry; matrix:THREE.Matrix4; center:THREE.Vector3; system:SystemId; name:string;}
+interface Entry {sourceMaterial?:THREE.Material|THREE.Material[];id:string; geometry:THREE.BufferGeometry; matrix:THREE.Matrix4; center:THREE.Vector3; system:SystemId; name:string;}
 interface SceneProps extends ViewerProps { apiRef:React.ForwardedRef<ViewerHandle>; }
 
 function AnatomyScene(props:SceneProps) {
@@ -38,18 +71,28 @@ function AnatomyScene(props:SceneProps) {
   const initialFocusDone=useRef(false);
   const orientationRef=useRef('anterior');
   const selectedRef=useRef(selectedId); selectedRef.current=selectedId;
-  const systemsKey=props.quality+':'+[...activeSystems].sort().join(',');
+  const requestedAssets=activeSystems.flatMap(system=>{const explicit=[...new Set(structures.filter(s=>s.system===system&&s.assetPath).map(s=>props.quality==='balanced'?(s.balancedAssetPath||s.assetPath!):s.assetPath!))];return (props.dataset==='atlas'?explicit:[undefined,...explicit]).map(assetPath=>({system,assetPath}));});
+  const systemsKey=props.dataset+':'+props.quality+':'+requestedAssets.map(a=>a.system+':'+a.assetPath).sort().join(',');
   const structureMap=useMemo(()=>new Map(structures.map(s=>[s.id,s])),[structures]);
   useEffect(()=>{
     let cancelled=false;initialFocusDone.current=false;
-    propsRef.current.onLoading?.(true);
-    Promise.all(activeSystems.flatMap(system=>{const supplements=[...new Set(structures.filter(s=>s.system===system&&s.assetPath).map(s=>s.assetPath!))];return [undefined,...supplements].map(async assetPath=>({system,scene:await loadSystem(system,props.quality,assetPath)}));})).then(value=>{
+    propsRef.current.onLoading?.(true);let completed=0;propsRef.current.onProgress?.({loaded:0,total:requestedAssets.length});
+    Promise.all(requestedAssets.map(async ({system,assetPath})=>{const scene=await loadSystem(system,props.quality,assetPath);if(!cancelled)propsRef.current.onProgress?.({loaded:++completed,total:requestedAssets.length});return{system,scene};})).then(value=>{
       if(cancelled)return;setScenes(value);propsRef.current.onLoading?.(false);
     }).catch(error=>{if(!cancelled){propsRef.current.onLoading?.(false);propsRef.current.onError?.(String(error.message||error));}});
     return()=>{cancelled=true;};
   // Only a change in requested assets starts loading.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[systemsKey]);
+  useEffect(()=>{
+    if(!scenes.length)return;
+    let cancelled=false;
+    const retained=new Set(scenes.map(item=>item.scene));
+    const requested=new Set(requestedAssets.map(({system,assetPath})=>assetPath||`${props.quality}/${system}`));
+    // Once the new scene is committed, release GPU resources for inactive systems.
+    for(const [key,pending] of cache)if(!requested.has(key))pending.then(scene=>{if(!cancelled&&!retained.has(scene)&&cache.get(key)===pending){cache.delete(key);disposeScene(scene);}}).catch(()=>{});
+    return()=>{cancelled=true;};
+  },[scenes]);
   const entries=useMemo(()=>{
     const list:Entry[]=[];
     for(const {system,scene} of scenes) scene.traverse(node=>{
@@ -61,10 +104,10 @@ function AnatomyScene(props:SceneProps) {
       if(!geometry.attributes.normal)geometry.computeVertexNormals();
       geometry.computeBoundingBox();
       const center=new THREE.Vector3();geometry.boundingBox?.getCenter(center);center.applyMatrix4(node.matrixWorld);
-      list.push({id:structure.id,geometry,matrix:node.matrixWorld.clone(),center,system,name:structure.name});
+      list.push({sourceMaterial:props.dataset==='atlas'?node.material:undefined,id:structure.id,geometry,matrix:node.matrixWorld.clone(),center,system,name:structure.name});
     });
     return list;
-  },[scenes,structureMap]);
+  },[scenes,structureMap,props.dataset]);
   const hiddenSet=useMemo(()=>new Set(hiddenIds),[hiddenIds]);
   const visible=useMemo(()=>entries.filter(e=>activeSystems.includes(e.system)&&!hiddenSet.has(e.id)&&(!isolatedId||e.id===isolatedId)),[entries,activeSystems,hiddenSet,isolatedId]);
   const selected=entries.find(e=>e.id===selectedId);
@@ -86,8 +129,17 @@ function AnatomyScene(props:SceneProps) {
     travel(center.clone().addScaledVector(direction,distance),center);
   };
   useEffect(()=>{if(pendingFocus.current&&entries.some(e=>e.id===pendingFocus.current))focus(pendingFocus.current);},[entries]);
+  useEffect(()=>{
+    const landmark=props.landmarks?.find(item=>item.id===props.focusedLandmarkId);
+    if(!landmark||!entries.some(entry=>entry.id===landmark.structureId))return;
+    const point=new THREE.Vector3(...landmark.point);
+    const distance=Math.max(.75,Math.min(1.4,camera.position.distanceTo(controls.current?.target||point)));
+    const direction=camera.position.clone().sub(controls.current?.target||new THREE.Vector3()).normalize();
+    travel(point.clone().addScaledVector(direction,distance),point);
+  },[props.focusedLandmarkId,props.landmarks,entries]);
+
   useEffect(()=>{if(!initialFocusDone.current&&entries.length){initialFocusDone.current=true;if(selectedRef.current)focus(selectedRef.current);else home();}},[entries]);
-  const home=()=>{const box=new THREE.Box3();for(const entry of entries.filter(e=>activeSystems.includes(e.system))){const bounds=entry.geometry.boundingBox?.clone().applyMatrix4(entry.matrix);if(bounds)box.union(bounds);}if(box.isEmpty()){travel(new THREE.Vector3(0,.08,6.5),new THREE.Vector3());return;}const center=box.getCenter(new THREE.Vector3()),extent=box.getSize(new THREE.Vector3());const distance=Math.max(.25,Math.max(extent.y,extent.x/(size.width/size.height))/2/Math.tan(THREE.MathUtils.degToRad(17))*1.18+extent.z/2);travel(center.clone().add(new THREE.Vector3(0,0,distance)),center);};
+  const home=()=>{const box=new THREE.Box3();for(const entry of entries.filter(e=>activeSystems.includes(e.system)&&!hiddenSet.has(e.id)&&(!isolatedId||e.id===isolatedId))){const bounds=entry.geometry.boundingBox?.clone().applyMatrix4(entry.matrix);if(bounds)box.union(bounds);}if(box.isEmpty()){travel(new THREE.Vector3(0,.08,6.5),new THREE.Vector3());return;}const center=box.getCenter(new THREE.Vector3()),extent=box.getSize(new THREE.Vector3());const distance=Math.max(.25,Math.max(extent.y,extent.x/(size.width/size.height))/2/Math.tan(THREE.MathUtils.degToRad(17))*1.18+extent.z/2);travel(center.clone().add(new THREE.Vector3(0,0,distance)),center);};
   // Capture the same rendered scene and include attribution in the download.
   const scene=useThree(state=>state.scene);
   useImperativeHandle(apiRef,()=>({getCamera:()=>({position:camera.position.toArray() as [number,number,number],target:(controls.current?.target.toArray()||[0,0,0]) as [number,number,number]}),restoreCamera:(state)=>{if(state.position.every(Number.isFinite)&&state.target.every(Number.isFinite))travel(new THREE.Vector3(...state.position),new THREE.Vector3(...state.target));},home,focus,view:(direction)=>{
@@ -111,7 +163,7 @@ function AnatomyScene(props:SceneProps) {
       lines.forEach((text,index)=>context.fillText(text,x+12,y+19+index*(font+5)));
       context.beginPath();context.arc(px,py,4,0,Math.PI*2);context.fill();
     }
-    context.fillStyle='#314846';context.font=`${Math.max(8,Math.min(14,canvas.width/65))}px sans-serif`;context.fillText('Anatomy Studio · BodyParts3D © DBCLS · CC BY 4.0',14,canvas.height-39);context.fillText('Lung/liver adaptations: Z-Anatomy · CC BY-SA 4.0 · anatomy review pending',14,canvas.height-17);
+    context.fillStyle='#314846';context.font=`${Math.max(8,Math.min(14,canvas.width/65))}px sans-serif`;context.fillText(propsRef.current.dataset==='atlas'?'Anatomy Studio · Atlas source: Catfish Animation Studio':'Anatomy Studio · BodyParts3D © DBCLS · CC BY 4.0',14,canvas.height-39);context.fillText(propsRef.current.dataset==='atlas'?'Adapted with permission confirmed by project owner · anatomy review pending':'Lung/liver adaptations: Z-Anatomy · CC BY-SA 4.0 · anatomy review pending',14,canvas.height-17);
     canvas.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob);const anchor=document.createElement('a');anchor.href=url;anchor.download='anatomy-studio.png';anchor.click();setTimeout(()=>URL.revokeObjectURL(url),3000);});
   }}));
   useFrame((_state,delta)=>{
@@ -127,6 +179,13 @@ function AnatomyScene(props:SceneProps) {
     const preferred=[/frontal bone/i,/sternum/i,/left humerus/i,/right radius/i,/left femur/i,/right tibia/i,/heart$/i,/liver$/i,/left lung$/i,/brain$/i];
     return preferred.map(regex=>visible.find(e=>regex.test(e.name))).filter((e):e is Entry=>!!e&&e.id!==selectedId).slice(0,6);
   },[labels,visible,selectedId]);
+  const sourceLandmarks=useMemo(()=>{
+    if(!labels||!selectedId)return[];
+    const options=(props.landmarks||[]).filter(note=>note.structureId===selectedId&&visible.some(e=>e.id===note.structureId));
+    const focused=options.find(note=>note.id===props.focusedLandmarkId);
+    // Keep the focused feature readable; the inspector provides all other landmarks.
+    return focused?[focused]:options.slice(0,6);
+  },[labels,selectedId,props.landmarks,props.focusedLandmarkId,visible]);
   return <>
     <ambientLight intensity={.24}/><hemisphereLight args={['#fff9e9','#778a83',.85]}/>
     <directionalLight position={[-3,5,5]} intensity={2.7} color="#fff1d8"/>
@@ -136,6 +195,7 @@ function AnatomyScene(props:SceneProps) {
     {visible.map((entry,index)=><AnatomyMesh key={`${entry.system}-${entry.id}-${index}`} entry={entry} selected={entry.id===selectedId} hovered={entry.id===hovered} opacity={entry.id===selectedId?1:opacity} exploded={exploded} clipPlane={section?clipPlane:null} onHover={setHovered} onSelect={props.onSelect} onFocus={focus} placing={!!props.placingAnnotation} onAnchor={props.onAnnotationAnchor}/>)}
     </group>
     {(props.annotations||[]).filter(note=>visible.some(e=>e.id===note.structureId)).map(note=>{const entry=visible.find(e=>e.id===note.structureId)!;const offset=exploded?entry.center.clone().normalize().multiplyScalar(.26):new THREE.Vector3();return <Html key={note.id} position={new THREE.Vector3(...note.point).add(offset)} zIndexRange={[7,0]} style={{pointerEvents:'none'}}><div className="annotation-pin"><span className="annotation-pin-dot"/><div className="annotation-pin-note"><small>STUDY NOTE</small><p>{note.text}</p></div></div></Html>;})}
+    {sourceLandmarks.map(note=>{const entry=visible.find(e=>e.id===note.structureId)!;const offset=exploded?entry.center.clone().normalize().multiplyScalar(.26):new THREE.Vector3();return <Html key={note.id} position={new THREE.Vector3(...note.point).add(offset)} zIndexRange={[8,0]} style={{pointerEvents:'none'}}><div className={`model-label source-landmark ${note.id===props.focusedLandmarkId?'selected-label':''}`}><span/>{note.name}</div></Html>;})}
     {landmarkEntries.map(entry=><Html key={entry.id} position={entry.center} zIndexRange={[5,0]} style={{pointerEvents:'none'}}><div className={`model-label ${entry.center.x<0?'label-left':'label-right'}`}><span/>{entry.name}</div></Html>)}
     {selected&&labels&&<Html position={selected.center.clone().add(exploded?selected.center.clone().normalize().multiplyScalar(.24):new THREE.Vector3())} zIndexRange={[6,0]} style={{pointerEvents:'none'}}><div className="model-label selected-label"><span/>{selected.name}</div></Html>}
     <OrbitControls onChange={()=>{const direction=camera.position.clone().sub(controls.current?.target||new THREE.Vector3()).normalize();const candidates:Record<string,THREE.Vector3>={anterior:new THREE.Vector3(0,0,1),posterior:new THREE.Vector3(0,0,-1),left:new THREE.Vector3(1,0,0),right:new THREE.Vector3(-1,0,0),superior:new THREE.Vector3(0,1,0)};const orientation=Object.entries(candidates).find(([,vector])=>vector.dot(direction)>.999)?.[0]||'custom';if(orientation!==orientationRef.current){orientationRef.current=orientation;propsRef.current.onOrientationChange?.(orientation as 'anterior'|'posterior'|'left'|'right'|'superior'|'custom');}}} ref={controls} makeDefault enableDamping dampingFactor={.09} rotateSpeed={.65} zoomSpeed={.7} panSpeed={.7} minDistance={.12} maxDistance={12} target={[0,0,0]} touches={{ONE:THREE.TOUCH.ROTATE,TWO:THREE.TOUCH.DOLLY_PAN}}/>
@@ -144,16 +204,27 @@ function AnatomyScene(props:SceneProps) {
 }
 function AnatomyMesh({entry,selected,hovered,opacity,exploded,clipPlane,onHover,onSelect,onFocus,placing,onAnchor}:{placing:boolean;onAnchor?:ViewerProps['onAnnotationAnchor'];entry:Entry;selected:boolean;hovered:boolean;opacity:number;exploded:boolean;clipPlane:THREE.Plane|null;onHover:(id:string|null)=>void;onSelect:(id:string|null)=>void;onFocus:(id?:string)=>void}) {
   const ref=useRef<THREE.Mesh>(null);const invalidate=useThree(s=>s.invalidate);
-  const material=useMemo(()=>new THREE.MeshStandardMaterial({color:PALETTE[entry.system],roughness:.58,metalness:.02,side:THREE.DoubleSide}),[entry.system]);
+  const material=useMemo(()=>entry.sourceMaterial?(Array.isArray(entry.sourceMaterial)?entry.sourceMaterial.map(m=>m.clone()):entry.sourceMaterial.clone()):new THREE.MeshStandardMaterial({color:PALETTE[entry.system],roughness:.58,metalness:.02,side:THREE.DoubleSide}),[entry.sourceMaterial,entry.system]);
+  const materials=useMemo(()=>Array.isArray(material)?material:[material],[material]);
+  const baseColors=useMemo(()=>materials.map(m=>m instanceof THREE.MeshStandardMaterial?m.color.clone():new THREE.Color('white')),[materials]);
   const base=useMemo(()=>new THREE.Vector3().setFromMatrixPosition(entry.matrix),[entry.matrix]);
   const rotation=useMemo(()=>new THREE.Quaternion().setFromRotationMatrix(entry.matrix),[entry.matrix]);
   const scale=useMemo(()=>new THREE.Vector3().setFromMatrixScale(entry.matrix),[entry.matrix]);
   const target=useMemo(()=>base.clone().add(exploded?entry.center.clone().normalize().multiplyScalar(.26):new THREE.Vector3()),[base,exploded,entry.center]);
   useEffect(()=>{
-    const color=selected?'#4aaf9c':hovered?'#e0ce9b':entry.system==='cardiovascular'&&/vein|venous/i.test(entry.name)?'#6487ad':PALETTE[entry.system];material.color.set(color);material.emissive.set(selected?'#193d33':'#000000');material.emissiveIntensity=selected?.2:0;
-    material.opacity=opacity;material.transparent=opacity<1;material.depthWrite=opacity>=.99;material.clippingPlanes=clipPlane?[clipPlane]:[];material.needsUpdate=true;invalidate();
-  },[material,selected,hovered,opacity,clipPlane,invalidate,entry.system]);
-  useEffect(()=>()=>{material.dispose();entry.geometry.dispose();},[material,entry.geometry]);
+    materials.forEach((mat,index)=>{
+      if(mat instanceof THREE.MeshStandardMaterial){
+        mat.color.copy(baseColors[index]);
+        if(selected)mat.color.lerp(new THREE.Color('#4aaf9c'),.38);
+        else if(hovered)mat.color.lerp(new THREE.Color('#e0ce9b'),.25);
+        else if(!entry.sourceMaterial&&entry.system==='cardiovascular'&&/vein|venous/i.test(entry.name))mat.color.set('#6487ad');
+        mat.emissive.set(selected?'#193d33':'#000000');mat.emissiveIntensity=selected?.35:0;
+      }
+      mat.opacity=opacity;mat.transparent=opacity<1;mat.depthWrite=opacity>=.99;mat.clippingPlanes=clipPlane?[clipPlane]:[];mat.needsUpdate=true;
+    });invalidate();
+  },[materials,baseColors,selected,hovered,opacity,clipPlane,invalidate,entry.sourceMaterial,entry.system,entry.name]);
+  // Cached source geometry/textures are shared across mounts. Only instance materials are owned here.
+  useEffect(()=>()=>{materials.forEach(mat=>mat.dispose());},[materials]);
   useFrame((_state,delta)=>{if(ref.current&&ref.current.position.distanceToSquared(target)>.0000001){ref.current.position.lerp(target,1-Math.exp(-delta*10));invalidate();}});
   return <mesh ref={ref} geometry={entry.geometry} material={material} position={base} quaternion={rotation} scale={scale} dispose={null}
     onPointerOver={event=>{event.stopPropagation();onHover(entry.id);}}

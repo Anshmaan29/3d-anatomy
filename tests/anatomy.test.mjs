@@ -21,7 +21,7 @@ test('source model preserves patient laterality and anterior direction',()=>{
  const right=find('right femur'),left=find('left femur');assert.ok(right&&left,'bilateral femurs needed');assert.ok(mid(right)[0]<mid(left)[0],'patient right must render viewer left');
  const sternum=find('body of sternum')||find('manubrium')||find('sternum');const vertebra=data.structures.find(s=>/thoracic vertebra/i.test(s.name));assert.ok(sternum&&vertebra);assert.ok(mid(sternum)[2]>mid(vertebra)[2],'sternum should be anterior to thoracic spine');
 });
-test('application bundle has no oversized static files or copied proprietary app assets',()=>{
+test('application bundle keeps native app containers out and respects static file limits',()=>{
  const walk=dir=>readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(join(dir,e.name)):[join(dir,e.name)]);const publicRoot=new URL('public/',root);
  for(const file of walk(fileURLToPath(publicRoot))){assert.ok(statSync(file).size<25*1024*1024,file);assert.ok(!/\.casdb$|\.resS$|\.dylib$|\.assets$/.test(file));}
  assert.ok(existsSync(new URL('public/manifest.webmanifest',root)));assert.ok(existsSync(new URL('public/sw.js',root)));

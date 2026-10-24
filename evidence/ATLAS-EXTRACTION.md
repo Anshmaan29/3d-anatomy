@@ -79,3 +79,34 @@ and specular shaders are not exactly reproduced. Geometry and source medical
 text have not been independently reviewed by a qualified anatomy professional.
 This extraction is substantially deeper than the earlier limited investigation;
 it is not a claim of complete feature parity or clinical readiness.
+
+## Web checkpoint validation
+
+The adaptation exports **2,225 selectable surfaces**: all 2,216 coded surfaces
+plus nine source-associated internal heart surfaces. It exposes **979 associated
+landmarks**; the other 23 authored positions are retained in a separate catalog
+section because no valid structure association exists. Scene ancestry resolves
+110 source catalog/scene association disagreements. Four English/Latin atrial
+laterality conflicts are flagged; the conflicting Latin labels are withheld.
+
+The shipped Atlas model directory occupies **198,030,424 bytes** for both quality
+levels together (including shared images). High-quality geometry is 51,726,204
+bytes with 7,501,341 triangles; balanced geometry is 47,897,744 bytes with
+6,801,135 triangles. Image sets occupy 76,615,879 high-quality and 21,790,597
+balanced bytes. These are complete library sizes, not initial page downloads.
+The catalogs occupy approximately 2.1 MB. Individual systems load on demand.
+
+`npm test` passes ten checks, including decoding every high/balanced GLB,
+triangle-index validity, exact selectable identities, source catalog bounds,
+texture references, patient laterality/anterior registration and landmark
+references. `npm run build` succeeds. Browser checks verified textured rendering,
+English/Latin structure and landmark search, muscle text, a moving landmark label,
+source switching and model-load progress. iPad CSS viewport checks cover portrait
+and landscape; physical iPad performance and independent clinical review remain
+unverified.
+
+Native mirror inspection established a whole-model X-scale toggle; it does not
+instantiate additional muscles. The muscle source has a one-sided dissection
+presentation. The website discloses that and offers skeletal context rather than
+inventing an unseen second half. Native shaders/animations and all 69 authored
+scene compositions have not been recreated as exact feature parity.

@@ -23,3 +23,21 @@
 ## Interpretation
 
 A working independently built preview with transparent source limits. Not an exact clone or a medically certified atlas; not a claim of complete anatomy, clinical accuracy, device certification or best-in-market performance. Model source licences permit the included distribution with attribution, which is retained in the app and repository.
+
+## Detailed Atlas checkpoint — 24 October 2026
+
+- Full static mesh decode: 4,234 mesh objects; 4,586,919 vertices; 7,518,721 triangles;
+  zero geometry/transform decoding failures.
+- 1,985 catalog model records, 280 English muscle detail records; 697 native PNGs.
+- Web adaptation: 2,225 selectable surfaces, 979 associated landmarks, 23 explicitly
+  unassociated source anchors. Markers/variants are not counted as unique organs.
+- Ten automated checks pass, including independent Meshopt buffer decoding and
+  triangle/vertex integrity, every source node, spatial bounds, texture paths,
+  bilateral skeletal anchors and landmark associations.
+- Four source English/Latin atrial laterality conflicts are flagged; conflicting
+  Latin is withheld. 110 landmark association disagreements resolve through
+  explicit scene ancestry; sources remain recorded.
+- Browser checks: source switching, high-resolution texture rendering, muscle
+  details, landmark search/focus, moving 3D labels, progress and tablet layout.
+- Pending: physical iPad/Android GPU/FPS/load measurements, full offline acceptance,
+  clinical review, and exact recreation of all native scene/UI behavior.

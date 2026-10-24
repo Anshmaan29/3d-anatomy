@@ -1,3 +1,5 @@
+> Historical initial investigation. The later, deeper extraction and current integration are documented in [ATLAS-EXTRACTION.md](ATLAS-EXTRACTION.md). Statements below describe the earlier checkpoint.
+
 # Reference investigation — 24 October 2026
 
 Target supplied by user: `/Applications/Anatomy 3D Atlas.app`.
