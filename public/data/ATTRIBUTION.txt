@@ -1,0 +1,18 @@
+BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International
+
+Source: https://dbarchive.biosciencedbc.jp/en/bodyparts3d/
+License: https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html
+Creative Commons Attribution 4.0 International: https://creativecommons.org/licenses/by/4.0/
+
+Adaptations: axes rotated; uniformly centered/scaled; source elements grouped by
+FMA concept; PBR display materials assigned; browser GLB conversion and meshopt
+compression with coordinate/normal quantization. High-detail assets retain all
+source triangles. Balanced assets additionally use bounded mesh simplification
+with locked borders; all named anatomical structures remain available.
+
+Historical notice: original 2013 OBJ files retain CC Attribution-Share Alike 2.1
+Japan comments. The current authoritative archive license page (updated
+2025-02-27) grants CC BY 4.0. Original archives and both notices are preserved.
+
+Anatomy Studio is an independent educational viewer. Qualified medical review
+is pending. It is not a diagnostic or clinical decision tool.

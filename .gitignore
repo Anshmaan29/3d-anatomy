@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.openai/*.tar*
+.openai/credential*
+data-source/
+artifacts/
+.DS_Store
+
+*.tsbuildinfo

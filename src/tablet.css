@@ -1,0 +1,24 @@
+/* Tablet-first touch refinements: preserve the study canvas beside the inspector. */
+@media (min-width:741px) and (max-width:1100px){
+ .inspector{width:300px;min-width:300px}.sidebar-open{width:300px}.stage-title-row h1{font-size:24px}.annotation-pin-note{width:175px}
+ .selected-content{padding-left:22px;padding-right:22px}.inspector-heading{padding-left:22px;padding-right:22px}
+}
+@media (min-width:741px) and (max-width:1366px) and (pointer:coarse){
+ .app-header{padding-left:max(22px,env(safe-area-inset-left));padding-right:max(22px,env(safe-area-inset-right))}
+ .icon-button,.layer-toggle,.structure-eye,.group-heading,.annotation-item-actions>button{min-width:44px;min-height:44px}
+ .main-tabs button{min-height:44px;padding:10px 15px;font-size:13px}.header-actions{gap:8px}.brand{min-width:210px}
+ .viewer-toolbar{height:56px;padding:5px 9px}.viewer-toolbar button{width:44px;height:44px}.viewer-toolbar button>svg{width:21px;height:21px}
+ .orientation-presets button{min-height:40px;font-size:12px;padding:7px 14px}.stage-bottom{gap:13px;bottom:max(22px,env(safe-area-inset-bottom))}
+ .viewer-container{bottom:172px}.system-row,.structure-row{min-height:44px;height:auto}.system-select{min-height:44px;font-size:13px}.structure-name{min-height:44px;font-size:12px}
+ .search-box{height:46px}.search-box input,.region-filter select,.annotation-editor textarea,.text-input{font-size:16px}.region-filter select{min-height:44px}
+ .selection-actions button{min-height:50px;font-size:12px}.annotation-pin-button,.annotation-save-button,.annotation-cancel-button{min-height:40px;font-size:12px}
+ .annotation-item-actions{flex-direction:row}.annotation-note>span{font-size:12px}.annotation-help{font-size:11px!important}.annotation-editor textarea{min-height:100px}
+ .detail-section p{font-size:13px}.anatomy-points li{font-size:12px}.answer-options button{min-height:52px;font-size:13px}
+ .inspector input[type=range]{height:44px}.selected-content,.structure-list,.systems-list,.inspector{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+ .stage-action{min-height:44px}.modal-close{width:44px;height:44px}.quality-options button{min-height:72px}
+ .model-label{font-size:12px}.annotation-pin-note{font-size:12px;width:195px}
+}
+@media (min-width:741px) and (max-width:1100px) and (orientation:portrait){
+ .stage-heading{left:24px;right:20px}.stage-top-actions{gap:5px}.stage-action{padding-left:9px;padding-right:9px}
+ .stage-heading p{font-size:11px;max-width:260px}.inspector{width:292px;min-width:292px}.viewer-toolbar{max-width:calc(100% - 30px)}
+}

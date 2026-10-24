@@ -1,0 +1,66 @@
+{
+  "verifiedAt": "2026-10-24T10:07:08.384Z",
+  "loader": "Three.js GLTFLoader + MeshoptDecoder",
+  "checks": [
+    "all20 high/balanced GLBs decode",
+    "1654 unique named meshes per detail mode map to valid same-system metadata",
+    "all positions and normals finite; all meshes indexed triangles",
+    "each chunk under25MiB",
+    "right/left femur centroids verified",
+    "sternum anterior to thoracic spine",
+    "clavicle/hip/thoracic disk/lumbar region overrides verified",
+    "muscle head and ocular category regressions checked",
+    "six exact-name fixtures: both wrist retinacula skeletal/Upper limb; all four eyelid tarsal plates nervous/Head & neck",
+    "all source retinacula audited"
+  ],
+  "metrics": [
+    {
+      "quality": "high",
+      "structures": 1654,
+      "triangles": 6445860,
+      "bytes": 35339760
+    },
+    {
+      "quality": "balanced",
+      "structures": 1654,
+      "triangles": 3274926,
+      "bytes": 21430428
+    }
+  ],
+  "classificationFixtures": {
+    "passed": 6,
+    "fixtures": [
+      {
+        "name": "Flexor retinaculum of right wrist",
+        "system": "skeletal",
+        "region": "Upper limb"
+      },
+      {
+        "name": "Flexor retinaculum of left wrist",
+        "system": "skeletal",
+        "region": "Upper limb"
+      },
+      {
+        "name": "Tarsal plate of right lower eyelid",
+        "system": "nervous",
+        "region": "Head & neck"
+      },
+      {
+        "name": "Tarsal plate of left lower eyelid",
+        "system": "nervous",
+        "region": "Head & neck"
+      },
+      {
+        "name": "Tarsal plate of right upper eyelid",
+        "system": "nervous",
+        "region": "Head & neck"
+      },
+      {
+        "name": "Tarsal plate of left upper eyelid",
+        "system": "nervous",
+        "region": "Head & neck"
+      }
+    ],
+    "retinaculumAudit": "all source retinacula skeletal"
+  }
+}

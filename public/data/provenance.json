@@ -1,0 +1,431 @@
+{
+  "source": "BodyParts3D",
+  "version": "4.0",
+  "downloaded": "2026-10-24",
+  "sourceUrl": "https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html",
+  "licenseUrl": "https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html",
+  "license": "CC-BY-4.0",
+  "licensePageUpdated": "2025-02-27",
+  "attribution": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International",
+  "legacyEmbeddedNotice": "2013 OBJ comments retain CC Attribution-Share Alike 2.1 Japan; the current authoritative archive license grants CC BY 4.0. Both notices are preserved in source files.",
+  "modifications": "Axis rotation, common centering and uniform scale, grouping source elements by source FMA concept; PBR colors; glTF meshopt compression and quantization. High-detail GLBs preserve original source triangles. Balanced LOD additionally uses bounded meshopt simplification; high-detail GLBs retain original source triangles.",
+  "sourceFiles": [
+    {
+      "file": "README_e.html",
+      "bytes": 19263,
+      "sha256": "f9a90b4d945ad0fe50db45c712e931aa54e52667187b30d7085b6cc394f40107"
+    },
+    {
+      "file": "download.html",
+      "bytes": 20945,
+      "sha256": "070a6f8477be82f69a81751fc7343261203a691e4c24f8f8800133fe58d5c89a"
+    },
+    {
+      "file": "isa_BP3D_4.0_obj_99.zip",
+      "bytes": 142903898,
+      "sha256": "40665852c49f218326590e204db91064a1ecfc3c6f8cbd7bbbcaac62c7cd409e"
+    },
+    {
+      "file": "isa_element_parts.txt",
+      "bytes": 1142159,
+      "sha256": "a3de74423f943b0d724ae8f59b3a817f87c423a544f8db98113b1980817cbeaf"
+    },
+    {
+      "file": "isa_inclusion_relation_list.txt",
+      "bytes": 207664,
+      "sha256": "26e7d818e03a8c909fe09c561f38d0d513423c87681f9450a803bc38f5b07564"
+    },
+    {
+      "file": "isa_parts_list_e.txt",
+      "bytes": 128086,
+      "sha256": "ab7796deedd49205e77f3609a1cb8c53e2bbee14ecb5c9a6ca05227469780513"
+    },
+    {
+      "file": "license.html",
+      "bytes": 14694,
+      "sha256": "8ff424b6bd25846ff39192a1e7629871c4fbc0e74d1687bf6c80cbc586807441"
+    },
+    {
+      "file": "partof_BP3D_4.0_obj_99.zip",
+      "bytes": 64888505,
+      "sha256": "9fbc713fffeee924a5a657d9813d84d7eb957bded63adb854931dd5e3eb61c97"
+    },
+    {
+      "file": "partof_element_parts.txt",
+      "bytes": 651179,
+      "sha256": "3f5f6df1028eb122b30de77c711597b6bb8e5541658e5985859fd228adbf88ea"
+    },
+    {
+      "file": "partof_inclusion_relation_list.txt",
+      "bytes": 91241,
+      "sha256": "1b40738270931e3c1d955ce34e0fce0d8d10d8c5ad543463e40b4b4c0243007c"
+    },
+    {
+      "file": "partof_parts_list_e.txt",
+      "bytes": 59351,
+      "sha256": "9224080557053e6f1322f1e13ab27f0ecde0db19bb3b505f0631afad230eeebd"
+    }
+  ],
+  "sourceObjCount": 2234,
+  "includedElements": 2229,
+  "selectableStructures": 1654,
+  "omissions": [
+    {
+      "element": "FJ2810",
+      "name": "Skin",
+      "reason": "Outer covering or space carrier omitted from internal atlas"
+    },
+    {
+      "element": "FJ2811",
+      "name": "External ear",
+      "reason": "Outer covering or space carrier omitted from internal atlas"
+    },
+    {
+      "element": "FJ2812",
+      "name": "Eyebrow",
+      "reason": "Outer covering or space carrier omitted from internal atlas"
+    },
+    {
+      "element": "FJ2813",
+      "name": "Hair of head",
+      "reason": "Outer covering or space carrier omitted from internal atlas"
+    },
+    {
+      "element": "FJ2815",
+      "name": "Pubic hair",
+      "reason": "Outer covering or space carrier omitted from internal atlas"
+    }
+  ],
+  "fallbackMappings": [
+    {
+      "element": "FJ1450",
+      "mapping": "official element table fallback",
+      "concept": "FMA20347"
+    },
+    {
+      "element": "FJ1451",
+      "mapping": "official element table fallback",
+      "concept": "FMA9756"
+    },
+    {
+      "element": "FJ1454",
+      "mapping": "official element table fallback",
+      "concept": "FMA9758"
+    },
+    {
+      "element": "FJ1455",
+      "mapping": "official element table fallback",
+      "concept": "FMA9757"
+    },
+    {
+      "element": "FJ1465",
+      "mapping": "official element table fallback",
+      "concept": "FMA46442"
+    },
+    {
+      "element": "FJ1525",
+      "mapping": "official element table fallback",
+      "concept": "FMA23083"
+    },
+    {
+      "element": "FJ1543",
+      "mapping": "official element table fallback",
+      "concept": "FMA77179"
+    },
+    {
+      "element": "FJ1547",
+      "mapping": "official element table fallback",
+      "concept": "FMA22850"
+    },
+    {
+      "element": "FJ1548",
+      "mapping": "official element table fallback",
+      "concept": "FMA22851"
+    },
+    {
+      "element": "FJ1549",
+      "mapping": "official element table fallback",
+      "concept": "FMA71442"
+    },
+    {
+      "element": "FJ1550",
+      "mapping": "official element table fallback",
+      "concept": "FMA71307"
+    },
+    {
+      "element": "FJ1552",
+      "mapping": "official element table fallback",
+      "concept": "FMA71309"
+    },
+    {
+      "element": "FJ1553",
+      "mapping": "official element table fallback",
+      "concept": "FMA71443"
+    },
+    {
+      "element": "FJ1656",
+      "mapping": "official element table fallback",
+      "concept": "FMA50544"
+    },
+    {
+      "element": "FJ1664",
+      "mapping": "official element table fallback",
+      "concept": "FMA77439"
+    },
+    {
+      "element": "FJ1665",
+      "mapping": "official element table fallback",
+      "concept": "FMA77439"
+    },
+    {
+      "element": "FJ1719",
+      "mapping": "official element table fallback",
+      "concept": "FMA71502"
+    }
+  ],
+  "systems": [
+    {
+      "id": "skeletal",
+      "path": "/models/skeletal.glb",
+      "count": 295,
+      "elements": 298,
+      "vertices": 429566,
+      "triangles": 722152,
+      "rawBytes": 14868612,
+      "bytes": 4094540,
+      "sha256": "634cf5388722851289332f696aa1339bfc3d8b4132e222f020b574cd33fd3393"
+    },
+    {
+      "id": "muscular",
+      "path": "/models/muscular.glb",
+      "count": 405,
+      "elements": 434,
+      "vertices": 1741013,
+      "triangles": 2416666,
+      "rawBytes": 59909876,
+      "bytes": 14283620,
+      "sha256": "37740a4ed62acf26657809f4a37a76d591562e09267722e8a208a6f59a3cc782"
+    },
+    {
+      "id": "cardiovascular",
+      "path": "/models/cardiovascular.glb",
+      "count": 674,
+      "elements": 1069,
+      "vertices": 1177012,
+      "triangles": 2167412,
+      "rawBytes": 41777064,
+      "bytes": 10676116,
+      "sha256": "acefc8e3ac7d0d7adf4b6a852b6a789fac7440b82863f73f2a8ac2c724de52bc"
+    },
+    {
+      "id": "nervous",
+      "path": "/models/nervous.glb",
+      "count": 163,
+      "elements": 181,
+      "vertices": 477169,
+      "triangles": 832796,
+      "rawBytes": 16574496,
+      "bytes": 4221880,
+      "sha256": "5faccf5881657e3e8369ef4fb75af4783dcadb712df0575ba9243080f2661f14"
+    },
+    {
+      "id": "respiratory",
+      "path": "/models/respiratory.glb",
+      "count": 44,
+      "elements": 123,
+      "vertices": 66917,
+      "triangles": 103898,
+      "rawBytes": 2263988,
+      "bytes": 628000,
+      "sha256": "1ba2f36da3950960c550a7aedce7810f5983d8502009232cd199a06a7bc6881d"
+    },
+    {
+      "id": "digestive",
+      "path": "/models/digestive.glb",
+      "count": 48,
+      "elements": 99,
+      "vertices": 162445,
+      "triangles": 174364,
+      "rawBytes": 4982288,
+      "bytes": 1251016,
+      "sha256": "df91e02d4316b77fef19891eb3956277c2e27a2466ca719b28013511d44a56f8"
+    },
+    {
+      "id": "urinary",
+      "path": "/models/urinary.glb",
+      "count": 6,
+      "elements": 6,
+      "vertices": 5402,
+      "triangles": 9944,
+      "rawBytes": 194312,
+      "bytes": 56960,
+      "sha256": "f6a4ca178bedad87fef9e9f47dad53e6458919f4754d3a8ff49016d84381ed98"
+    },
+    {
+      "id": "reproductive",
+      "path": "/models/reproductive.glb",
+      "count": 12,
+      "elements": 12,
+      "vertices": 4934,
+      "triangles": 7184,
+      "rawBytes": 171040,
+      "bytes": 60992,
+      "sha256": "b60d16bdf7417f3d5d9d134818271df29382d9a52c357d2144aa5b6a3452093c"
+    },
+    {
+      "id": "lymphatic",
+      "path": "/models/lymphatic.glb",
+      "count": 3,
+      "elements": 3,
+      "vertices": 1894,
+      "triangles": 3410,
+      "rawBytes": 68640,
+      "bytes": 22624,
+      "sha256": "8e62294f87c3f87a8b319e4432339953b313f25ba3d51ef50413b28fd9e62000"
+    },
+    {
+      "id": "endocrine",
+      "path": "/models/endocrine.glb",
+      "count": 4,
+      "elements": 4,
+      "vertices": 4050,
+      "triangles": 8034,
+      "rawBytes": 148900,
+      "bytes": 44012,
+      "sha256": "eef5bffa951c96552a58c749a10cc3cdad4d86f9ca89da8a3c573b51d241b35f"
+    }
+  ],
+  "limits": [
+    "Single adult male-derived dataset; female reproductive anatomy absent.",
+    "System browsing categories and spatial regions include software inference and need qualified review.",
+    "Reduced-resolution source meshes; smooth normals do not restore missing detail.",
+    "Source labels preserved; no claim of clinical or curriculum review.",
+    "No histology, pathology, microanatomy, embryology or cadaver textures.",
+    "Gross lung parenchyma and full liver surfaces are not supplied as separate element meshes in this archive; respiratory and liver compounds contain bronchial, vascular or biliary elements. Spinal cord source compound maps the central canal only. Thyroid gland surface is absent."
+  ],
+  "balancedLOD": {
+    "method": "Meshopt simplification from original float geometry before compression, ratio target 0.4, error ceiling 0.002 relative to mesh radius, lockBorder true. All named nodes retained; primitives below 2048 triangles or 0.03 world units maximum extent remain unsimplified. No clinical validation of LOD geometry.",
+    "metrics": [
+      {
+        "system": "skeletal",
+        "nodes": 295,
+        "originalTriangles": 722152,
+        "balancedTriangles": 437646,
+        "ratio": 0.6060303094085455,
+        "simplifiedPrimitives": 96,
+        "retainedSmallPrimitives": 199,
+        "path": "/models/balanced/skeletal.glb",
+        "bytes": 2850892,
+        "sha256": "68c5111950543fda471bae4cd68818a478705073d334666168811c695f7f86bc"
+      },
+      {
+        "system": "muscular",
+        "nodes": 405,
+        "originalTriangles": 2416666,
+        "balancedTriangles": 1127632,
+        "ratio": 0.4666064735466134,
+        "simplifiedPrimitives": 227,
+        "retainedSmallPrimitives": 178,
+        "path": "/models/balanced/muscular.glb",
+        "bytes": 8274012,
+        "sha256": "126901bf287c9972fd473006d2bf330fe2b10f3cfb16b45b194c9ad3db884599"
+      },
+      {
+        "system": "cardiovascular",
+        "nodes": 674,
+        "originalTriangles": 2167412,
+        "balancedTriangles": 1092282,
+        "ratio": 0.5039567927094618,
+        "simplifiedPrimitives": 254,
+        "retainedSmallPrimitives": 420,
+        "path": "/models/balanced/cardiovascular.glb",
+        "bytes": 6307460,
+        "sha256": "04dbf0d97ab13c0e65fc277faf2d38348b797d8447959b700d3d54a0efaf2a07"
+      },
+      {
+        "system": "nervous",
+        "nodes": 163,
+        "originalTriangles": 832796,
+        "balancedTriangles": 428224,
+        "ratio": 0.5142003563898001,
+        "simplifiedPrimitives": 79,
+        "retainedSmallPrimitives": 84,
+        "path": "/models/balanced/nervous.glb",
+        "bytes": 2528796,
+        "sha256": "45552f9fb1de5bc4675bbb492230b11427d62615dfbd6374928416a4d0174697"
+      },
+      {
+        "system": "respiratory",
+        "nodes": 44,
+        "originalTriangles": 103898,
+        "balancedTriangles": 59494,
+        "ratio": 0.5726192996977805,
+        "simplifiedPrimitives": 19,
+        "retainedSmallPrimitives": 25,
+        "path": "/models/balanced/respiratory.glb",
+        "bytes": 419780,
+        "sha256": "1c14bc212c94863abd80074661c14297743ed93e9ccdfa913c8bfc034cb73112"
+      },
+      {
+        "system": "digestive",
+        "nodes": 48,
+        "originalTriangles": 174364,
+        "balancedTriangles": 107850,
+        "ratio": 0.6185336422656053,
+        "simplifiedPrimitives": 19,
+        "retainedSmallPrimitives": 29,
+        "path": "/models/balanced/digestive.glb",
+        "bytes": 894312,
+        "sha256": "713c0ceee8cadea7202c4bc38eea9a7b6524dbcc8d75b3100eeaa71baec427a7"
+      },
+      {
+        "system": "urinary",
+        "nodes": 6,
+        "originalTriangles": 9944,
+        "balancedTriangles": 6400,
+        "ratio": 0.6436041834271923,
+        "simplifiedPrimitives": 3,
+        "retainedSmallPrimitives": 3,
+        "path": "/models/balanced/urinary.glb",
+        "bytes": 41512,
+        "sha256": "6386b1cb27aa9adaff3b459f7d1e07b186fa084ef938a742b7652252abf59da2"
+      },
+      {
+        "system": "reproductive",
+        "nodes": 12,
+        "originalTriangles": 7184,
+        "balancedTriangles": 7184,
+        "ratio": 1,
+        "simplifiedPrimitives": 0,
+        "retainedSmallPrimitives": 12,
+        "path": "/models/balanced/reproductive.glb",
+        "bytes": 60992,
+        "sha256": "b60d16bdf7417f3d5d9d134818271df29382d9a52c357d2144aa5b6a3452093c"
+      },
+      {
+        "system": "lymphatic",
+        "nodes": 3,
+        "originalTriangles": 3410,
+        "balancedTriangles": 3410,
+        "ratio": 1,
+        "simplifiedPrimitives": 0,
+        "retainedSmallPrimitives": 3,
+        "path": "/models/balanced/lymphatic.glb",
+        "bytes": 22624,
+        "sha256": "8e62294f87c3f87a8b319e4432339953b313f25ba3d51ef50413b28fd9e62000"
+      },
+      {
+        "system": "endocrine",
+        "nodes": 4,
+        "originalTriangles": 8034,
+        "balancedTriangles": 4804,
+        "ratio": 0.5979586756285785,
+        "simplifiedPrimitives": 2,
+        "retainedSmallPrimitives": 2,
+        "path": "/models/balanced/endocrine.glb",
+        "bytes": 30048,
+        "sha256": "02f995ec00d3e9b333d9cacff2e0d366608fa5a53f9fe108d0da40c0acac593f"
+      }
+    ]
+  }
+}

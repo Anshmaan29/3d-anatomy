@@ -1,0 +1,16 @@
+SELECTED GROSS ORGAN GEOMETRY
+
+BodyParts3D - The Database Center for Life Science - CC-BY-SA 2.1 Japan
+Z-Anatomy - The open source atlas of anatomy - CC-BY-SA 4.0
+
+Selected lung and liver geometry and this adaptation: Creative Commons Attribution-ShareAlike 4.0 International.
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Original mesh export carrier: https://github.com/nqwrc/3d-anatomy/tree/master/public/models
+Source anatomical work: https://github.com/Z-Anatomy/Models-of-human-anatomy
+
+Extracted exact five lung lobe nodes and Liver node only; baked source hierarchy transforms; fitted to BodyParts3D with uniform scale, sagittal rotation and translation; replaced materials; Meshopt compressed. No source text or software copied.
+Kidneys, inner-ear structures, brain and white-matter models, source definitions and all other source structures excluded.
+
+These models are educational source-labelled geometry. Spatial alignment is approximate; medical review is pending.
+See /data/supplement-provenance.json for fit residuals and source SHA-256 records.

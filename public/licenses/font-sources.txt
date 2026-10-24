@@ -1,0 +1,8 @@
+Self-hosted, unmodified variable fonts. Retrieved 24 October 2026.
+
+https://raw.githubusercontent.com/google/fonts/main/ofl/dmsans/DMSans%5Bopsz,wght%5D.ttf -> /fonts/dm-sans-variable.ttf
+https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/Manrope%5Bwght%5D.ttf -> /fonts/manrope-variable.ttf
+https://raw.githubusercontent.com/google/fonts/main/ofl/dmsans/OFL.txt -> /licenses/DM-Sans-OFL.txt
+https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/OFL.txt -> /licenses/Manrope-OFL.txt
+
+Both font families are distributed under the SIL Open Font License 1.1. See individual OFL text files in this directory.

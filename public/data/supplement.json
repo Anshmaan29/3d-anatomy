@@ -1,0 +1,248 @@
+{
+  "version": "z-anatomy-gross-organs-2026-10-24",
+  "source": "Z-Anatomy via nqwrc public GLB exports",
+  "license": "CC-BY-SA-4.0",
+  "attributions": [
+    "BodyParts3D - The Database Center for Life Science - CC-BY-SA 2.1 Japan",
+    "Z-Anatomy - The open source atlas of anatomy - CC-BY-SA 4.0"
+  ],
+  "systems": [
+    {
+      "id": "respiratory",
+      "path": "/models/supplement/respiratory.glb",
+      "count": 5,
+      "triangles": 42144,
+      "vertices": 22236,
+      "bytes": 208656,
+      "sha256": "2c9ca6b0d9c466373b05622d165c45ba4772f5df056098be811308459414895b"
+    },
+    {
+      "id": "digestive",
+      "path": "/models/supplement/digestive.glb",
+      "count": 1,
+      "triangles": 12270,
+      "vertices": 6353,
+      "bytes": 56044,
+      "sha256": "23beb20be7053ef01757cce3676ab507120068888b1b8b795151ffca2533ed4f"
+    }
+  ],
+  "structures": [
+    {
+      "id": "ZA_LUNG_LEFT_INFERIOR",
+      "name": "Inferior lobe of left lung",
+      "system": "respiratory",
+      "region": "Thorax",
+      "laterality": "left",
+      "source": "Z-Anatomy adaptation",
+      "sourceId": "Inferior lobe of left lung",
+      "sourceNames": [
+        "Inferior lobe of left lung"
+      ],
+      "sourceLicense": "CC-BY-SA-4.0",
+      "assetPath": "/models/supplement/respiratory.glb",
+      "bounds": [
+        [
+          0.036597496830234236,
+          0.6609128299116935,
+          -0.18396363994067683
+        ],
+        [
+          0.2598924950716798,
+          1.047362995194727,
+          0.18127468905889244
+        ]
+      ],
+      "center": [
+        0.148244995950957,
+        0.8541379125532103,
+        -0.0013444754408921955
+      ],
+      "synonyms": [
+        "inferior lobe of left lung",
+        "inferior lobe of left lung"
+      ],
+      "reviewStatus": "Alignment requires anatomy review"
+    },
+    {
+      "id": "ZA_LUNG_LEFT_SUPERIOR",
+      "name": "Superior lobe of left lung",
+      "system": "respiratory",
+      "region": "Thorax",
+      "laterality": "left",
+      "source": "Z-Anatomy adaptation",
+      "sourceId": "Superior lobe of left lung",
+      "sourceNames": [
+        "Superior lobe of left lung"
+      ],
+      "sourceLicense": "CC-BY-SA-4.0",
+      "assetPath": "/models/supplement/respiratory.glb",
+      "bounds": [
+        [
+          0.017498343770822128,
+          0.7671656913851665,
+          -0.15804913844098906
+        ],
+        [
+          0.2461287944048191,
+          1.1893421981372077,
+          0.18576578956894776
+        ]
+      ],
+      "center": [
+        0.1318135690878206,
+        0.9782539447611871,
+        0.013858325563979354
+      ],
+      "synonyms": [
+        "superior lobe of left lung",
+        "superior lobe of left lung"
+      ],
+      "reviewStatus": "Alignment requires anatomy review"
+    },
+    {
+      "id": "ZA_LUNG_RIGHT_INFERIOR",
+      "name": "Inferior lobe of right lung",
+      "system": "respiratory",
+      "region": "Thorax",
+      "laterality": "right",
+      "source": "Z-Anatomy adaptation",
+      "sourceId": "Inferior lobe of right lung",
+      "sourceNames": [
+        "Inferior lobe of right lung"
+      ],
+      "sourceLicense": "CC-BY-SA-4.0",
+      "assetPath": "/models/supplement/respiratory.glb",
+      "bounds": [
+        [
+          -0.26294940494657826,
+          0.6654810957236024,
+          -0.18454753008794764
+        ],
+        [
+          -0.005745306822447241,
+          1.027078776282344,
+          0.16814357199809998
+        ]
+      ],
+      "center": [
+        -0.13434735588451274,
+        0.8462799360029731,
+        -0.008201979044923827
+      ],
+      "synonyms": [
+        "inferior lobe of right lung",
+        "inferior lobe of right lung"
+      ],
+      "reviewStatus": "Alignment requires anatomy review"
+    },
+    {
+      "id": "ZA_LUNG_RIGHT_MIDDLE",
+      "name": "Middle lobe of right lung",
+      "system": "respiratory",
+      "region": "Thorax",
+      "laterality": "right",
+      "source": "Z-Anatomy adaptation",
+      "sourceId": "Middle lobe of right lung",
+      "sourceNames": [
+        "Middle lobe of right lung"
+      ],
+      "sourceLicense": "CC-BY-SA-4.0",
+      "assetPath": "/models/supplement/respiratory.glb",
+      "bounds": [
+        [
+          -0.24782608430129355,
+          0.7591685592116753,
+          -0.11396662015717285
+        ],
+        [
+          -0.011750814986888295,
+          0.9647918644234024,
+          0.18763737725876992
+        ]
+      ],
+      "center": [
+        -0.12978844964409092,
+        0.8619802118175388,
+        0.036835378550798534
+      ],
+      "synonyms": [
+        "middle lobe of right lung",
+        "middle lobe of right lung"
+      ],
+      "reviewStatus": "Alignment requires anatomy review"
+    },
+    {
+      "id": "ZA_LUNG_RIGHT_SUPERIOR",
+      "name": "Superior lobe of right lung",
+      "system": "respiratory",
+      "region": "Thorax",
+      "laterality": "right",
+      "source": "Z-Anatomy adaptation",
+      "sourceId": "Superior lobe of right lung",
+      "sourceNames": [
+        "Superior lobe of right lung"
+      ],
+      "sourceLicense": "CC-BY-SA-4.0",
+      "assetPath": "/models/supplement/respiratory.glb",
+      "bounds": [
+        [
+          -0.23697614074529155,
+          0.912243475484088,
+          -0.16213329134467186
+        ],
+        [
+          -0.01619190192442626,
+          1.1862264616661007,
+          0.15033862365815087
+        ]
+      ],
+      "center": [
+        -0.1265840213348589,
+        1.0492349685750944,
+        -0.005897333843260494
+      ],
+      "synonyms": [
+        "superior lobe of right lung",
+        "superior lobe of right lung"
+      ],
+      "reviewStatus": "Alignment requires anatomy review"
+    },
+    {
+      "id": "ZA_LIVER",
+      "name": "Liver",
+      "system": "digestive",
+      "region": "Abdomen",
+      "laterality": "midline / bilateral",
+      "source": "Z-Anatomy adaptation",
+      "sourceId": "Liver",
+      "sourceNames": [
+        "Liver"
+      ],
+      "sourceLicense": "CC-BY-SA-4.0",
+      "assetPath": "/models/supplement/digestive.glb",
+      "bounds": [
+        [
+          -0.2300843197658453,
+          0.5093429758235616,
+          -0.12450963008916892
+        ],
+        [
+          0.18329673858381584,
+          0.8425568028043172,
+          0.18194231382926068
+        ]
+      ],
+      "center": [
+        -0.023393790591014735,
+        0.6759498893139394,
+        0.028716341870045882
+      ],
+      "synonyms": [
+        "liver",
+        "liver"
+      ],
+      "reviewStatus": "Alignment requires anatomy review"
+    }
+  ],
+  "alignmentNotice": "Models are aligned across source releases using skeletal landmarks. Fit/held-out residuals are recorded in supplement-provenance.json. Medical review is pending."
+}
