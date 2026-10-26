@@ -26,3 +26,5 @@ Original short wording uses the [NIH/NCI anatomy training modules](https://train
 - These are browser viewport checks. Physical iPad/Android and clinical review remain outstanding.
 
 The content is bundled with the app, so it adds no per-selection network dependency and is available with the cached application when studying offline.
+
+The sidebar’s bottom “Open Anatomy / Dataset & attribution” tile was removed at the owner’s request. Credits and licences remain accessible from Settings, with selected-model provenance also available in the inspector.
