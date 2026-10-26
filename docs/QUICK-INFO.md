@@ -27,4 +27,4 @@ Original short wording uses the [NIH/NCI anatomy training modules](https://train
 
 The content is bundled with the app, so it adds no per-selection network dependency and is available with the cached application when studying offline.
 
-The sidebar’s bottom “Open Anatomy / Dataset & attribution” tile was removed at the owner’s request. Credits and licences remain accessible from Settings, with selected-model provenance also available in the inspector.
+The owner requested removal of the credits interface completely. The sidebar tile, Settings credits entry, credits dialog, inspector provenance button and model-provider/licence rows are removed. Original licence and provenance files remain packaged with the data. Educational references and medical-review status remain with the explanations.
