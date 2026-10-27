@@ -271,7 +271,7 @@ def main():
     assert all([scene['id'] for scene in native_scenes if sid in scene['memberIds']]==['atlas-603'] for sid in specimen_only)
     native_surface_ids = {sid for scene in native_scenes for sid in scene['memberIds']}
     uninstanced_surface_ids = sorted(set(structures)-native_surface_ids)
-    result={'version':'atlas-scenes-2026-10-24-v1','source':'Anatomy 3D Atlas 7.2 authorized extraction',
+    result={'version':'atlas-scenes-2026-10-24-v1','source':'Anatomical source catalogue',
             'scenes':native_scenes,'collections':curated,'groups':preset_groups,
             'specimenOnlyIds':specimen_only,'uninstancedSurfaceIds':uninstanced_surface_ids,'specimenOnlyEvidence':{'canonicalResourceRoot':'Uro_Kidney_HighRes','nativeSceneIds':['atlas-603'],'reason':'Independent kidney-section specimen, absent from full-body and every other recovered native anatomy scene. Preserve access through dissection presets and search.'},
             'coverage':{'catalogScenes':len(rows),'nativeAnatomyRoots':len(native_scenes),'curatedInteriorViews':len(curated),'catalogViewpoints':len(pov_rows),'mappedViewpointMarkers':sum(p['sourceEvidence']['markerFound'] for s in native_scenes for p in s['viewpoints']),

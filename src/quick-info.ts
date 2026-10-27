@@ -18,7 +18,7 @@ const references={
   digestive:['Digestive system','digestive/'], accessory:['Digestive glands','digestive/regions/accessory.html'], kidney:['Kidneys','urinary/components/kidney.html'], urinary:['Urinary system','urinary/'],
   endocrine:['Hormone-producing glands','endocrine/'], thyroid:['Thyroid and parathyroid','endocrine/glands/thyroid.html'], adrenal:['Adrenal glands','endocrine/glands/adrenal.html'],
   reproductive:['Reproductive system','reproductive/'], duct:['Male reproductive ducts','reproductive/male/duct.html'], maleGland:['Male reproductive glands','reproductive/male/glands.html'], tract:['Female reproductive tract','reproductive/female/tract.html'], breast:['Breast structures','reproductive/female/glands.html'],
-  atlas:['Atlas muscle action (source catalogue)','/data/atlas.json'],
+  atlas:['Anatomical source catalogue · muscle action','/data/atlas.json'],
   eye:['NIH / NEI · How the eyes work','https://www.nei.nih.gov/eye-health-information/healthy-vision/how-eyes-work'],
   hearing:['NIH / NIDCD · How we hear','https://www.nidcd.nih.gov/health/how-do-we-hear'],
   brainBasics:['NIH / NIMH · Get to know your brain','https://www.nimh.nih.gov/news/media/2023/get-to-know-your-brain'],

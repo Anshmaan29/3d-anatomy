@@ -104,7 +104,7 @@ def export(analysis:Path,catalog_path:Path,output:Path):
             'reviewStatus':'source-derived; not independently clinically reviewed'})
     assert len({x['id'] for x in landmarks})==len(landmarks)
     result={'landmarks':landmarks,'unassociatedAnchors':unassociated,
-        'source':'Anatomy 3D Atlas 7.2','anchorType':'Source PA Transform origin',
+        'source':'Anatomical source catalogue','anchorType':'Source PA Transform origin',
         'registration':registration.tolist(),
         'coverage':{'sourceLandmarkRows':len(labels['pins']),'exportedLandmarks':len(landmarks),
             'missingSourceAnchors':missing,'invalidParentReferences':invalid,
