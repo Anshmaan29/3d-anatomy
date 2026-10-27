@@ -14,11 +14,13 @@ import { createLoadQueue, fitViewDistance, requestedModelAssets, sectionCoordina
 import type { ViewDirection } from './viewer-utils';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh';
 import { CameraMotion, interactionRaycast } from './camera-motion';
+import { focusDistance, practiceEntryVisible } from './practice';
 import './viewer.css';
 
 // OrbitControls consumes wheel input directly. No anatomy mesh handles wheel
 // events, so avoid R3F raycasting the entire atlas on every trackpad/wheel tick.
 const anatomyEvents:typeof events=store=>{const manager=events(store);if(manager.handlers)manager.handlers.onWheel=()=>{};return manager;};
+const noPracticeRaycast:THREE.Mesh['raycast']=()=>{};
 
 const cache = new Map<string, Promise<THREE.Group>>();
 const scheduleLoad = createLoadQueue(2);
@@ -152,7 +154,8 @@ function AnatomyScene(props:SceneProps) {
   },[scenes,structureMap,props.dataset]);
   useEffect(()=>{initialFocusDone.current=false;},[props.dataset]);
   const hiddenSet=useMemo(()=>new Set(hiddenIds),[hiddenIds]);
-  const visible=useMemo(()=>entries.filter(e=>activeSystems.includes(e.system)&&!hiddenSet.has(e.id)&&(!isolatedSet.size||isolatedSet.has(e.id))),[entries,activeSystems,hiddenSet,isolatedSet]);
+  const practiceTarget=props.practiceMode&&!props.practiceContext?selectedId:null;
+  const visible=useMemo(()=>entries.filter(e=>activeSystems.includes(e.system)&&!hiddenSet.has(e.id)&&(!isolatedSet.size||isolatedSet.has(e.id))&&practiceEntryVisible(e.id,practiceTarget,!!props.practiceMode,!!props.practiceContext)),[entries,activeSystems,hiddenSet,isolatedSet,practiceTarget,props.practiceMode,props.practiceContext]);
   useEffect(()=>{
     propsRef.current.onReady?.({meshes:visible.length,triangles:visible.reduce((n,e)=>n+(e.geometry.index?.count??e.geometry.attributes.position.count)/3,0)});
     invalidate();
@@ -165,11 +168,17 @@ function AnatomyScene(props:SceneProps) {
     const box=new THREE.Box3();for(const e of items){const b=e.geometry.boundingBox?.clone().applyMatrix4(e.matrix);if(b)box.union(b);}
     const center=box.getCenter(new THREE.Vector3());
     const radius=box.getSize(new THREE.Vector3()).length()/2;
-    const distance=Math.max(.24,radius/Math.tan(THREE.MathUtils.degToRad(17))*1.3);
+    const distance=focusDistance(radius,size.width/size.height,camera instanceof THREE.PerspectiveCamera?camera.fov:34);
     const direction=camera.position.clone().sub(controls.current?.target||new THREE.Vector3()).normalize();
     travel(center.clone().addScaledVector(direction,distance),center);
   };
   useEffect(()=>{if(pendingFocus.current&&entries.some(e=>e.id===pendingFocus.current))focus(pendingFocus.current);},[entries]);
+  const lastPracticeSize=useRef({width:size.width,height:size.height});
+  useEffect(()=>{
+    const changed=lastPracticeSize.current.width!==size.width||lastPracticeSize.current.height!==size.height;
+    lastPracticeSize.current={width:size.width,height:size.height};
+    if(changed&&props.practiceMode&&selectedId&&entries.some(entry=>entry.id===selectedId))focus(selectedId);
+  },[size.width,size.height]);
   useEffect(()=>{
     const landmark=props.landmarks?.find(item=>item.id===props.focusedLandmarkId);
     if(!landmark||!entries.some(entry=>entry.id===landmark.structureId))return;
@@ -178,6 +187,16 @@ function AnatomyScene(props:SceneProps) {
     const direction=camera.position.clone().sub(controls.current?.target||new THREE.Vector3()).normalize();
     travel(point.clone().addScaledVector(direction,distance),point);
   },[props.focusedLandmarkId,props.landmarks,entries]);
+  useEffect(()=>{
+    const note=props.focusedAnnotation;
+    const entry=note&&entries.find(item=>item.id===note.structureId);
+    if(!note||!entry)return;
+    initialFocusDone.current=true;
+    const point=new THREE.Vector3(...note.point).add(exploded?entry.center.clone().normalize().multiplyScalar(.26):new THREE.Vector3());
+    const distance=Math.max(.3,Math.min(1.2,camera.position.distanceTo(controls.current?.target||point)));
+    const direction=camera.position.clone().sub(controls.current?.target||new THREE.Vector3()).normalize();
+    travel(point.clone().addScaledVector(direction,distance),point);
+  },[props.focusedAnnotation,entries,exploded]);
 
   useEffect(()=>{if(!initialFocusDone.current&&entries.length){initialFocusDone.current=true;if(selectedRef.current)focus(selectedRef.current);else home();}},[entries]);
   const home=(direction:ViewDirection='anterior')=>{
@@ -188,7 +207,7 @@ function AnatomyScene(props:SceneProps) {
     const directions:Record<ViewDirection,[number,number,number]>={anterior:[0,0,1],posterior:[0,0,-1],left:[1,0,0],right:[-1,0,0],superior:[0,1,.001]};
     travel(center.clone().add(new THREE.Vector3(...directions[direction]).normalize().multiplyScalar(distance)),center);
   };
-  // Capture the same rendered scene and include attribution in the download.
+  // Capture the same rendered scene and its study notes in the download.
   const scene=useThree(state=>state.scene);
   useImperativeHandle(apiRef,()=>({getCamera:()=>({position:camera.position.toArray() as [number,number,number],target:(controls.current?.target.toArray()||[0,0,0]) as [number,number,number]}),restoreCamera:(state)=>{if(state.position.every(Number.isFinite)&&state.target.every(Number.isFinite))travel(new THREE.Vector3(...state.position),new THREE.Vector3(...state.target));},home,focus,focusPoint:(coordinates)=>{if(!coordinates.every(Number.isFinite))return;const target=new THREE.Vector3(...coordinates),direction=camera.position.clone().sub(controls.current?.target||new THREE.Vector3()).normalize();const distance=Math.max(.3,Math.min(1.2,camera.position.distanceTo(controls.current?.target||target)));travel(target.clone().addScaledVector(direction,distance),target);},view:(direction)=>{
     const target=controls.current?.target.clone()||new THREE.Vector3();const distance=Math.max(1,camera.position.distanceTo(target));
@@ -211,7 +230,7 @@ function AnatomyScene(props:SceneProps) {
       lines.forEach((text,index)=>context.fillText(text,x+12,y+19+index*(font+5)));
       context.beginPath();context.arc(px,py,4,0,Math.PI*2);context.fill();
     }
-    context.fillStyle=resolvedTheme==='dark'?'#b9cbbd':'#314846';context.font=`${Math.max(8,Math.min(14,canvas.width/65))}px sans-serif`;context.fillText(propsRef.current.dataset==='atlas'?'Open Anatomy · Atlas source: Catfish Animation Studio':'Open Anatomy · BodyParts3D © DBCLS · CC BY 4.0',14,canvas.height-39);context.fillText(propsRef.current.dataset==='atlas'?'Adapted with permission confirmed by project owner · anatomy review pending':'Lung/liver adaptations: Z-Anatomy · CC BY-SA 4.0 · anatomy review pending',14,canvas.height-17);
+    context.fillStyle=resolvedTheme==='dark'?'#b9cbbd':'#314846';context.font=`${Math.max(8,Math.min(14,canvas.width/65))}px sans-serif`;context.fillText('Open Anatomy · 3D study view',14,canvas.height-39);context.fillText('Educational use · Not for diagnosis',14,canvas.height-17);
     canvas.toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob);const anchor=document.createElement('a');anchor.href=url;anchor.download='open-anatomy.png';anchor.click();setTimeout(()=>URL.revokeObjectURL(url),3000);});
   }}));
   useFrame((_state,delta)=>{
@@ -247,7 +266,7 @@ function AnatomyScene(props:SceneProps) {
     <directionalLight position={[4,1,-3]} intensity={1.7} color="#c7dedd"/>
     <directionalLight position={[0,2,5]} intensity={.35}/>
     <group>
-    {visible.map((entry,index)=><AnatomyMesh key={`${entry.system}-${entry.id}-${index}`} entry={entry} raycast={raycast} selected={selectedSet.has(entry.id)} hovered={entry.id===hovered} opacity={Math.min(1,Math.max(0,props.structureOpacities?.[entry.id]??(selectedSet.has(entry.id)?1:opacity)))} exploded={exploded} clipPlane={section?clipPlane:null} onHover={setHovered} onSelect={props.onSelect} onFocus={focus} placing={!!props.placingAnnotation} onAnchor={props.onAnnotationAnchor}/>)}
+    {visible.map((entry,index)=><AnatomyMesh key={`${entry.system}-${entry.id}-${index}`} entry={entry} raycast={props.practiceMode?noPracticeRaycast:raycast} practiceHighlight={!!props.practiceMode&&selectedSet.has(entry.id)} practiceDark={resolvedTheme==='dark'} selected={selectedSet.has(entry.id)} hovered={!props.practiceMode&&entry.id===hovered} opacity={props.practiceMode&&props.practiceContext&&!selectedSet.has(entry.id)?.12:Math.min(1,Math.max(0,props.structureOpacities?.[entry.id]??(selectedSet.has(entry.id)?1:opacity)))} exploded={exploded} clipPlane={section?clipPlane:null} onHover={setHovered} onSelect={props.onSelect} onFocus={focus} placing={!!props.placingAnnotation} onAnchor={props.onAnnotationAnchor}/>)}
     </group>
     <AnchoredLabels items={[
       ...(props.annotations||[]).filter(note=>visible.some(e=>e.id===note.structureId)&&inSection(new THREE.Vector3(...note.point))).map(note=>{const entry=visible.find(e=>e.id===note.structureId)!;return{id:note.id,text:note.text,kind:'note',point:new THREE.Vector3(...note.point).add(exploded?entry.center.clone().normalize().multiplyScalar(.26):new THREE.Vector3())} as AnchoredLabel;}),
@@ -259,11 +278,12 @@ function AnatomyScene(props:SceneProps) {
     <SceneDiagnostics meshes={visible.length} size={size}/><GraphicsHealth/>
   </>;
 }
-function AnatomyMesh({entry,raycast,selected,hovered,opacity,exploded,clipPlane,onHover,onSelect,onFocus,placing,onAnchor}:{raycast:THREE.Mesh['raycast'];placing:boolean;onAnchor?:ViewerProps['onAnnotationAnchor'];entry:Entry;selected:boolean;hovered:boolean;opacity:number;exploded:boolean;clipPlane:THREE.Plane|null;onHover:(id:string|null)=>void;onSelect:ViewerProps['onSelect'];onFocus:(id?:string)=>void}) {
+function AnatomyMesh({entry,raycast,selected,hovered,opacity,exploded,clipPlane,onHover,onSelect,onFocus,placing,onAnchor,practiceHighlight,practiceDark}:{raycast:THREE.Mesh['raycast'];placing:boolean;onAnchor?:ViewerProps['onAnnotationAnchor'];entry:Entry;selected:boolean;hovered:boolean;opacity:number;exploded:boolean;clipPlane:THREE.Plane|null;onHover:(id:string|null)=>void;onSelect:ViewerProps['onSelect'];onFocus:(id?:string)=>void;practiceHighlight:boolean;practiceDark:boolean}) {
   const ref=useRef<THREE.Mesh>(null);const invalidate=useThree(s=>s.invalidate);
   const material=useMemo(()=>entry.sourceMaterial?(Array.isArray(entry.sourceMaterial)?entry.sourceMaterial.map(m=>m.clone()):entry.sourceMaterial.clone()):new THREE.MeshStandardMaterial({color:PALETTE[entry.system],roughness:.58,metalness:.02,side:THREE.DoubleSide}),[entry.sourceMaterial,entry.system]);
   const materials=useMemo(()=>Array.isArray(material)?material:[material],[material]);
   const baseColors=useMemo(()=>materials.map(m=>m instanceof THREE.MeshStandardMaterial?m.color.clone():new THREE.Color('white')),[materials]);
+  const baseMaps=useMemo(()=>materials.map(m=>m instanceof THREE.MeshStandardMaterial?m.map:null),[materials]);
   const base=useMemo(()=>new THREE.Vector3().setFromMatrixPosition(entry.matrix),[entry.matrix]);
   const rotation=useMemo(()=>new THREE.Quaternion().setFromRotationMatrix(entry.matrix),[entry.matrix]);
   const scale=useMemo(()=>new THREE.Vector3().setFromMatrixScale(entry.matrix),[entry.matrix]);
@@ -272,14 +292,16 @@ function AnatomyMesh({entry,raycast,selected,hovered,opacity,exploded,clipPlane,
     materials.forEach((mat,index)=>{
       if(mat instanceof THREE.MeshStandardMaterial){
         mat.color.copy(baseColors[index]);
-        if(selected)mat.color.lerp(new THREE.Color('#4aaf9c'),.38);
+        mat.map=practiceHighlight?null:baseMaps[index];
+        if(practiceHighlight)mat.color.set(practiceDark?'#ffbd3b':'#2152c2');
+        else if(selected)mat.color.lerp(new THREE.Color('#4aaf9c'),.38);
         else if(hovered)mat.color.lerp(new THREE.Color('#e0ce9b'),.25);
         else if(!entry.sourceMaterial&&entry.system==='cardiovascular'&&/vein|venous/i.test(entry.name))mat.color.set('#6487ad');
-        mat.emissive.set(selected?'#193d33':'#000000');mat.emissiveIntensity=selected?.35:0;
+        mat.emissive.set(practiceHighlight?(practiceDark?'#704200':'#0b1c56'):selected?'#193d33':'#000000');mat.emissiveIntensity=practiceHighlight?.28:selected?.35:0;
       }
       mat.opacity=opacity;mat.transparent=opacity<1;mat.depthWrite=opacity>=.99;mat.clippingPlanes=clipPlane?[clipPlane]:[];mat.needsUpdate=true;
     });invalidate();
-  },[materials,baseColors,selected,hovered,opacity,clipPlane,invalidate,entry.sourceMaterial,entry.system,entry.name]);
+  },[materials,baseColors,baseMaps,selected,hovered,opacity,clipPlane,invalidate,entry.sourceMaterial,entry.system,entry.name,practiceHighlight,practiceDark]);
   // Cached source geometry/textures are shared across mounts. Only instance materials are owned here.
   useEffect(()=>()=>{materials.forEach(mat=>mat.dispose());},[materials]);
   useFrame((_state,delta)=>{if(ref.current&&ref.current.position.distanceToSquared(target)>.0000001){ref.current.position.lerp(target,1-Math.exp(-delta*10));invalidate();}});

@@ -16,3 +16,25 @@
 :root{--on-accent:#fff}[data-theme=dark]{--on-accent:#153c2c}
 .modal .settings-toggle strong{color:var(--text-primary)}.modal :is(.settings-toggle small,.settings-info p,.modal-footnote){color:var(--text-secondary);font-size:11px;line-height:1.7}.modal>.primary-button,.modal form>.primary-button{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-size:12px;min-height:46px}.modal>.primary-button:hover,.modal form>.primary-button:hover{color:var(--on-accent);filter:brightness(1.06)}
 .annotation-panel :is(.annotation-empty,.annotation-help,.annotation-placement p,.annotation-anchor-status,.annotation-editor label,.annotation-note small){color:var(--text-secondary)!important;font-size:11px!important;line-height:1.7!important}.annotation-panel .annotation-note>span{font-size:12px;color:var(--text-primary)}.annotation-panel .annotation-pin-button{min-height:40px;font-size:11px}.annotation-panel .annotation-heading h3{font-size:12px!important}.medical-note p{font-size:10px;line-height:1.6;color:var(--text-secondary)}.unselected-content>p,.empty-detail-steps>span{color:var(--text-secondary);font-size:12px;line-height:1.7}[data-theme=light] .main-tabs button{color:var(--text-secondary)}[data-theme=light] .main-tabs button.active{color:var(--accent)}[data-theme=light] :is(.stage-heading p,.view-context,.view-context small,.interaction-hint){color:var(--text-secondary)}
+
+.practice-context-toggle{min-height:44px;padding:9px 12px;margin-top:12px;border:1px solid var(--border);border-radius:8px;color:var(--text-primary);background:var(--surface-subtle);font-size:12px;text-align:left}.practice-context-toggle:hover,.practice-context-toggle[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft)}
+
+.practice-skip{min-height:44px;padding:8px 0;margin-top:6px;color:var(--text-secondary);font-size:12px;text-decoration:underline;text-underline-offset:3px}.practice-skip:hover{color:var(--accent)}
+.practice-content .inspector-intro{color:var(--text-secondary);font-size:13px;line-height:1.6}
+.answer-options button:not(.answer-correct):not(.answer-incorrect){color:var(--text-primary);background:var(--surface);border-color:var(--border)}
+.answer-options button{font-size:14px!important;line-height:1.5;min-height:48px}
+.answer-options .option-letter{font-size:12px;color:var(--text-secondary);background:var(--surface-subtle);border-color:var(--border)}
+@media(max-width:740px){
+ .workspace-practice .inspector{height:54%;max-height:54%}
+ .workspace-practice .inspector-heading{min-height:40px}
+ .workspace-practice .practice-content{padding:14px 18px 22px}
+ .workspace-practice .practice-content h2{font-size:19px;line-height:1.3;margin:8px 0}
+ .workspace-practice.practice-details-open .practice-content .inspector-intro{display:none}
+ .workspace-practice.practice-details-open .practice-context-toggle{margin-top:5px}
+ .workspace-practice .answer-options{margin-top:12px}
+ .workspace-practice.practice-details-open .viewer-container{top:100px;bottom:calc(54% + 60px)}
+ .workspace-practice.practice-details-open .stage-bottom{bottom:calc(54% + 5px);gap:0}
+ .workspace-practice.practice-details-open .stage-bottom .orientation-presets,.workspace-practice.practice-details-open .stage-bottom .interaction-hint{display:none}
+ .workspace-practice.practice-details-open .viewer-toolbar{display:flex;overflow-x:auto;max-width:calc(100% - 24px);height:50px;justify-content:flex-start}
+ .workspace-practice.practice-details-open .viewer-toolbar button{flex:0 0 44px}
+}
