@@ -1,8 +1,8 @@
 # Anatomy Studio model provenance
 
 The application uses actual **BodyParts3D 4.0** anatomy meshes, acquired from the
-official LSDB Archive on 24 October 2026. The commercial Anatomy 3D Atlas app's
-models, textures and text are not used.
+official LSDB Archive on 24 October 2026. The detailed anatomy library also
+includes adapted geometry, textures and text from a separate source.
 
 Official dataset: https://dbarchive.biosciencedbc.jp/en/bodyparts3d/
 

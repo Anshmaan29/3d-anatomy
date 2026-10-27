@@ -123,7 +123,10 @@ def inspect(app: Path):
                                "columns": sorted(set(re.findall(r"\b(?:id|group_id|pref_scene|pref_view|type|search|layer|origin|insertion|innervation|action|isocode|muscles_id|region_id|unityscene|sort|[a-z]{2}_name)\b", s))),
                                "language_format_placeholders": bool(re.search(r"\{\d\}_name", s))})
 
-    casdb = data_root / "StreamingAssets/anatomy3datlas.casdb"
+    catalogs = list((data_root / "StreamingAssets").glob("*.casdb"))
+    if len(catalogs) != 1:
+        raise ValueError("Expected exactly one source catalogue in StreamingAssets")
+    casdb = catalogs[0]
     db = casdb.read_bytes()
     freq = collections.Counter(db)
     entropy = -sum(n / len(db) * math.log2(n / len(db)) for n in freq.values())
@@ -151,7 +154,7 @@ def inspect(app: Path):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--app", type=Path, default=Path("/Applications/Anatomy 3D Atlas.app"))
+    p.add_argument("--app", type=Path, required=True, help="Path to the source application")
     p.add_argument("--output", type=Path, default=Path("data-source/atlas-analysis/metadata/catalog-analysis.json"))
     args = p.parse_args()
     result = inspect(args.app)

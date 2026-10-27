@@ -40,7 +40,7 @@ def normalize(s):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--analysis', type=Path, default=Path('data-source/atlas-analysis'))
-    p.add_argument('--source-data', type=Path, default=Path('/Applications/Anatomy 3D Atlas.app/Contents/Resources/Data'))
+    p.add_argument('--source-data', type=Path, required=True, help='Path to the source app’s Contents/Resources/Data directory')
     p.add_argument('--output', type=Path, default=Path('public/data/atlas-scenes.json'))
     args = p.parse_args()
     decoded = args.analysis/'decoded'

@@ -33,7 +33,7 @@ SYSTEMS = {'Ske':'bones','Mus':'muscles','Art':'arteries','Vei':'veins','Ner':'n
     'Lig':'ligaments','Res':'respiratory','Dig':'digestive','Uro':'urogenital',
     'End':'endocrine','Lym':'lymphatic','Hea':'heart','Bra':'brain','Eye':'eye',
     'Ear':'ear','Int':'integumentary'}
-SOURCE = {'name':'Anatomy 3D Atlas','version':'7.2','reviewStatus':'Source-derived; not independently clinically reviewed',
+SOURCE = {'name':'Anatomical source catalogue','version':'7.2','reviewStatus':'Source-derived; not independently clinically reviewed',
     'reuseBasis':'User explicitly confirms permission to extract and reuse in this project (2026-10-24)'}
 
 def sha(b): return hashlib.sha256(b).hexdigest()
@@ -107,7 +107,10 @@ def decode(app:Path):
     lam=instructions('U3CU3Ec_U3CRunU3Eb__0_0_m7F8FDB')
     assert [i.mnemonic for i in lam]==['eor','and','ret']
     key=bytes(v^i for i,v in enumerate(raw))
-    enc=(data/'StreamingAssets/anatomy3datlas.casdb').read_bytes()
+    catalogs=list((data/'StreamingAssets').glob('*.casdb'))
+    if len(catalogs) != 1:
+        raise ValueError('Expected exactly one source catalogue in StreamingAssets')
+    enc=catalogs[0].read_bytes()
     dec=unpad(AES.new(key,AES.MODE_CBC,enc[:16]).decrypt(enc[16:]),16)
     sql=dec.decode('utf8')
     assert sql.startswith('BEGIN TRANSACTION;') and 'CREATE TABLE' in sql
@@ -178,7 +181,7 @@ def recover(app:Path,output:Path,mesh_inventory:Path):
     print(json.dumps({'output':str(output/'atlas-labels.json'),**{k:summary[k] for k in ['modelRows','pinRows','mappedMeshCodes','mappedKindCounts','unmappedMeshCodes']}},indent=2))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--app',type=Path,default=Path('/Applications/Anatomy 3D Atlas.app'))
+    p=argparse.ArgumentParser();p.add_argument('--app',type=Path,required=True,help='Path to the source application')
     p.add_argument('--output',type=Path,default=Path('data-source/atlas-analysis/labels'))
     p.add_argument('--mesh-inventory',type=Path,default=Path('data-source/atlas-analysis/parsed/meshes.json'))
     a=p.parse_args();recover(a.app,a.output,a.mesh_inventory)

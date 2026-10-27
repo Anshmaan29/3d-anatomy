@@ -1,6 +1,6 @@
 # Atlas source scenes and inside-organ views
 
-Date: 24 October 2026. Target: installed Anatomy 3D Atlas 7.2, build 720.
+Date: 24 October 2026. Target: installed source application, version 7.2, build 720.
 The project owner confirmed permission to extract and reuse its data. This report
 covers scene reconstruction and teaching-view arrangements; it does not claim
 independent clinical review or exact runtime feature parity.

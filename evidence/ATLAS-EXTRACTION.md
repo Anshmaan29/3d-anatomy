@@ -6,7 +6,7 @@ it is not independent verification of a licence or an additional licence grant.
 
 ## What was actually recovered
 
-The installed `/Applications/Anatomy 3D Atlas.app` was inspected read-only.
+The installed source application was inspected read-only.
 UnityPy 1.25.4 decoded **all 4,234 Mesh objects**: 4,586,919 vertices and
 7,518,721 triangles, with finite positions and in-range triangle indices.
 Compressed NPZ geometry archives total **127,930,558 bytes**. All 39,964 Transform

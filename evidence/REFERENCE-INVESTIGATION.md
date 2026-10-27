@@ -2,12 +2,12 @@
 
 # Reference investigation — 24 October 2026
 
-Target supplied by user: `/Applications/Anatomy 3D Atlas.app`.
+Target supplied by user: the installed source application.
 
 ## Observed with REA
 
-- `open_binary` resolves the app to the ARM64 Mach-O executable at `Contents/MacOS/Anatomy 3D Atlas`; SHA-256 `fcb983b3ad8fb0b54412d192e0581368e56087917d484c52077750a9d57f8f25`.
-- `inspect_plist`, Evidence `ev_7a8a7097ee1c5efe4e61889da1dc2422f0321bb0986e2b839dc447c09c36db6d`: version 7.2, build 720, bundle ID `com.catfishanimationstudio.MuscularSystemMacLite`; Unity Player 6000.4.2f1.
+- `open_binary` resolves the app to the ARM64 Mach-O executable at the executable within the app bundle; SHA-256 `fcb983b3ad8fb0b54412d192e0581368e56087917d484c52077750a9d57f8f25`.
+- `inspect_plist`, Evidence `ev_7a8a7097ee1c5efe4e61889da1dc2422f0321bb0986e2b839dc447c09c36db6d`: version 7.2, build 720, a source bundle identifier; Unity Player 6000.4.2f1.
 - `inspect_artifact`, Evidence `ev_d1b9e701201882a347158b502f330066c2d142b9022e648966f97f58f106d3d4`: static application inventory, manifest `agm_3650969f74862a71a3364e6fce4f679abdd23c8567fcc2f26226226fc4b2bf21`. Bundle root SHA-256 `f87ac4fba4a1c5c9a288296447ea03488611d6f645228fb6644242f0d5102548`. Inventory substep Evidence `ev_5fefdb84213a3a8007bf4cbf1952386533dcde13d637b4ad378794dffd2d5b8a`.
 - Inventory graph: 450 content nodes, 512 occurrences, 487 edges. This counts graph objects, not selectable anatomy.
 - Supplemental read-only filesystem inventory: 327 regular files, 1,515,896,208 bytes. Large resources include `resources.assets` (396,005,328 bytes), `resources.assets.resS` (604,153,328 bytes), and `GameAssembly.dylib` (196,603,088 bytes).
@@ -16,7 +16,7 @@ Target supplied by user: `/Applications/Anatomy 3D Atlas.app`.
 
 ## Public feature evidence
 
-The vendor's https://anatomy3datlas.com/features/ documents rotation, selection, transparency, muscle layers, pins, centering, isolation, hiding, multi-selection, search and bookmarks. These are reference requirements, independently implemented in this web project; this webpage is not shipped-binary execution evidence. General system and body-region organization was also read on https://anatomy3datlas.com/.
+The source product's public feature documentation described rotation, selection, transparency, muscle layers, pins, centering, isolation, hiding, multi-selection, search and bookmarks. These are reference requirements independently implemented in this web project; documentation is not shipped-binary execution evidence.
 
 ## Reconstruction decisions
 
