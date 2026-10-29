@@ -27,7 +27,7 @@ Open the printed local URL. `npm test` validates the anatomy assets and `npm run
 - Device-local bookmarks and exact camera views, JSON export and four-choice structure identification practice.
 - High-detail and balanced model sets. The Atlas adaptation occupies about 198 MB for both complete quality libraries together; systems load on demand, with shared images and inactive GPU resource cleanup. High Atlas geometry retains 7.50M triangles; balanced has 6.80M. Open primary geometry retains its separate 6.45M / 3.27M sets. Rendering pauses while idle.
 - Responsive tablet layouts, larger touch targets and iPad home-screen installation support. The service worker caches previously visited systems for offline reuse in production.
-- No tracking, external fonts, login or health-data collection. Saved data stays in the browser. Clearing site data removes local saves.
+- Cloudflare Web Analytics measures visits and page performance. No external fonts, login or health-data collection. Saved study data stays in the browser. Clearing site data removes local saves.
 
 ## Tablet and iPad priorities
 
